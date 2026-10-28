@@ -5,7 +5,7 @@ def create_app(config=None):
     import os
     import secrets
     from datetime import timedelta
-    from flask import Flask, jsonify, request, url_for
+    from flask import Flask, jsonify, render_template, request, url_for
     from psycopg import Error as PostgresError
     from pymongo.errors import PyMongoError
     from werkzeug.exceptions import HTTPException
@@ -14,6 +14,9 @@ def create_app(config=None):
     from backend.routes import api, close_postgres
     from backend.auth import admin, auth, close_auth_postgres, protect_writes
     from backend.saved_vehicles import close_workflow_postgres, saved
+    from backend.cases import cases, case_admin
+    from backend.fleets import fleets
+    from backend.imports import imports
     from werkzeug.security import generate_password_hash
 
     app = Flask(__name__)
@@ -25,6 +28,7 @@ def create_app(config=None):
         SESSION_COOKIE_SECURE=os.getenv("SESSION_COOKIE_SECURE", "false").lower() == "true",
         PERMANENT_SESSION_LIFETIME=timedelta(hours=8), SESSION_REFRESH_EACH_REQUEST=False,
         MAX_CONTENT_LENGTH=16 * 1024, TRUSTED_HOSTS=["localhost", "127.0.0.1"],
+        DATASET_LABEL=os.getenv("WORKSPACE_DATA_LABEL", "NHTSA DATA"),
     )
     if config:
         app.config.update(config)
@@ -37,6 +41,10 @@ def create_app(config=None):
     app.register_blueprint(auth)
     app.register_blueprint(admin)
     app.register_blueprint(saved)
+    app.register_blueprint(cases)
+    app.register_blueprint(case_admin)
+    app.register_blueprint(fleets)
+    app.register_blueprint(imports)
     app.before_request(protect_writes)
     app.teardown_appcontext(close_postgres)
     app.teardown_appcontext(close_auth_postgres)
@@ -44,7 +52,7 @@ def create_app(config=None):
 
     @app.after_request
     def private_response_headers(response):
-        if request.path.startswith(("/api/auth/", "/api/admin/", "/api/saved-vehicles")):
+        if request.path.startswith(("/api/auth/", "/api/admin/", "/api/saved-vehicles", "/api/cases", "/api/fleets")):
             response.headers["Cache-Control"] = "no-store"
         response.headers["X-Content-Type-Options"] = "nosniff"
         return response
@@ -57,6 +65,10 @@ def create_app(config=None):
                                   "safetyProfile": url_for("api.profile", year=2022, make="HONDA", model="CIVIC"),
                                   "csrf": url_for("auth.csrf"), "currentUser": url_for("auth.me"),
                                   "savedVehicles": url_for("saved.listing")}})
+
+    @app.get("/app")
+    def workspace():
+        return render_template("workspace.html")
 
     def unavailable(error):
         app.logger.warning("Database request unavailable (%s)", type(error).__name__)
