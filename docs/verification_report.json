@@ -1,0 +1,118 @@
+{
+  "verified_at_utc": "2026-10-25T05:14:26.226794+00:00",
+  "postgres_version": "18.6",
+  "mongodb_version": "9.0.4",
+  "counts": {
+    "model_year": 53555,
+    "recall": 13600,
+    "recall_vehicle": 93743,
+    "recall_record": 219728,
+    "official_investigation": 3626,
+    "investigation_vehicle": 28647,
+    "investigation_manufacturer": 3943,
+    "complaints": 428837
+  },
+  "checks_passed": [
+    "imported counts match inspected source scope",
+    "cross-database vehicle references",
+    "complaint scalar conflict audit",
+    "saved_vehicle CRUD and duplicate constraint",
+    "analysis_case workflow, closure constraint and status-history trigger",
+    "fleet/fleet_vehicle/work_order CRUD, recall-applicability FK and cascade",
+    "MongoDB document/nested CRUD, unique caseId and schema validation"
+  ],
+  "data_quality": {
+    "complaints_with_conflicting_scalar_rows": 0
+  },
+  "latest_successful_imports": [
+    {
+      "dataset": "complaints",
+      "rows_read": 626410,
+      "inserted": 0,
+      "refreshed": 428837,
+      "skipped": 9224,
+      "rejected": 0
+    },
+    {
+      "dataset": "investigations",
+      "rows_read": 154439,
+      "inserted": 0,
+      "refreshed": 3626,
+      "skipped": 8326,
+      "rejected": 0
+    },
+    {
+      "dataset": "recalls",
+      "rows_read": 246844,
+      "inserted": 0,
+      "refreshed": 13600,
+      "skipped": 27116,
+      "rejected": 0
+    },
+    {
+      "dataset": "vehicle_catalogue",
+      "rows_read": 1027693,
+      "inserted": 0,
+      "refreshed": 53555,
+      "skipped": 44666,
+      "rejected": 0
+    }
+  ],
+  "idempotent_rerun_verified": true,
+  "example_profile": {
+    "modelYearId": 17527,
+    "make": "HONDA",
+    "model": "CIVIC",
+    "year": 2022,
+    "officialRecallCampaigns": 4,
+    "officialInvestigations": 2,
+    "consumerComplaints": 885,
+    "topComplaintComponents": [
+      {
+        "_id": "STEERING",
+        "count": 732
+      },
+      {
+        "_id": "LANE DEPARTURE: ASSIST",
+        "count": 59
+      },
+      {
+        "_id": "FORWARD COLLISION AVOIDANCE: ADAPTIVE CRUISE CONTROL",
+        "count": 51
+      },
+      {
+        "_id": "UNKNOWN OR OTHER",
+        "count": 41
+      },
+      {
+        "_id": "VEHICLE SPEED CONTROL",
+        "count": 38
+      },
+      {
+        "_id": "ELECTRICAL SYSTEM",
+        "count": 37
+      },
+      {
+        "_id": "FORWARD COLLISION AVOIDANCE: AUTOMATIC EMERGENCY BRAKING",
+        "count": 28
+      },
+      {
+        "_id": "SUSPENSION",
+        "count": 25
+      },
+      {
+        "_id": "SERVICE BRAKES",
+        "count": 23
+      },
+      {
+        "_id": "LANE DEPARTURE: WARNING",
+        "count": 21
+      }
+    ],
+    "interpretation": "Complaints are allegations; matches are by model year/make/model, not VIN."
+  },
+  "limitations": [
+    "Database-only verification; no API/GUI or user-role enforcement yet.",
+    "Index performance benchmarks are not yet implemented."
+  ]
+}

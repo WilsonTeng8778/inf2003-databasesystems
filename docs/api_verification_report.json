@@ -1,0 +1,121 @@
+{
+  "verified_at_utc": "2026-10-28T09:08:04.965437+00:00",
+  "checks": [
+    {
+      "method": "GET",
+      "path": "/",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/health",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/vehicles/search?year=2022&make=honda&model=civic&pageSize=1",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/vehicles/safety-profile?year=2022&make=HONDA&model=CIVIC",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/vehicles/safety-profile?year=invalid&make=HONDA&model=CIVIC",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/vehicles/search?pageSize=101",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/vehicles/safety-profile?year=2022&make=NO_SUCH_MAKE&model=NONE",
+      "status": 404
+    },
+    {
+      "method": "POST",
+      "path": "/api/vehicles/search",
+      "status": 405
+    }
+  ],
+  "sql_reader": {
+    "role": "vehicle_safety_reader",
+    "default_read_only": true,
+    "can_read_user_table": false,
+    "can_write_recalls": false
+  },
+  "record_counts_unchanged": true,
+  "record_counts": {
+    "model_year": 53555,
+    "recall": 13600,
+    "official_investigation": 3626,
+    "app_user": 0,
+    "saved_vehicle": 0,
+    "analysis_case": 0,
+    "fleet": 0,
+    "fleet_vehicle": 0,
+    "work_order": 0,
+    "complaints": 428837,
+    "case_details": 0
+  },
+  "example_profile": {
+    "consumerComplaints": 885,
+    "interpretation": "Complaints are allegations; matches are by model year/make/model, not VIN.",
+    "make": "HONDA",
+    "model": "CIVIC",
+    "modelYearId": 17527,
+    "officialInvestigations": 2,
+    "officialRecallCampaigns": 4,
+    "topComplaintComponents": [
+      {
+        "_id": "STEERING",
+        "count": 732
+      },
+      {
+        "_id": "LANE DEPARTURE: ASSIST",
+        "count": 59
+      },
+      {
+        "_id": "FORWARD COLLISION AVOIDANCE: ADAPTIVE CRUISE CONTROL",
+        "count": 51
+      },
+      {
+        "_id": "UNKNOWN OR OTHER",
+        "count": 41
+      },
+      {
+        "_id": "VEHICLE SPEED CONTROL",
+        "count": 38
+      },
+      {
+        "_id": "ELECTRICAL SYSTEM",
+        "count": 37
+      },
+      {
+        "_id": "FORWARD COLLISION AVOIDANCE: AUTOMATIC EMERGENCY BRAKING",
+        "count": 28
+      },
+      {
+        "_id": "SUSPENSION",
+        "count": 25
+      },
+      {
+        "_id": "SERVICE BRAKES",
+        "count": 23
+      },
+      {
+        "_id": "LANE DEPARTURE: WARNING",
+        "count": 21
+      }
+    ],
+    "year": 2022
+  },
+  "limitations": [
+    "Read-only HTTP endpoints only; no login, application roles or editable workflows yet.",
+    "Database-unavailable behavior is covered by mocked API tests, not by stopping live services."
+  ]
+}

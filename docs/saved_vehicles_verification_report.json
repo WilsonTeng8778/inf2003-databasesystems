@@ -1,0 +1,225 @@
+{
+  "verified_at_utc": "2026-10-28T13:43:21.910797+00:00",
+  "checks": [
+    {
+      "method": "GET",
+      "path": "/api/saved-vehicles",
+      "status": 401
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/csrf",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/register",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/csrf",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/register",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/vehicles/search?year=2022&make=HONDA&model=CIVIC",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/saved-vehicles",
+      "status": 403
+    },
+    {
+      "method": "POST",
+      "path": "/api/saved-vehicles",
+      "status": 400
+    },
+    {
+      "method": "POST",
+      "path": "/api/saved-vehicles",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/saved-vehicles/5",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/saved-vehicles?pageSize=1",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/saved-vehicles",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/saved-vehicles",
+      "status": 409
+    },
+    {
+      "method": "GET",
+      "path": "/api/saved-vehicles/5",
+      "status": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/saved-vehicles/9223372036854775807",
+      "status": 404
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/saved-vehicles/5",
+      "status": 404
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/saved-vehicles/5",
+      "status": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/saved-vehicles/5",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/saved-vehicles",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/saved-vehicles/5",
+      "status": 404
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/saved-vehicles/5",
+      "status": 404
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/saved-vehicles/5",
+      "status": 404
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/saved-vehicles/5",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/saved-vehicles/5",
+      "status": 400
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/saved-vehicles/5",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/saved-vehicles?userId=12",
+      "status": 400
+    },
+    {
+      "method": "POST",
+      "path": "/api/saved-vehicles",
+      "status": 404
+    },
+    {
+      "method": "POST",
+      "path": "/api/saved-vehicles",
+      "status": 400
+    },
+    {
+      "method": "POST",
+      "path": "/api/saved-vehicles",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/saved-vehicles?pageSize=101",
+      "status": 400
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/saved-vehicles/5",
+      "status": 403
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/saved-vehicles/5",
+      "status": 204
+    },
+    {
+      "method": "GET",
+      "path": "/api/saved-vehicles/5",
+      "status": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/saved-vehicles/7",
+      "status": 200
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/saved-vehicles/7",
+      "status": 204
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/logout",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/logout",
+      "status": 200
+    }
+  ],
+  "assertions_passed": [
+    "full owner read/create/list works",
+    "duplicate prevention is per user",
+    "foreign and nonexistent saved records are indistinguishable",
+    "cross-user read/update/delete denied",
+    "ADMIN has no override on another user's personal saved records",
+    "renames persist with original owner",
+    "owner/model identity cannot be changed via payload",
+    "invalid inputs and CSRF are enforced",
+    "owner deletion preserves the other user's record",
+    "interactive menu saves, lists, renames, removes and signs out",
+    "workflow SQL role cannot read credentials, modify reference data or change owner columns"
+  ],
+  "interactive_menu_verified": true,
+  "workflow_sql_role": "vehicle_safety_workflow",
+  "temporary_accounts_removed": true,
+  "record_counts_unchanged_after_cleanup": true,
+  "record_counts": {
+    "model_year": 53555,
+    "recall": 13600,
+    "official_investigation": 3626,
+    "app_user": 1,
+    "saved_vehicle": 0,
+    "analysis_case": 0,
+    "fleet": 0,
+    "fleet_vehicle": 0,
+    "work_order": 0,
+    "complaints": 428837,
+    "case_details": 0,
+    "app_session": 0
+  },
+  "limitations": [
+    "Ownership enforcement is in the API/SQL predicates; database row-level security is not configured.",
+    "Analyst cases, fleets and the visual GUI are subsequent work."
+  ]
+}

@@ -1,0 +1,289 @@
+{
+  "inspected_at_utc": "2026-10-25T04:57:11.149985+00:00",
+  "sources": {
+    "recalls": {
+      "filename": "FLAT_RCL_POST_2010.zip",
+      "sha256": "97ce2503ceb614483645e6942cf59b8e634fa575a5738d6d4b46bbb2ee1c5396",
+      "compressed_bytes": 14971029,
+      "members": [
+        {
+          "name": "FLAT_RCL_POST_2010.txt",
+          "uncompressed_bytes": 312513573
+        }
+      ],
+      "expected_fields": 29,
+      "field_counts": {
+        "29": 246844
+      },
+      "header": false,
+      "delimiter": "TAB",
+      "date_format": "YYYYMMDD",
+      "invalid_shape_rows": 0,
+      "invalid_shape_examples": [],
+      "replacement_characters": 0,
+      "decoding": {
+        "utf8_rows": 246844
+      },
+      "total_rows": 246844,
+      "eligible_vehicle_rows": 219728,
+      "excluded_rows": 27116,
+      "product_types": {
+        "E": 5992,
+        "V": 220110,
+        "T": 20282,
+        "C": 460
+      },
+      "distinct_identifiers": 13600,
+      "repeated_identifier_rows": 206128,
+      "identifiers_with_multiple_vehicles": 10317,
+      "identifiers_with_multiple_components": 2156,
+      "identifiers_with_multiple_manufacturers": 0,
+      "distinct_vehicles": 40225,
+      "min_model_year": 1983,
+      "max_model_year": 2027,
+      "min_source_date": "2010-01-01",
+      "max_source_date": "2026-10-21",
+      "invalid_nonblank_dates": 0,
+      "makes_with_multiple_manufacturers": 254,
+      "safe_samples": [
+        {
+          "identifier": "10V305000",
+          "make": "AUTOCAR",
+          "model": "WXLL42",
+          "model_year": 2007,
+          "component": "FUEL SYSTEM, OTHER:STORAGE:TANK ASSEMBLY",
+          "manufacturer": "MCNEILUS TRUCK & MANUFACTURING"
+        },
+        {
+          "identifier": "10V305000",
+          "make": "AUTOCAR",
+          "model": "WXLL42",
+          "model_year": 2004,
+          "component": "FUEL SYSTEM, OTHER:STORAGE:TANK ASSEMBLY",
+          "manufacturer": "MCNEILUS TRUCK & MANUFACTURING"
+        },
+        {
+          "identifier": "10V305000",
+          "make": "AUTOCAR",
+          "model": "WX64",
+          "model_year": 2006,
+          "component": "FUEL SYSTEM, OTHER:STORAGE:TANK ASSEMBLY",
+          "manufacturer": "MCNEILUS TRUCK & MANUFACTURING"
+        }
+      ]
+    },
+    "investigations": {
+      "filename": "FLAT_INV.zip",
+      "sha256": "8d9dc5b71bc41748db6beca22df82a97cbfa2e9f2a7c85dfa0e49155314498c2",
+      "compressed_bytes": 4301580,
+      "members": [
+        {
+          "name": "FLAT_INV.txt",
+          "uncompressed_bytes": 390665523
+        }
+      ],
+      "expected_fields": 11,
+      "field_counts": {
+        "11": 154439
+      },
+      "header": false,
+      "delimiter": "TAB",
+      "date_format": "YYYYMMDD",
+      "invalid_shape_rows": 0,
+      "invalid_shape_examples": [],
+      "replacement_characters": 0,
+      "decoding": {
+        "utf8_rows": 154439
+      },
+      "total_rows": 154439,
+      "eligible_vehicle_rows": 146113,
+      "excluded_rows": 8326,
+      "product_types": {},
+      "distinct_identifiers": 3626,
+      "repeated_identifier_rows": 142487,
+      "identifiers_with_multiple_vehicles": 2788,
+      "identifiers_with_multiple_components": 700,
+      "identifiers_with_multiple_manufacturers": 199,
+      "distinct_vehicles": 16190,
+      "min_model_year": 1965,
+      "max_model_year": 2026,
+      "min_source_date": "1972-03-10",
+      "max_source_date": "2026-10-09",
+      "invalid_nonblank_dates": 0,
+      "makes_with_multiple_manufacturers": 56,
+      "safe_samples": [
+        {
+          "identifier": "AQ08001",
+          "make": "PACE AMERICAN",
+          "model": "TRAILER",
+          "model_year": 2003,
+          "component": "WHEELS",
+          "manufacturer": "PACE AMERICAN, INC."
+        },
+        {
+          "identifier": "AQ08001",
+          "make": "PACE AMERICAN",
+          "model": "TRAILER",
+          "model_year": 2004,
+          "component": "WHEELS",
+          "manufacturer": "PACE AMERICAN, INC."
+        },
+        {
+          "identifier": "AQ08001",
+          "make": "PACE AMERICAN",
+          "model": "TRAILER",
+          "model_year": 2005,
+          "component": "WHEELS",
+          "manufacturer": "PACE AMERICAN, INC."
+        }
+      ]
+    },
+    "complaints_2020_2024": {
+      "filename": "COMPLAINTS_RECEIVED_2020-2024.zip",
+      "sha256": "21cacbbc1642fd514bfa17e7b31ae898c35404f0ae50478ffcaf235c3dde5884",
+      "compressed_bytes": 75874092,
+      "members": [
+        {
+          "name": "COMPLAINTS_RECEIVED_2020-2024.txt",
+          "uncompressed_bytes": 326690943
+        }
+      ],
+      "expected_fields": 51,
+      "field_counts": {
+        "51": 418884
+      },
+      "header": false,
+      "delimiter": "TAB",
+      "date_format": "YYYYMMDD",
+      "invalid_shape_rows": 0,
+      "invalid_shape_examples": [],
+      "replacement_characters": 6,
+      "decoding": {
+        "utf8_rows": 418884
+      },
+      "total_rows": 418884,
+      "eligible_vehicle_rows": 412866,
+      "excluded_rows": 6018,
+      "product_types": {
+        "V": 413239,
+        "C": 851,
+        "E": 1696,
+        "T": 3091,
+        "": 7
+      },
+      "distinct_identifiers": 290634,
+      "repeated_identifier_rows": 122232,
+      "identifiers_with_multiple_vehicles": 0,
+      "identifiers_with_multiple_components": 87277,
+      "identifiers_with_multiple_manufacturers": 0,
+      "distinct_vehicles": 10667,
+      "min_model_year": 1970,
+      "max_model_year": 2025,
+      "min_source_date": "2020-01-01",
+      "max_source_date": "2024-12-31",
+      "invalid_nonblank_dates": 0,
+      "makes_with_multiple_manufacturers": 46,
+      "safe_samples": [
+        {
+          "identifier": "11292384",
+          "make": "HONDA",
+          "model": "ACCORD",
+          "model_year": 2018,
+          "component": "SERVICE BRAKES",
+          "manufacturer": "Honda (American Honda Motor Co.)"
+        },
+        {
+          "identifier": "11292384",
+          "make": "HONDA",
+          "model": "ACCORD",
+          "model_year": 2018,
+          "component": "ELECTRICAL SYSTEM",
+          "manufacturer": "Honda (American Honda Motor Co.)"
+        },
+        {
+          "identifier": "11292384",
+          "make": "HONDA",
+          "model": "ACCORD",
+          "model_year": 2018,
+          "component": "ENGINE",
+          "manufacturer": "Honda (American Honda Motor Co.)"
+        }
+      ]
+    },
+    "complaints_2025_2026": {
+      "filename": "COMPLAINTS_RECEIVED_2025-2026.zip",
+      "sha256": "726c0c208cb0bda2c7f0375fbe23a941e7481f36adb7ec678e8c2814924b4c03",
+      "compressed_bytes": 42560546,
+      "members": [
+        {
+          "name": "COMPLAINTS_RECEIVED_2025-2026.txt",
+          "uncompressed_bytes": 189304942
+        }
+      ],
+      "expected_fields": 51,
+      "field_counts": {
+        "51": 207526
+      },
+      "header": false,
+      "delimiter": "TAB",
+      "date_format": "YYYYMMDD",
+      "invalid_shape_rows": 0,
+      "invalid_shape_examples": [],
+      "replacement_characters": 2,
+      "decoding": {
+        "utf8_rows": 207526
+      },
+      "total_rows": 207526,
+      "eligible_vehicle_rows": 204320,
+      "excluded_rows": 3206,
+      "product_types": {
+        "V": 204595,
+        "E": 760,
+        "T": 1396,
+        "C": 775
+      },
+      "distinct_identifiers": 138203,
+      "repeated_identifier_rows": 66117,
+      "identifiers_with_multiple_vehicles": 0,
+      "identifiers_with_multiple_components": 45685,
+      "identifiers_with_multiple_manufacturers": 0,
+      "distinct_vehicles": 7318,
+      "min_model_year": 1986,
+      "max_model_year": 2027,
+      "min_source_date": "2025-01-01",
+      "max_source_date": "2026-10-22",
+      "invalid_nonblank_dates": 0,
+      "makes_with_multiple_manufacturers": 19,
+      "safe_samples": [
+        {
+          "identifier": "11633472",
+          "make": "FORD",
+          "model": "EXPLORER",
+          "model_year": 2016,
+          "component": "STRUCTURE:BODY",
+          "manufacturer": "Ford Motor Company"
+        },
+        {
+          "identifier": "11633473",
+          "make": "JEEP",
+          "model": "GLADIATOR",
+          "model_year": 2022,
+          "component": "STEERING",
+          "manufacturer": "Chrysler (FCA US, LLC)"
+        },
+        {
+          "identifier": "11633474",
+          "make": "TOYOTA",
+          "model": "TUNDRA",
+          "model_year": 2024,
+          "component": "SERVICE BRAKES",
+          "manufacturer": "Toyota Motor Corporation"
+        }
+      ]
+    }
+  },
+  "catalogue": {
+    "distinct_vehicles": 53555,
+    "complaint_vehicles_without_recall": 3655
+  }
+}

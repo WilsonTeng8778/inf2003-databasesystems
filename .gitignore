@@ -1,0 +1,17 @@
+# Local configuration and Python environment
+.env
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Source archives, extracted/staged data and generated local evidence
+data/raw/
+data/processed/
+data/staging/
+data/logs/
+
+# Editor and operating-system files
+.DS_Store
+Thumbs.db
+
