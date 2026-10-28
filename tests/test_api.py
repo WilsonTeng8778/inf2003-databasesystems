@@ -21,6 +21,12 @@ class ApiTests(unittest.TestCase):
                                "MONGO_CLIENT_FACTORY": lambda: self.mongo})
         self.client = self.app.test_client()
 
+    def test_workspace_page_renders_html(self):
+        response = self.client.get("/app")
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("text/html", response.headers["Content-Type"])
+        self.assertIn(b"Vehicle Safety", response.data)
+
     def test_index_links_and_no_database_queries(self):
         response = self.client.get("/")
         self.assertEqual(response.status_code, 200)

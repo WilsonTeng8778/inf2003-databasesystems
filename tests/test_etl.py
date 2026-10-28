@@ -2,6 +2,8 @@ import unittest
 
 from etl.import_complaints import merge_complaint
 from etl.source import date_value, flag, integer, normalized, vehicle_key
+from scripts.download_sources import digest
+from scripts.package_submission import safe_project_file, sha256
 
 
 def complaint(component="STEERING"):
@@ -58,6 +60,25 @@ class TransformationTests(unittest.TestCase):
         self.assertIsNone(date_value("20250230"))
         self.assertIsNone(date_value("00000000"))
         self.assertEqual(normalized("  Land   Rover "), "LAND ROVER")
+
+
+class PackagingAndDownloaderTests(unittest.TestCase):
+    def test_safe_project_file_rejects_unsafe_paths(self):
+        for unsafe in ["../outside", "/etc/passwd", ".env", ".env.local", ".git/config", ".venv/pyvenv.cfg", "data/runtime/test.db", "cert.key"]:
+            with self.subTest(path=unsafe):
+                with self.assertRaises(ValueError):
+                    safe_project_file(unsafe)
+
+    def test_safe_project_file_accepts_safe_paths(self):
+        for safe in [".env.example", "README.md", "backend/routes.py"]:
+            with self.subTest(path=safe):
+                path = safe_project_file(safe)
+                self.assertTrue(path.is_file())
+
+    def test_sha256_and_digest(self):
+        path = safe_project_file("README.md")
+        self.assertEqual(sha256(path), digest(path))
+        self.assertEqual(len(sha256(path)), 64)
 
 
 if __name__ == "__main__":
