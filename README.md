@@ -7,13 +7,16 @@ analyst cases, and a small fleet recall/work-order workflow.
 the development stages, what each part does, completed work, and our next steps.
 We maintain it as the project progresses; this README is the technical setup guide.
 
-The first implementation milestone is the database foundation: full raw-source
-inspection, SQL schema/constraints/views/trigger, MongoDB validation/indexes,
-repeatable imports, and database-only verification. Flask now provides research,
-registration/login/logout, sessions and guarded admin role management. Personal
-saved vehicles now have owner-scoped CRUD APIs. Analyst-case/fleet
-workflows and the GUI follow. Docker is not required;
-development uses native Windows services.
+The application includes a browser workspace, evidence research and complaint
+filters, registration and roles, saved vehicles, analyst cases, and a small
+owner-scoped fleet recall/work-order workflow. PostgreSQL stores structured
+records and MongoDB stores complaints and flexible case details. A durable
+outbox makes case-document creation/deletion retryable after a MongoDB outage.
+Docker is not required; the project can use native Windows services.
+
+See the [user manual](docs/USER_MANUAL.md) for setup and the
+[implementation and evidence map](docs/IMPLEMENTATION_AND_EVIDENCE.md) for
+what was checked and what still needs team review.
 
 The foundation was completed and verified on 25 October 2026. See the
 [milestone summary](docs/MILESTONE_1.md) and
@@ -33,12 +36,10 @@ Saved-vehicle ownership and CRUD were also verified on 28 October. See
 
 ## What should I run now?
 
-**The setup and full imports were already run on this computer on 25 October
-2026. You do not need to repeat the entire setup sequence.** The instructions
-below also let a teammate reproduce the project on a new computer. Flask and its
-SQL reader were also installed/configured here on 28 October. Authentication
-storage and credentials have now been prepared here too.
-Saved-vehicle workflow access has also been prepared; no reimport is needed.
+The earlier verification reports describe another prepared environment; a fresh
+clone needs its own configuration, database setup and data import. Follow the
+[user manual](docs/USER_MANUAL.md). Existing installations should apply migration
+003 and the updated views and grants as described there.
 
 To try the new backend, run:
 
@@ -46,9 +47,9 @@ To try the new backend, run:
 .\.venv\Scripts\python.exe -m flask --app backend:create_app run --host 127.0.0.1 --port 5000
 ```
 
-Keep that terminal running and open
-[the example vehicle profile](http://127.0.0.1:5000/api/vehicles/safety-profile?year=2022&make=HONDA&model=CIVIC)
-in your browser. It displays JSON; the visual website is still to build. Press
+Keep that terminal running and open [the browser workspace](http://127.0.0.1:5000/app).
+The [example vehicle profile API](http://127.0.0.1:5000/api/vehicles/safety-profile?year=2022&make=HONDA&model=CIVIC)
+also remains available as JSON. Press
 **Ctrl+C** to stop Flask. Starting/stopping it does not reset database contents.
 
 To try registration, restart Flask if it was already running before the auth
@@ -111,8 +112,8 @@ examples below include the full Python invocation.
 | `import_all.py` | Load or refresh official records from the local ZIPs. | Inserts/updates imported records and adds import-log entries; does not empty the databases. | First load, or an intentional data refresh. |
 | `verify_databases.py` | Test real database CRUD, constraints and relationships. | Creates temporary test records, then rolls back/removes them; replaces `docs/verification_report.json`. | To verify the database layer after relevant changes. |
 | `setup_readonly_user.py` | Prepare a restricted SQL reader for the web API and save its credentials in ignored `.env`. | Creates/reuses a role and grants view access; does not change stored project records. | Once before the first API startup on a fresh setup. |
-| `setup_auth.py` | Apply session storage and prepare auth credentials/signing key in ignored `.env`. | Adds the session table and restricted SQL role; retains existing data. | Once before authentication on a fresh setup; already run here. |
-| `setup_workflow.py` | Prepare limited saved-vehicle SQL access and local credentials. | Grants saved-record operations; retains stored data. | Once before saved-vehicle use on a fresh setup; already run here. |
+| `setup_auth.py` | Apply session storage and prepare auth credentials/signing key in ignored `.env`. | Adds the session table and restricted SQL role; retains existing data. | Once before authentication on a fresh setup. |
+| `setup_workflow.py` | Prepare limited workflow SQL access and local credentials. | Grants case, fleet and saved-record operations; retains stored data. | On first setup and after workflow grants change. |
 | `python.exe -m flask --app backend:create_app run` | Start the backend server for research and authentication requests. | Keeps running; startup does not reset/import data. Authentication requests can create users/sessions or change roles. | When using the web API. |
 | `try_auth.py --register` | Try local registration, current-user lookup and logout through the running API. | Creates a persistent normal account; the demo logs its session out. | To create/try your own application account. |
 | `try_auth.py` | Try an existing account's login/current-user/logout flow. | Opens then revokes the demo's session; retains the account. | To try login. |
@@ -133,6 +134,9 @@ orders. There is no need to run it as part of an ordinary query or testing sessi
 
 ## Documents
 
+- [User manual: setup, workflows, synchronization and benchmarks](docs/USER_MANUAL.md)
+- [Implementation and verification evidence](docs/IMPLEMENTATION_AND_EVIDENCE.md)
+- [Report and presentation evidence guide](docs/REPORT_AND_DEMO_EVIDENCE.md)
 - [Beginner guide and living progress tracker](PROJECT_GUIDE.md)
 - [Read-only backend step, endpoints and walkthrough](docs/BACKEND_STEP_1.md)
 - [Authentication, roles and interactive walkthrough](docs/BACKEND_STEP_2_AUTH.md)
@@ -146,9 +150,9 @@ orders. There is no need to run it as part of an ordinary query or testing sessi
 
 ## First-time setup on a new machine (Windows PowerShell)
 
-The current machine has Python 3.13.7, PostgreSQL 18, and MongoDB Community 9.0.4.
-The Python dependencies are pinned to the versions installed for this milestone.
-Teammates should record their actual database versions when reproducing results.
+The earlier milestone used Python 3.13.7, PostgreSQL 18, and MongoDB Community
+9.0.4. The new isolated workflow check used Python 3.14, PostgreSQL 18 and
+MongoDB 6.0. Teammates should record their actual versions when reproducing results.
 
 1. Install Python and the two database servers, and start their Windows services.
    `psql`/`mongosh` are useful but the Python drivers do not require them on PATH.
@@ -190,8 +194,8 @@ Teammates should record their actual database versions when reproducing results.
 Run from the repository root. The inspector needs only Python's standard library;
 the other commands use the installed drivers and `.env`.
 
-This block constructs and loads databases. It is already complete on the current
-computer; it is not a daily startup sequence or a list of read-only tests.
+This block constructs and loads databases. It is not a daily startup sequence or
+a list of read-only tests; it writes database objects and imported reference data.
 
 ```powershell
 .\.venv\Scripts\python.exe scripts/check_environment.py
@@ -249,7 +253,7 @@ databases first. Then prepare the web account once:
 .\.venv\Scripts\python.exe scripts/setup_workflow.py
 ```
 
-This has already been done here. Its password is generated into ignored `.env`;
+The passwords are generated into ignored `.env`;
 you do not need to send it in chat. Research uses `APP_POSTGRES_*`, authentication
 uses `AUTH_POSTGRES_*`, personal workflow requests use `WORKFLOW_POSTGRES_*`, and
 construction/import scripts use `POSTGRES_*`.
@@ -275,8 +279,8 @@ explains requests, role rules, the first-admin bootstrap and the local demo.
 Signed-in personal CRUD is now available through `GET/POST /api/saved-vehicles`
 and `GET/PATCH/DELETE /api/saved-vehicles/{savedVehicleId}`. The owner is derived
 from the session; foreign records return 404. See
-[Backend step 3](docs/BACKEND_STEP_3_SAVED_VEHICLES.md). Case/fleet editing and
-browser forms remain subsequent work.
+[Backend step 3](docs/BACKEND_STEP_3_SAVED_VEHICLES.md). The browser workspace
+also exposes case and fleet editing; see the [user manual](docs/USER_MANUAL.md).
 
 ## Automated API and transformation tests
 
@@ -284,9 +288,10 @@ browser forms remain subsequent work.
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
 ```
 
-The 53 current tests cover research APIs, authentication, saved-vehicle ownership,
-CRUD/validation, CSRF/cookies, role changes and the existing ETL rules. They do
-not connect to the local databases.
+The original 53 tests cover research APIs, authentication, saved-vehicle ownership,
+CRUD/validation, CSRF/cookies, role changes and ETL rules without live databases.
+The new live workflow test is opt-in and requires isolated local `_test` databases;
+see the [user manual](docs/USER_MANUAL.md).
 
 To reproduce actual HTTP checks using both live databases:
 
@@ -301,9 +306,9 @@ For live authentication and permission checks:
 ```
 
 These verifiers start/stop their own servers and record results. The auth verifier
-creates/removes synthetic users/sessions. Neither reruns imports. Workflow-specific
-ownership for cases/fleets, case failure recovery, their editable routes, performance
-benchmarks, the GUI and final submission artifacts remain to implement.
+creates/removes synthetic users/sessions. Neither reruns imports. The new live
+workflow test separately checks cases, fleets and case recovery in isolated test
+databases. Final submission artifacts still require team preparation.
 
 To reproduce saved-vehicle CRUD/ownership checks against live databases:
 

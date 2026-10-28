@@ -1,11 +1,16 @@
 # Project guide and progress tracker
 
-**Project:** INF2003 Group 19 — Vehicle Safety Recall & Defect Investigation System  
-**Guide updated:** 28 October 2026  
-**Last full database verification:** 25 October 2026  
-**Latest backend verification:** 28 October 2026 — saved-vehicle CRUD and ownership  
-**Current overall stage:** 6 of 9 — Build the backend (**in progress**)  
-**Latest completed backend substep:** 3 — Personal saved vehicles and ownership
+**Project:** INF2003 Group 19 — Vehicle Safety Recall & Defect Investigation System
+
+**Guide updated:** 28 October 2026
+
+**Earlier database foundation verification:** 25 October 2026
+
+**Latest workflow verification:** 28 October 2026 — isolated synthetic integration/browser checks and a new real-data import with workflow checks
+
+**Current overall stage:** 8 of 9 — Evaluation and delivery preparation
+
+**Current implementation:** research, analyst cases, small fleets and browser interface are present in this local checkout.
 
 This is our main explanation of what we are building, why each step matters,
 what has actually been completed, and what we will do next. Start with sections
@@ -17,41 +22,28 @@ Recorded results retain their verification dates until we check them again.
 
 ## 1. Where we are right now
 
-We are in **Stage 6 of the overall roadmap in section 4**. Stages 1–5 established
-and verified the initial database foundation. The current backend is the
-application logic that will sit behind the browser pages; the visual interface
-is Stage 7. “Backend step 3” is a completed substep within Stage 6, not overall
-Stage 3. Section 11 records the dated progress history.
+Research, complaint filtering, analyst cases, fleet recall work orders and a
+browser interface are implemented. The interface separates consumer complaints
+from recalls and official investigations and lets analysts link reports to cases.
 
-**Research, authentication and personal saved-vehicle CRUD APIs work. A signed-in
-user can save, list, rename and remove their own vehicles. Next is complaint
-browsing/filtering, then analyst cases and the small fleet workflow.**
+On 28 October, the existing 53-test suite passed in this checkout. A separate
+live integration test used isolated PostgreSQL 18 and MongoDB 6.0 databases with
+synthetic records. It exercised evidence queries, case document CRUD, permissions,
+fleet work orders and retry after a simulated MongoDB outage. A browser walkthrough
+also created a synthetic case and fleet work order. These checks do not establish
+that every teammate's environment or final presentation is ready.
 
-We have installed the database software, examined the source files, designed the
-data structures, imported real data, and tested database operations. We can already
-search a vehicle using either a Python command or an HTTP request to Flask and
-get information from both databases.
-
-Research, authentication and saved vehicles work through APIs, but the visual
-website and editable case/fleet workflows are not built yet. For example, we have tested
-creating an analysis case directly in the databases, but an analyst cannot yet
-create one through an API or browser form.
-
-| Already working | Still to build |
-| --- | --- |
-| PostgreSQL and MongoDB project databases | Complaint browsing/filtering and remaining detail APIs |
-| Real recalls, complaints and investigation data | Analyst-case and fleet/work-order APIs |
-| Tables, document structures and relationships | Remaining record lists/filters and editable workflow APIs |
-| Import scripts and database tests | Browser pages, forms and charts |
-| Terminal and browser-requested vehicle safety queries | Cross-database workflow recovery and end-to-end tests |
-| Initial indexes, SQL views and a history trigger | Performance experiments and final submission materials |
-| Registration/login/logout and expiring SQL sessions | Browser login/registration forms |
-| Admin user listing/role changes and restricted service accounts | Ownership checks wired to each editable workflow |
-| Personal saved-vehicle CRUD and owner checks | Case/fleet ownership and multi-database case recovery |
-
-“Database CRUD passed” means direct database operations were tested. It does not
-mean the same feature is already available through a website. CRUD means
-**Create, Read, Update and Delete**.
+The official source archives have been downloaded into this checkout's ignored
+`data/raw/` folder. A separate isolated import and read-only API check used the
+new snapshot; its counts and hashes are in [real data evidence](docs/real_data_verification_2026-10-28.json).
+Synthetic case and fleet records were also checked against real public records
+and removed afterward; [workflow evidence](docs/real_workflow_verification_2026-10-28.json)
+records the cleanup.
+The [benchmark evidence](docs/benchmark_2026-10-28.json) records one sampled
+before/after run and its limits. These databases are separate from Git and from
+the earlier 25 October snapshot. Follow the [user manual](docs/USER_MANUAL.md)
+to configure your own databases, apply migration 003 and load data. Final report,
+slides, five-member video, team review and submission remain to be completed.
 
 ## 2. What are we trying to build?
 
@@ -92,8 +84,8 @@ are our two DBMSs. Each contains a project database named `vehicle_safety`.
 | Import process | Programs that clean and copy source records into our databases. | Python ETL scripts; working. |
 | Relational database | Stores information in related tables, with rules about valid data. | PostgreSQL; constructed and populated. |
 | Document database | Stores records as documents with nested fields and lists. | MongoDB; constructed and populated. |
-| Backend | Receives application requests, checks inputs/permissions, and talks to the databases. | Research/auth/admin and saved-vehicle routes work; complaint explorer and case/fleet workflows remain. |
-| Frontend / GUI | The pages, buttons, forms and charts a person sees in the browser. | HTML, Bootstrap and JavaScript; planned. |
+| Backend | Receives application requests, checks inputs/permissions, and talks to the databases. | Flask research, auth, saved vehicles, cases, fleet and admin routes are implemented. |
+| Frontend / GUI | The pages, buttons, forms and charts a person sees in the browser. | Server-served HTML, CSS and JavaScript at `/app`. |
 
 For example, in the finished application, a vehicle search will follow this path:
 
@@ -106,9 +98,9 @@ Person enters a vehicle in the browser
     -> The browser displays the safety profile
 ```
 
-Today, both `scripts/safety_profile.py` and the Flask profile route use
-`backend/services/research.py` for these queries. The browser can show the JSON
-response now. Later, frontend code will display it as a designed page.
+Both `scripts/safety_profile.py` and the Flask profile route use
+`backend/services/research.py`. The browser workspace displays the returned data,
+and the JSON endpoints remain available for inspection.
 
 PostgreSQL stores structured records and relationships: vehicle identities,
 recalls, investigations, users, saved vehicles, case status, fleets and work orders.
@@ -126,9 +118,8 @@ native Windows database services and does not require it.
 You can inspect both databases now, independently of Flask. The
 [database browsing walkthrough](docs/INSPECTING_DATABASES.md) shows how to connect,
 which tables/collections to open, and a first SQL query and MongoDB filter. A
-read-only check on 28 October confirmed both databases are accessible; one
-application account is currently stored. This is separate from the earlier full
-database test result and does not mark a new application feature complete.
+read-only check recorded on 28 October concerned the earlier machine's database.
+It should not be assumed to describe a fresh clone or another teammate's setup.
 
 ## 4. How a typical database application project develops
 
@@ -141,17 +132,16 @@ an earlier step. Testing and documentation happen throughout.
 | 1. Define the problem and scope | Decide who will use the system and which tasks it should support. This keeps the project manageable. | **Done:** proposal reviewed and small fleet scope resolved. |
 | 2. Find and understand data | Examine actual files, field meanings, repeated records and missing values before designing around assumptions. | **Done:** all four archives and field dictionaries inspected. |
 | 3. Design the data model | Decide what to store, how records relate, what belongs in each database, and which rules protect correctness. | **Done for the initial version:** SQL model, ERD and MongoDB models documented. |
-| 4. Construct and populate databases | Turn the design into real tables/collections and load cleaned data through repeatable imports. | **Done:** both project databases populated. |
+| 4. Construct and populate databases | Turn the design into real tables/collections and load cleaned data through repeatable imports. | **Done in the earlier and isolated validation environments:** each fresh team environment needs its own setup/import. |
 | 5. Verify the database layer | Check queries, CRUD, relationships, invalid inputs and repeat imports before putting a website on top. | **Done for this milestone:** database checks passed on 25 October. |
-| 6. Build the backend | Make database operations available through application code, with login, validation and permissions. | **In progress:** research, auth/admin and owner-scoped saved-vehicle CRUD verified on 28 October; complaint explorer and case/fleet workflows remain. |
-| 7. Build the frontend | Connect screens and forms to the backend so users can perform the workflows. | **Planned:** not started. |
-| 8. Analyse, improve and test the whole application | Build analytics, measure query performance, and test complete workflows and failures. | **Partly prepared:** basic aggregation/indexes exist; dashboards, benchmarks and application testing remain. |
+| 6. Build the backend | Make database operations available through application code, with login, validation and permissions. | **Implemented:** research, auth, cases and owner-scoped fleet/work-order APIs. |
+| 7. Build the frontend | Connect screens and forms to the backend so users can perform the workflows. | **Implemented:** browser workspace; key journeys checked with synthetic data. |
+| 8. Analyse, improve and test the whole application | Build analytics, measure query performance, and test complete workflows and failures. | **In progress:** charts, workflow checks and a real-data sample benchmark exist; the team should review them in its final environment. |
 | 9. Document and deliver | Make the project reproducible and prepare the report, demonstration and submission package. | **In progress:** setup/design notes exist; final deliverables remain. |
 
 We chose to establish the database foundation before substantial interface work.
 That lets us check that the data and relationships support our promised features.
-The first authenticated application workflow, personal saved vehicles, now works
-through HTTP and a terminal menu. Browser screens will connect to these same APIs.
+The browser screens connect to the same authenticated APIs as the terminal helpers.
 
 ## 5. What we have done, with explanations
 
@@ -191,8 +181,8 @@ rule prevents that user from saving the same identity twice. Another rule preven
 a work order being attached to a recall for an unrelated vehicle model-year.
 
 The design and diagram are in [DATABASE_DESIGN.md](docs/DATABASE_DESIGN.md).
-Some workflow tables are currently empty. Saved records can now be created by
-users through the API/menu; case and fleet workflow APIs are still planned.
+Workflow records are created by users through the API or browser. A newly created
+database starts with no personal saved vehicles, analyst cases or fleets.
 
 ### We loaded the selected real data
 
@@ -200,7 +190,7 @@ users through the API/menu; case and fleet workflow APIs are still planned.
 write it into the databases. Our imports normalize names, handle dates and missing
 values, merge repeated component rows, and log results.
 
-The last verified import contains:
+The earlier 25 October verified snapshot contained:
 
 | Stored information | Count |
 | --- | ---: |
@@ -275,6 +265,15 @@ and existing account counts matched the baseline. See
 [Backend step 3](docs/BACKEND_STEP_3_SAVED_VEHICLES.md) and
 [saved_vehicles_verification_report.json](docs/saved_vehicles_verification_report.json).
 
+### New browser and investigation workflows — 28 October 2026
+
+The new workspace adds evidence tabs and complaint filters, component and monthly
+charts, a case workspace, small fleet recall matches and work orders, and admin
+screens. A case links SQL workflow data to MongoDB details using an ordered,
+idempotent outbox. If MongoDB is unavailable, pending creation or deletion can be
+retried. The [implementation and evidence map](docs/IMPLEMENTATION_AND_EVIDENCE.md)
+distinguishes implemented code from the checks actually performed.
+
 ## 6. What is in this repository, and where is the actual data?
 
 | File or folder | Its purpose |
@@ -284,11 +283,11 @@ and existing account counts matched the baseline. See
 | `data/raw/` | The original downloaded ZIPs; kept locally and excluded from Git. |
 | `data/dictionaries/` | Descriptions of the source file columns. |
 | `etl/` | Python code that reads, cleans and imports the records. |
-| `backend/` | Flask research/auth/admin/saved-vehicle requests, ownership checks and database services. |
-| `sql/` | SQL construction scripts and additive migrations; migration 002 adds sign-in sessions. |
+| `backend/` | Flask APIs, the browser workspace, access checks and database services. |
+| `sql/` | SQL construction scripts and additive migrations; 002 adds sessions and 003 adds case synchronization. |
 | `mongodb/schema.py` | MongoDB document validation and index definitions. |
 | `scripts/` | Commands for checking setup, importing, verifying and trying a vehicle query. |
-| `tests/` | Automated API tests with fake connections and data transformation tests. |
+| `tests/` | Automated fake-connection tests and an opt-in isolated live workflow test. |
 | `docs/` | Detailed design, inspection, scope and milestone evidence. |
 | `.env` | Private database service credentials and Flask signing key; excluded from Git. |
 | `.env.example` | A shareable example of the required settings, without your password. |
@@ -307,8 +306,8 @@ your website login. NORMAL_USER/ANALYST/ADMIN are human application roles, separ
 from the SQL reader/auth/workflow accounts used internally by the backend.
 
 Saving files, committing them to Git, and pushing commits to GitHub are separate
-steps. This checkpoint prepares the database foundation and research, auth/admin
-and personal saved-vehicle APIs for sharing through the configured
+steps. This checkout prepares the database foundation, browser workspace and application
+workflows for review and eventual sharing through the configured
 [GitHub repository](https://github.com/WilsonTeng8778/inf2003-databasesystems).
 Credentials, the Python environment and raw archives remain local; teammates
 reproduce their databases using the README. A source-code push shares our work
@@ -318,144 +317,36 @@ If you encounter SQLite in the ETL code, it is temporary scratch storage used
 while grouping complaint rows. PostgreSQL and MongoDB remain the two application
 databases.
 
-## 7. What we will do next, in manageable steps
+## 7. What we will do next
 
-We are working toward **a complete backend**. Research, authentication and personal
-saved-vehicle CRUD are working.
-Flask is the Python framework receiving web requests. An **API endpoint** is a particular request the backend
-accepts, such as “find this vehicle” or “save this vehicle for me.”
+1. Apply the new migration, views and grants in each team environment using the
+   [user manual](docs/USER_MANUAL.md). Import the approved source archives if the
+   environment has not already been populated.
+2. Walk through the research, case and fleet journeys with the team. Confirm each
+   member understands the database operations and the limits of the source data.
+3. Review the recorded index benchmark and, if needed, rerun it in the team's
+   intended demonstration environment. Explain its sample and limitations.
+4. Complete and review the final report, slides, five-member video, manual and
+   source/data package. Confirm current submission instructions in XSite.
 
-| Order | Work | Status / successful result |
-| --- | --- | --- |
-| 1 | Start Flask and connect the existing databases. | **Done for read-only research:** vehicle search/profile and readiness work through HTTP. |
-| 2 | Add registration/login, password hashing and sessions. | **Done through APIs:** eight-hour sessions, expiry, logout and old-cookie revocation verified. Browser forms remain. |
-| 3 | Enforce roles and ownership; configure application database access. | **Partly done:** role guards, admin management, limited SQL accounts and saved-vehicle ownership work. Case/fleet ownership remains. |
-| 4 | Complete research and saved-vehicle operations. | **Partly done:** saved-vehicle CRUD is verified. **Next:** detailed safety-record lists and complaint browsing/filtering. |
-| 5 | Add analyst-case operations across both databases. | **Planned:** manage status/notes/findings and recover from partial failures. |
-| 6 | Add the small fleet/work-order workflow. | **Planned:** maintain an owner's fleet and its recall work orders. |
+The implementation includes an ordered case synchronization outbox. A pending
+case document operation can be retried from the app or the reconciliation script;
+it does not imply a distributed transaction across PostgreSQL and MongoDB.
 
-We will build and check these incrementally. The browser interface follows the
-first usable backend operations and will grow alongside them. A full import is
-not a routine step every time we add an endpoint or restart the computer.
+## 8. Try the browser workspace
 
-After that, we will complete the analytics screens, benchmark queries before and
-after indexing, test complete user journeys, and prepare the submission materials.
-Documentation and evidence collection continue during each stage.
-
-One important backend problem is that a SQL transaction cannot automatically undo
-a MongoDB write. For a case stored across both databases, we need to test what
-happens if one write succeeds and the other fails. That application-level handling
-is still to build; direct CRUD checks do not establish it.
-
-## 8. A small way to see the current work yourself
-
-The setup, package installation, database construction and full imports in the
-README were already carried out on this computer on 25 October. Those commands
-are included so the setup can be reproduced; you do not need to repeat all of
-them yourself before continuing. Flask and its SQL reader were prepared here on
-28 October too. Session storage and auth credentials have now also been prepared;
-there is no need to rerun the large imports.
-
-### Try the browser request
-
-From a terminal at the repository root, run:
+After preparing your own database services, configuration and data using the
+[user manual](docs/USER_MANUAL.md), run this from the repository root:
 
 ```powershell
 .\.venv\Scripts\python.exe -m flask --app backend:create_app run --host 127.0.0.1 --port 5000
 ```
 
-Keep that terminal running and open
-[the vehicle profile](http://127.0.0.1:5000/api/vehicles/safety-profile?year=2022&make=HONDA&model=CIVIC)
-in your browser. You should see JSON with 4 recall campaigns, 2 investigations
-and 885 complaints for the verified snapshot. This proves the browser can send
-a request to Flask and receive a combined database answer. The visual page is
-still to build.
-
-Press **Ctrl+C** in the terminal to stop the web server. This does not reset or
-stop the database services. The server keeps listening while it runs, whereas the
-earlier query scripts print one result and finish.
-
-### Try registration and login
-
-If Flask was started before the authentication changes, restart it first. With
-Flask running, use a second terminal at the repository root:
-
-```powershell
-.\.venv\Scripts\python.exe scripts/try_auth.py --register
-```
-
-Choose an email and a password of 12–128 characters at the prompts. Password input
-is hidden. The helper registers a normal account, shows its signed-in identity,
-then logs out. The account persists. For later login, run the command without
-`--register`. This helper uses its own cookies; it does not also sign in a separate
-browser window. No default login account was seeded during verification.
-
-The first administrator can be created with the interactive local command
-`scripts/create_admin.py`, using an unused email. After that, administrators assign
-analyst/admin roles through protected requests. Normal registration always stays
-NORMAL_USER. The [auth walkthrough](docs/BACKEND_STEP_2_AUTH.md) explains the full
-flow. A 401 from `/api/auth/me` is expected when that client is not signed in.
-
-### Try your first saved-vehicle workflow
-
-Restart Flask to load the saved-vehicle routes. With it running, open a second
-terminal and run:
-
-```powershell
-.\.venv\Scripts\python.exe scripts/try_saved_vehicles.py
-```
-
-Sign in with your application email/password. The menu can list, save, rename or
-remove your own vehicles. Try saving `2022 HONDA CIVIC` with a nickname, then list
-your records and use the displayed saved-record ID to rename/remove it. Exiting
-logs out but keeps saves you did not remove. You can see those rows in pgAdmin's
-`saved_vehicle` table. This is real application CRUD, not a fixture test or reimport.
-
-The [saved-vehicle walkthrough](docs/BACKEND_STEP_3_SAVED_VEHICLES.md) explains the
-API, the two different vehicle IDs, and how ownership is enforced.
-
-### Optional terminal query
-
-With the database services running, open a PowerShell terminal in this repository
-and run this connection check first:
-
-```powershell
-.\.venv\Scripts\python.exe scripts/check_environment.py
-```
-
-Then run this **read-only query**:
-
-```powershell
-.\.venv\Scripts\python.exe scripts/safety_profile.py --make HONDA --model CIVIC --year 2022
-```
-
-It prints structured text called JSON. In the snapshot verified on 25 October,
-the result includes **4 recall campaigns, 2 official investigations and 885
-complaints**, plus complaint component counts. It uses the same query as the
-HTTP route. Use another terminal for these commands if Flask is already running.
-
-Run each command on its own line, one at a time. The long path ending in
-`python.exe` selects our project's Python interpreter. It does not recreate the
-database. The stored data remains after commands finish or VS Code closes.
-
-Start by understanding what the command returns, then follow
-`scripts/safety_profile.py`: it asks SQL for official records and MongoDB for
-complaints. You do not need to understand every file at once or rerun the large
-imports to try this query. If it fails to connect, first check the services and
-local configuration; a connection error does not by itself mean the data is gone.
-
-The README contains several kinds of commands: environment setup, source
-inspection, database construction/import, an actual vehicle query, and tests.
-They are not all tests. The import updates stored reference data, while the
-vehicle query only reads it. The full database verifier briefly creates test
-records and cleans them up; the unit tests use made-up inputs without connecting
-to the servers. See the [command reference](README.md#what-each-command-does) for
-each command's purpose, side effects and intended frequency. None of these current
-commands empties and rebuilds the complete databases each time it runs.
-
-Useful questions for the next walkthrough are: What is one vehicle identity?
-Why is one complaint sometimes several source rows? Which database answers each
-part of the search? How will the backend check who is allowed to change a case?
+Open http://127.0.0.1:5000/app. Search by year, make and model, then explore the
+three evidence categories. Register or sign in to save vehicles and manage a
+fleet. An administrator can grant analyst access for investigation cases.
+Ctrl+C stops Flask without resetting the databases. The JSON API index at `/`
+and the earlier terminal helpers remain available.
 
 ## 9. Terms to look up as they appear
 
@@ -480,17 +371,17 @@ part of the search? How will the backend check who is allowed to change a case?
 
 ## 10. Remaining course deliverables
 
-According to the supplied project brief, final submission is **29 November 2026,
-11:30 PM**. Check XSite for any later course announcements.
+The project brief lists the final submission date and XSite group Dropbox; check
+XSite for any later announcements. The final report, slides, presentation video
+and source/data/manual package still need team review and submission. The report
+is limited to 10 main-content pages and the video to 10 minutes; all five members
+must present. The project code and manual are inputs, not evidence of submission.
 
-We still need the finished application, final report, slides, presentation video,
-and source/data/user-manual package. The report is limited to 10 main-content pages
-and the video to 10 minutes; all five members must present. The existing README
-and design notes are useful inputs, but are not the finished submission.
-
-Our report needs to explain the data model, both databases' operations and advanced
-features, performance evidence, problems encountered and improvements. The main
-remaining work is the backend and interface, followed by evaluation and packaging.
+Describe both database designs and operations, the innovation workflow, tested
+results, performance measurements and their limitations. Confirm the earlier
+progress-report submission separately in XSite. The [report and demo evidence
+guide](docs/REPORT_AND_DEMO_EVIDENCE.md) provides a starting outline and preserves
+the distinction between real-source measurements and synthetic workflow tests.
 
 ## 11. Progress log and how this guide stays current
 
@@ -507,6 +398,8 @@ remaining work is the backend and interface, followed by evaluation and packagin
 | 28 October 2026 | Added personal saved-vehicle CRUD, ownership checks, limited workflow SQL access and an interactive menu. | [Backend step 3](docs/BACKEND_STEP_3_SAVED_VEHICLES.md) verified; complaint browsing and analyst cases are next. |
 | 28 October 2026 | Added an explicit overall-stage and backend-substep indicator at the top of this guide. | Tracking clarification only; overall Stage 6 remains in progress. |
 | 28 October 2026 | Prepared a versioned GitHub checkpoint of completed database and backend work, excluding credentials, raw archives and local environments. | Source-sharing checkpoint; Stage 6 and the remaining feature plan are unchanged. |
+| 28 October 2026 | Implemented complaint exploration, analyst cases, fleet workflows, a browser interface and an index benchmark harness in a new local checkout. | [Implementation and evidence](docs/IMPLEMENTATION_AND_EVIDENCE.md); isolated synthetic database and browser checks completed. |
+| 28 October 2026 | Downloaded and inspected updated NHTSA archives, imported them into separate test databases, checked research API counts and measured sampled indexes. | [Real-data verification](docs/real_data_verification_2026-10-28.json) and [benchmark](docs/benchmark_2026-10-28.json); final team review and delivery remain. |
 
 At each meaningful milestone, we will update the date, current-position summary,
 stage statuses, next actions and this log. New counts/test claims will include

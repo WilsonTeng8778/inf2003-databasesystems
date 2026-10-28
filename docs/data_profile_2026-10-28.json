@@ -1,0 +1,289 @@
+{
+  "inspected_at_utc": "2026-10-28T15:43:42.363190+00:00",
+  "sources": {
+    "recalls": {
+      "filename": "FLAT_RCL_POST_2010.zip",
+      "sha256": "6e886e1076d33dc457f44deafb848c28a791ec406022d6e67d1cc3662e3cbebc",
+      "compressed_bytes": 15022318,
+      "members": [
+        {
+          "name": "FLAT_RCL_POST_2010.txt",
+          "uncompressed_bytes": 312574896
+        }
+      ],
+      "expected_fields": 29,
+      "field_counts": {
+        "29": 246908
+      },
+      "header": false,
+      "delimiter": "TAB",
+      "date_format": "YYYYMMDD",
+      "invalid_shape_rows": 0,
+      "invalid_shape_examples": [],
+      "replacement_characters": 0,
+      "decoding": {
+        "utf8_rows": 246908
+      },
+      "total_rows": 246908,
+      "eligible_vehicle_rows": 219789,
+      "excluded_rows": 27119,
+      "product_types": {
+        "V": 220171,
+        "E": 5995,
+        "T": 20282,
+        "C": 460
+      },
+      "distinct_identifiers": 13607,
+      "repeated_identifier_rows": 206182,
+      "identifiers_with_multiple_vehicles": 10322,
+      "identifiers_with_multiple_components": 2156,
+      "identifiers_with_multiple_manufacturers": 0,
+      "distinct_vehicles": 40229,
+      "min_model_year": 1983,
+      "max_model_year": 2027,
+      "min_source_date": "2010-01-01",
+      "max_source_date": "2026-10-23",
+      "invalid_nonblank_dates": 0,
+      "makes_with_multiple_manufacturers": 254,
+      "safe_samples": [
+        {
+          "identifier": "10V488000",
+          "make": "BMW",
+          "model": "K1200 S",
+          "model_year": 2005,
+          "component": "SUSPENSION:REAR",
+          "manufacturer": "BMW OF NORTH AMERICA, LLC"
+        },
+        {
+          "identifier": "10V488000",
+          "make": "BMW",
+          "model": "K1200 S",
+          "model_year": 2007,
+          "component": "SUSPENSION:REAR",
+          "manufacturer": "BMW OF NORTH AMERICA, LLC"
+        },
+        {
+          "identifier": "10V488000",
+          "make": "BMW",
+          "model": "K1300 GT",
+          "model_year": 2010,
+          "component": "SUSPENSION:REAR",
+          "manufacturer": "BMW OF NORTH AMERICA, LLC"
+        }
+      ]
+    },
+    "investigations": {
+      "filename": "FLAT_INV.zip",
+      "sha256": "6ab08c45afeaa1184824e1faf652b56f46f008b62f8c3aaeca79439d2b02b820",
+      "compressed_bytes": 4303076,
+      "members": [
+        {
+          "name": "FLAT_INV.txt",
+          "uncompressed_bytes": 390689692
+        }
+      ],
+      "expected_fields": 11,
+      "field_counts": {
+        "11": 154455
+      },
+      "header": false,
+      "delimiter": "TAB",
+      "date_format": "YYYYMMDD",
+      "invalid_shape_rows": 0,
+      "invalid_shape_examples": [],
+      "replacement_characters": 0,
+      "decoding": {
+        "utf8_rows": 154455
+      },
+      "total_rows": 154455,
+      "eligible_vehicle_rows": 146128,
+      "excluded_rows": 8327,
+      "product_types": {},
+      "distinct_identifiers": 3629,
+      "repeated_identifier_rows": 142499,
+      "identifiers_with_multiple_vehicles": 2792,
+      "identifiers_with_multiple_components": 701,
+      "identifiers_with_multiple_manufacturers": 199,
+      "distinct_vehicles": 16196,
+      "min_model_year": 1965,
+      "max_model_year": 2026,
+      "min_source_date": "1972-03-10",
+      "max_source_date": "2026-10-23",
+      "invalid_nonblank_dates": 0,
+      "makes_with_multiple_manufacturers": 56,
+      "safe_samples": [
+        {
+          "identifier": "AQ08001",
+          "make": "PACE AMERICAN",
+          "model": "TRAILER",
+          "model_year": 2003,
+          "component": "WHEELS",
+          "manufacturer": "PACE AMERICAN, INC."
+        },
+        {
+          "identifier": "AQ08001",
+          "make": "PACE AMERICAN",
+          "model": "TRAILER",
+          "model_year": 2004,
+          "component": "WHEELS",
+          "manufacturer": "PACE AMERICAN, INC."
+        },
+        {
+          "identifier": "AQ08001",
+          "make": "PACE AMERICAN",
+          "model": "TRAILER",
+          "model_year": 2005,
+          "component": "WHEELS",
+          "manufacturer": "PACE AMERICAN, INC."
+        }
+      ]
+    },
+    "complaints_2020_2024": {
+      "filename": "COMPLAINTS_RECEIVED_2020-2024.zip",
+      "sha256": "347ba9772bc31ea617865f1cb78a8237b3d246192b5e7267218125494f7d4ec8",
+      "compressed_bytes": 75874097,
+      "members": [
+        {
+          "name": "COMPLAINTS_RECEIVED_2020-2024.txt",
+          "uncompressed_bytes": 326690943
+        }
+      ],
+      "expected_fields": 51,
+      "field_counts": {
+        "51": 418884
+      },
+      "header": false,
+      "delimiter": "TAB",
+      "date_format": "YYYYMMDD",
+      "invalid_shape_rows": 0,
+      "invalid_shape_examples": [],
+      "replacement_characters": 6,
+      "decoding": {
+        "utf8_rows": 418884
+      },
+      "total_rows": 418884,
+      "eligible_vehicle_rows": 412866,
+      "excluded_rows": 6018,
+      "product_types": {
+        "V": 413239,
+        "C": 851,
+        "E": 1696,
+        "T": 3091,
+        "": 7
+      },
+      "distinct_identifiers": 290634,
+      "repeated_identifier_rows": 122232,
+      "identifiers_with_multiple_vehicles": 0,
+      "identifiers_with_multiple_components": 87277,
+      "identifiers_with_multiple_manufacturers": 0,
+      "distinct_vehicles": 10667,
+      "min_model_year": 1970,
+      "max_model_year": 2025,
+      "min_source_date": "2020-01-01",
+      "max_source_date": "2024-12-31",
+      "invalid_nonblank_dates": 0,
+      "makes_with_multiple_manufacturers": 46,
+      "safe_samples": [
+        {
+          "identifier": "11292384",
+          "make": "HONDA",
+          "model": "ACCORD",
+          "model_year": 2018,
+          "component": "SERVICE BRAKES",
+          "manufacturer": "Honda (American Honda Motor Co.)"
+        },
+        {
+          "identifier": "11292384",
+          "make": "HONDA",
+          "model": "ACCORD",
+          "model_year": 2018,
+          "component": "ELECTRICAL SYSTEM",
+          "manufacturer": "Honda (American Honda Motor Co.)"
+        },
+        {
+          "identifier": "11292384",
+          "make": "HONDA",
+          "model": "ACCORD",
+          "model_year": 2018,
+          "component": "ENGINE",
+          "manufacturer": "Honda (American Honda Motor Co.)"
+        }
+      ]
+    },
+    "complaints_2025_2026": {
+      "filename": "COMPLAINTS_RECEIVED_2025-2026.zip",
+      "sha256": "7c6192779dce7ae48cb15785545b1c816068d6f1297b0dc7c75a8db56f3e8d51",
+      "compressed_bytes": 42817701,
+      "members": [
+        {
+          "name": "COMPLAINTS_RECEIVED_2025-2026.txt",
+          "uncompressed_bytes": 190447698
+        }
+      ],
+      "expected_fields": 51,
+      "field_counts": {
+        "51": 208671
+      },
+      "header": false,
+      "delimiter": "TAB",
+      "date_format": "YYYYMMDD",
+      "invalid_shape_rows": 0,
+      "invalid_shape_examples": [],
+      "replacement_characters": 2,
+      "decoding": {
+        "utf8_rows": 208671
+      },
+      "total_rows": 208671,
+      "eligible_vehicle_rows": 205447,
+      "excluded_rows": 3224,
+      "product_types": {
+        "V": 205724,
+        "E": 764,
+        "T": 1403,
+        "C": 780
+      },
+      "distinct_identifiers": 138948,
+      "repeated_identifier_rows": 66499,
+      "identifiers_with_multiple_vehicles": 0,
+      "identifiers_with_multiple_components": 45944,
+      "identifiers_with_multiple_manufacturers": 0,
+      "distinct_vehicles": 7335,
+      "min_model_year": 1986,
+      "max_model_year": 2027,
+      "min_source_date": "2025-01-01",
+      "max_source_date": "2026-10-26",
+      "invalid_nonblank_dates": 0,
+      "makes_with_multiple_manufacturers": 19,
+      "safe_samples": [
+        {
+          "identifier": "11633472",
+          "make": "FORD",
+          "model": "EXPLORER",
+          "model_year": 2016,
+          "component": "STRUCTURE:BODY",
+          "manufacturer": "Ford Motor Company"
+        },
+        {
+          "identifier": "11633473",
+          "make": "JEEP",
+          "model": "GLADIATOR",
+          "model_year": 2022,
+          "component": "STEERING",
+          "manufacturer": "Chrysler (FCA US, LLC)"
+        },
+        {
+          "identifier": "11633474",
+          "make": "TOYOTA",
+          "model": "TUNDRA",
+          "model_year": 2024,
+          "component": "SERVICE BRAKES",
+          "manufacturer": "Toyota Motor Corporation"
+        }
+      ]
+    }
+  },
+  "catalogue": {
+    "distinct_vehicles": 53560,
+    "complaint_vehicles_without_recall": 3656
+  }
+}

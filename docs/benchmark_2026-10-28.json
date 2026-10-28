@@ -1,0 +1,507 @@
+{
+  "measuredAtUtc": "2026-10-28T15:51:51.990016+00:00",
+  "sampleLimit": 100000,
+  "repeats": 5,
+  "warmupsPerPhase": 1,
+  "interpretation": "Compare before/after within each database; the SQL and MongoDB workloads differ.",
+  "sampling": "First records in model-year/recall order for SQL and ODI identifier order for MongoDB; samples are not random.",
+  "environment": {
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.14.0",
+    "postgresql": "PostgreSQL 18.6 on x86_64-windows, compiled by msvc-19.44.35228, 64-bit",
+    "mongodb": "6.0.13"
+  },
+  "sourceImports": [
+    {
+      "dataset": "complaints",
+      "completedAt": "2026-10-28T23:51:10.209065+08:00",
+      "recordsRead": 627555
+    },
+    {
+      "dataset": "investigations",
+      "completedAt": "2026-10-28T23:44:54.891302+08:00",
+      "recordsRead": 154455
+    },
+    {
+      "dataset": "recalls",
+      "completedAt": "2026-10-28T23:44:36.401329+08:00",
+      "recordsRead": 246908
+    },
+    {
+      "dataset": "vehicle_catalogue",
+      "completedAt": "2026-10-28T23:44:34.634341+08:00",
+      "recordsRead": 1028918
+    }
+  ],
+  "postgresql": {
+    "sourceRowsCopied": 93797,
+    "modelYearId": 52365,
+    "query": "recall_id, report_date filtered by model_year_id, ordered by recall_id",
+    "index": "(model_year_id, recall_id)",
+    "before": {
+      "samplesMs": [
+        3.154,
+        3.21,
+        3.249,
+        3.298,
+        3.855
+      ],
+      "medianMs": 3.249,
+      "p95Ms": 3.855,
+      "rowsReturned": 42,
+      "plan": [
+        {
+          "Plan": {
+            "Node Type": "Sort",
+            "Parallel Aware": false,
+            "Async Capable": false,
+            "Startup Cost": 1797.56,
+            "Total Cost": 1797.66,
+            "Plan Rows": 41,
+            "Plan Width": 12,
+            "Actual Startup Time": 2.981,
+            "Actual Total Time": 2.983,
+            "Actual Rows": 42.0,
+            "Actual Loops": 1,
+            "Disabled": false,
+            "Sort Key": [
+              "recall_id"
+            ],
+            "Sort Method": "quicksort",
+            "Sort Space Used": 26,
+            "Sort Space Type": "Memory",
+            "Shared Hit Blocks": 0,
+            "Shared Read Blocks": 0,
+            "Shared Dirtied Blocks": 0,
+            "Shared Written Blocks": 0,
+            "Local Hit Blocks": 624,
+            "Local Read Blocks": 0,
+            "Local Dirtied Blocks": 0,
+            "Local Written Blocks": 0,
+            "Temp Read Blocks": 0,
+            "Temp Written Blocks": 0,
+            "Plans": [
+              {
+                "Node Type": "Seq Scan",
+                "Parent Relationship": "Outer",
+                "Parallel Aware": false,
+                "Async Capable": false,
+                "Relation Name": "benchmark_recalls",
+                "Alias": "benchmark_recalls",
+                "Startup Cost": 0.0,
+                "Total Cost": 1796.46,
+                "Plan Rows": 41,
+                "Plan Width": 12,
+                "Actual Startup Time": 2.904,
+                "Actual Total Time": 2.974,
+                "Actual Rows": 42.0,
+                "Actual Loops": 1,
+                "Disabled": false,
+                "Filter": "(model_year_id = 52365)",
+                "Rows Removed by Filter": 93755,
+                "Shared Hit Blocks": 0,
+                "Shared Read Blocks": 0,
+                "Shared Dirtied Blocks": 0,
+                "Shared Written Blocks": 0,
+                "Local Hit Blocks": 624,
+                "Local Read Blocks": 0,
+                "Local Dirtied Blocks": 0,
+                "Local Written Blocks": 0,
+                "Temp Read Blocks": 0,
+                "Temp Written Blocks": 0
+              }
+            ]
+          },
+          "Planning": {
+            "Shared Hit Blocks": 0,
+            "Shared Read Blocks": 0,
+            "Shared Dirtied Blocks": 0,
+            "Shared Written Blocks": 0,
+            "Local Hit Blocks": 0,
+            "Local Read Blocks": 0,
+            "Local Dirtied Blocks": 0,
+            "Local Written Blocks": 0,
+            "Temp Read Blocks": 0,
+            "Temp Written Blocks": 0
+          },
+          "Planning Time": 0.049,
+          "Triggers": [],
+          "Execution Time": 2.997
+        }
+      ]
+    },
+    "after": {
+      "samplesMs": [
+        0.071,
+        0.088,
+        0.09,
+        0.101,
+        0.138
+      ],
+      "medianMs": 0.09,
+      "p95Ms": 0.138,
+      "rowsReturned": 42,
+      "plan": [
+        {
+          "Plan": {
+            "Node Type": "Index Scan",
+            "Parallel Aware": false,
+            "Async Capable": false,
+            "Scan Direction": "Forward",
+            "Index Name": "benchmark_recalls_model_id",
+            "Relation Name": "benchmark_recalls",
+            "Alias": "benchmark_recalls",
+            "Startup Cost": 0.42,
+            "Total Cost": 61.46,
+            "Plan Rows": 31,
+            "Plan Width": 12,
+            "Actual Startup Time": 0.004,
+            "Actual Total Time": 0.007,
+            "Actual Rows": 42.0,
+            "Actual Loops": 1,
+            "Disabled": false,
+            "Index Cond": "(model_year_id = 52365)",
+            "Rows Removed by Index Recheck": 0,
+            "Index Searches": 1,
+            "Shared Hit Blocks": 0,
+            "Shared Read Blocks": 0,
+            "Shared Dirtied Blocks": 0,
+            "Shared Written Blocks": 0,
+            "Local Hit Blocks": 5,
+            "Local Read Blocks": 0,
+            "Local Dirtied Blocks": 0,
+            "Local Written Blocks": 0,
+            "Temp Read Blocks": 0,
+            "Temp Written Blocks": 0
+          },
+          "Planning": {
+            "Shared Hit Blocks": 0,
+            "Shared Read Blocks": 0,
+            "Shared Dirtied Blocks": 0,
+            "Shared Written Blocks": 0,
+            "Local Hit Blocks": 0,
+            "Local Read Blocks": 0,
+            "Local Dirtied Blocks": 0,
+            "Local Written Blocks": 0,
+            "Temp Read Blocks": 0,
+            "Temp Written Blocks": 0
+          },
+          "Planning Time": 0.018,
+          "Triggers": [],
+          "Execution Time": 0.011
+        }
+      ]
+    }
+  },
+  "mongodb": {
+    "sourceDocumentsCopied": 100000,
+    "modelYearId": 14130,
+    "query": "complaint identifiers and receipt dates filtered by modelYearId, ordered by date and ID",
+    "index": "(modelYearId, receivedDate DESC, _id ASC)",
+    "before": {
+      "samplesMs": [
+        47.773,
+        47.909,
+        64.869,
+        65.005,
+        71.062
+      ],
+      "medianMs": 64.869,
+      "p95Ms": 71.062,
+      "rowsReturned": 500,
+      "plan": {
+        "explainVersion": "1",
+        "queryPlanner": {
+          "namespace": "vehicle_safety_real_benchmark.benchmark_0f96d8d0538b493fbf79a1945a1d2cfb",
+          "indexFilterSet": false,
+          "parsedQuery": {
+            "modelYearId": {
+              "$eq": 14130
+            }
+          },
+          "queryHash": "195EB61F",
+          "planCacheKey": "195EB61F",
+          "maxIndexedOrSolutionsReached": false,
+          "maxIndexedAndSolutionsReached": false,
+          "maxScansToExplodeReached": false,
+          "winningPlan": {
+            "stage": "SORT",
+            "sortPattern": {
+              "receivedDate": -1,
+              "_id": 1
+            },
+            "memLimit": 104857600,
+            "type": "simple",
+            "inputStage": {
+              "stage": "PROJECTION_SIMPLE",
+              "transformBy": {
+                "_id": 1,
+                "receivedDate": 1
+              },
+              "inputStage": {
+                "stage": "COLLSCAN",
+                "filter": {
+                  "modelYearId": {
+                    "$eq": 14130
+                  }
+                },
+                "direction": "forward"
+              }
+            }
+          },
+          "rejectedPlans": []
+        },
+        "executionStats": {
+          "executionSuccess": true,
+          "nReturned": 500,
+          "executionTimeMillis": 72,
+          "totalKeysExamined": 0,
+          "totalDocsExamined": 100000,
+          "executionStages": {
+            "stage": "SORT",
+            "nReturned": 500,
+            "executionTimeMillisEstimate": 0,
+            "works": 100502,
+            "advanced": 500,
+            "needTime": 100001,
+            "needYield": 0,
+            "saveState": 100,
+            "restoreState": 100,
+            "isEOF": 1,
+            "sortPattern": {
+              "receivedDate": -1,
+              "_id": 1
+            },
+            "memLimit": 104857600,
+            "type": "simple",
+            "totalDataSizeSorted": 74500,
+            "usedDisk": false,
+            "spills": 0,
+            "inputStage": {
+              "stage": "PROJECTION_SIMPLE",
+              "nReturned": 500,
+              "executionTimeMillisEstimate": 0,
+              "works": 100001,
+              "advanced": 500,
+              "needTime": 99500,
+              "needYield": 0,
+              "saveState": 100,
+              "restoreState": 100,
+              "isEOF": 1,
+              "transformBy": {
+                "_id": 1,
+                "receivedDate": 1
+              },
+              "inputStage": {
+                "stage": "COLLSCAN",
+                "filter": {
+                  "modelYearId": {
+                    "$eq": 14130
+                  }
+                },
+                "nReturned": 500,
+                "executionTimeMillisEstimate": 0,
+                "works": 100001,
+                "advanced": 500,
+                "needTime": 99500,
+                "needYield": 0,
+                "saveState": 100,
+                "restoreState": 100,
+                "isEOF": 1,
+                "direction": "forward",
+                "docsExamined": 100000
+              }
+            }
+          }
+        },
+        "command": {
+          "find": "benchmark_0f96d8d0538b493fbf79a1945a1d2cfb",
+          "filter": {
+            "modelYearId": 14130
+          },
+          "projection": {
+            "_id": 1,
+            "receivedDate": 1
+          },
+          "sort": {
+            "receivedDate": -1,
+            "_id": 1
+          },
+          "$db": "vehicle_safety_real_benchmark"
+        },
+        "serverParameters": {
+          "internalQueryFacetBufferSizeBytes": 104857600,
+          "internalQueryFacetMaxOutputDocSizeBytes": 104857600,
+          "internalLookupStageIntermediateDocumentMaxSizeBytes": 104857600,
+          "internalDocumentSourceGroupMaxMemoryBytes": 104857600,
+          "internalQueryMaxBlockingSortMemoryUsageBytes": 104857600,
+          "internalQueryProhibitBlockingMergeOnMongoS": 0,
+          "internalQueryMaxAddToSetBytes": 104857600,
+          "internalDocumentSourceSetWindowFieldsMaxMemoryBytes": 104857600
+        },
+        "ok": 1.0
+      }
+    },
+    "after": {
+      "samplesMs": [
+        1.6,
+        1.622,
+        1.697,
+        2.201,
+        2.203
+      ],
+      "medianMs": 1.697,
+      "p95Ms": 2.203,
+      "rowsReturned": 500,
+      "plan": {
+        "explainVersion": "1",
+        "queryPlanner": {
+          "namespace": "vehicle_safety_real_benchmark.benchmark_0f96d8d0538b493fbf79a1945a1d2cfb",
+          "indexFilterSet": false,
+          "parsedQuery": {
+            "modelYearId": {
+              "$eq": 14130
+            }
+          },
+          "queryHash": "195EB61F",
+          "planCacheKey": "FD1321FB",
+          "maxIndexedOrSolutionsReached": false,
+          "maxIndexedAndSolutionsReached": false,
+          "maxScansToExplodeReached": false,
+          "winningPlan": {
+            "stage": "PROJECTION_COVERED",
+            "transformBy": {
+              "_id": 1,
+              "receivedDate": 1
+            },
+            "inputStage": {
+              "stage": "IXSCAN",
+              "keyPattern": {
+                "modelYearId": 1,
+                "receivedDate": -1,
+                "_id": 1
+              },
+              "indexName": "benchmark_vehicle_date",
+              "isMultiKey": false,
+              "multiKeyPaths": {
+                "modelYearId": [],
+                "receivedDate": [],
+                "_id": []
+              },
+              "isUnique": false,
+              "isSparse": false,
+              "isPartial": false,
+              "indexVersion": 2,
+              "direction": "forward",
+              "indexBounds": {
+                "modelYearId": [
+                  "[14130, 14130]"
+                ],
+                "receivedDate": [
+                  "[MaxKey, MinKey]"
+                ],
+                "_id": [
+                  "[MinKey, MaxKey]"
+                ]
+              }
+            }
+          },
+          "rejectedPlans": []
+        },
+        "executionStats": {
+          "executionSuccess": true,
+          "nReturned": 500,
+          "executionTimeMillis": 0,
+          "totalKeysExamined": 500,
+          "totalDocsExamined": 0,
+          "executionStages": {
+            "stage": "PROJECTION_COVERED",
+            "nReturned": 500,
+            "executionTimeMillisEstimate": 0,
+            "works": 501,
+            "advanced": 500,
+            "needTime": 0,
+            "needYield": 0,
+            "saveState": 0,
+            "restoreState": 0,
+            "isEOF": 1,
+            "transformBy": {
+              "_id": 1,
+              "receivedDate": 1
+            },
+            "inputStage": {
+              "stage": "IXSCAN",
+              "nReturned": 500,
+              "executionTimeMillisEstimate": 0,
+              "works": 501,
+              "advanced": 500,
+              "needTime": 0,
+              "needYield": 0,
+              "saveState": 0,
+              "restoreState": 0,
+              "isEOF": 1,
+              "keyPattern": {
+                "modelYearId": 1,
+                "receivedDate": -1,
+                "_id": 1
+              },
+              "indexName": "benchmark_vehicle_date",
+              "isMultiKey": false,
+              "multiKeyPaths": {
+                "modelYearId": [],
+                "receivedDate": [],
+                "_id": []
+              },
+              "isUnique": false,
+              "isSparse": false,
+              "isPartial": false,
+              "indexVersion": 2,
+              "direction": "forward",
+              "indexBounds": {
+                "modelYearId": [
+                  "[14130, 14130]"
+                ],
+                "receivedDate": [
+                  "[MaxKey, MinKey]"
+                ],
+                "_id": [
+                  "[MinKey, MaxKey]"
+                ]
+              },
+              "keysExamined": 500,
+              "seeks": 1,
+              "dupsTested": 0,
+              "dupsDropped": 0
+            }
+          }
+        },
+        "command": {
+          "find": "benchmark_0f96d8d0538b493fbf79a1945a1d2cfb",
+          "filter": {
+            "modelYearId": 14130
+          },
+          "projection": {
+            "_id": 1,
+            "receivedDate": 1
+          },
+          "sort": {
+            "receivedDate": -1,
+            "_id": 1
+          },
+          "$db": "vehicle_safety_real_benchmark"
+        },
+        "serverParameters": {
+          "internalQueryFacetBufferSizeBytes": 104857600,
+          "internalQueryFacetMaxOutputDocSizeBytes": 104857600,
+          "internalLookupStageIntermediateDocumentMaxSizeBytes": 104857600,
+          "internalDocumentSourceGroupMaxMemoryBytes": 104857600,
+          "internalQueryMaxBlockingSortMemoryUsageBytes": 104857600,
+          "internalQueryProhibitBlockingMergeOnMongoS": 0,
+          "internalQueryMaxAddToSetBytes": 104857600,
+          "internalDocumentSourceSetWindowFieldsMaxMemoryBytes": 104857600
+        },
+        "ok": 1.0
+      }
+    }
+  }
+}

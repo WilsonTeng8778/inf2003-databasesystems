@@ -1,0 +1,25 @@
+{
+  "verifiedAtUtc": "2026-10-28T15:55:45.522775+00:00",
+  "checks": {
+    "caseLinkedRealComplaint": true,
+    "fleetWorkOrderForRealRecall": true
+  },
+  "syntheticWorkflowRecordsRemoved": true,
+  "workflowCountsBefore": {
+    "app_user": 0,
+    "analysis_case": 0,
+    "fleet": 0,
+    "fleet_vehicle": 0,
+    "work_order": 0,
+    "case_details": 0
+  },
+  "workflowCountsAfter": {
+    "app_user": 0,
+    "analysis_case": 0,
+    "fleet": 0,
+    "fleet_vehicle": 0,
+    "work_order": 0,
+    "case_details": 0
+  },
+  "scope": "Synthetic user, case and fleet linked to real public source records in an isolated test database."
+}
