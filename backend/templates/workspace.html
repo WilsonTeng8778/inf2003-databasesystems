@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Vehicle Safety | Research workspace</title>
+  <link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}" type="image/svg+xml">
+  <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
+  <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+</head>
+<body data-source-label="{{ config.DATASET_LABEL }}">
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">V<span>.</span></span><div><strong>Vehicle Safety</strong><small>RESEARCH WORKSPACE</small></div></div>
+    <div class="sidebar-label">WORKSPACE</div>
+    <nav class="nav" aria-label="Main navigation">
+      <button class="nav-item active" data-view="research" aria-current="page"><span class="nav-icon" aria-hidden="true">⌕</span> Vehicle research</button>
+      <button class="nav-item" data-view="saved"><span class="nav-icon" aria-hidden="true">◇</span> Saved vehicles</button>
+      <button class="nav-item" data-view="cases"><span class="nav-icon" aria-hidden="true">▤</span> Investigation cases</button>
+      <button class="nav-item" data-view="fleets"><span class="nav-icon" aria-hidden="true">▦</span> Fleet recalls</button>
+      <button class="nav-item" data-view="admin" id="nav-admin" hidden><span class="nav-icon" aria-hidden="true">⚙</span> Administration</button>
+    </nav>
+    <div class="sidebar-foot"><span class="status-dot" id="connection-dot"></span><span id="connection-label">Checking databases</span><small>LOCAL PROJECT WORKSPACE</small></div>
+  </aside>
+  <main class="main">
+    <header class="topbar"><div class="breadcrumb">WORKSPACE <span>/</span> <strong id="breadcrumb">VEHICLE RESEARCH</strong></div><div class="account"><span id="account-label">Guest access</span><button class="button button-small button-outline" id="account-button">Sign in</button></div></header>
+    <div class="content">
+      <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+      <section id="view-research" class="view">
+        <div class="page-heading"><div><div class="eyebrow">VEHICLE RESEARCH <span> / 01</span></div><h1>Evidence, in context.</h1><p>Explore recalls, investigations and consumer reports for a vehicle model.</p></div><span class="header-tag"><span class="status-dot"></span> {{ config.DATASET_LABEL }}</span></div>
+        <form id="search-form" class="search-panel">
+          <div class="panel-heading"><div><span class="section-number">01</span><strong>Find a vehicle</strong></div><span>Search the imported catalogue</span></div>
+          <div class="search-fields"><label>MODEL YEAR<input name="year" inputmode="numeric" type="number" min="1900" max="2100" placeholder="e.g. 2022"></label><label>MAKE<input name="make" placeholder="e.g. Honda"></label><label>MODEL<input name="model" placeholder="e.g. Civic"></label><button class="button button-primary" type="submit">Search vehicles <span aria-hidden="true">↗</span></button></div>
+          <div id="search-results" class="search-results" aria-live="polite"></div>
+        </form>
+        <div id="selected-vehicle" class="selected-vehicle" hidden><div><span class="eyebrow">SELECTED VEHICLE</span><h2 id="vehicle-title"></h2><p>Model-year match · Check a VIN with the manufacturer for vehicle-specific recall status.</p></div><div class="vehicle-actions"><button id="save-vehicle" class="button button-outline">+ Save vehicle</button><button id="new-case-from-profile" class="button button-primary">Open a case <span aria-hidden="true">↗</span></button></div></div>
+        <div class="section-title"><div><span class="section-number">02</span><h2>Safety overview</h2></div><span id="overview-meta">SELECT A VEHICLE TO EXPLORE</span></div>
+        <div class="metric-grid"><article class="metric"><div class="metric-top"><span>OFFICIAL RECALLS</span><span class="metric-symbol coral">↗</span></div><strong id="metric-recalls">—</strong><p>Manufacturer recall campaigns</p></article><article class="metric"><div class="metric-top"><span>INVESTIGATIONS</span><span class="metric-symbol amber">⌁</span></div><strong id="metric-investigations">—</strong><p>Official defect investigations</p></article><article class="metric"><div class="metric-top"><span>CONSUMER REPORTS</span><span class="metric-symbol teal">▤</span></div><strong id="metric-complaints">—</strong><p>Reports received in this snapshot</p></article></div>
+        <p class="context-line"><span aria-hidden="true">ⓘ</span> Consumer complaints are allegations. They are not confirmed defects or a safety rating. <a href="https://www.nhtsa.gov/nhtsa-datasets-and-apis" target="_blank" rel="noopener noreferrer">About the NHTSA data ↗</a></p>
+        <p class="context-line" id="data-context">Data source: {{ config.DATASET_LABEL }} · Checking the most recent import dates.</p>
+        <div class="insight-grid"><article class="card insight-card"><div class="card-heading"><div><span class="eyebrow">COMPLAINT SIGNALS</span><h3>Most reported components</h3></div><span class="quiet-label">TOP 10</span></div><div id="component-chart" class="chart-empty">Select a vehicle to see its reported components.</div><p class="chart-foot">A report may mention more than one component, so totals can overlap.</p></article><article class="card insight-card"><div class="card-heading"><div><span class="eyebrow">REPORTING OVER TIME</span><h3>Complaint activity</h3></div><span class="quiet-label">BY RECEIPT MONTH</span></div><div id="timeline-chart" class="chart-empty">Monthly activity will appear here.</div><p class="chart-foot">Shows up to 12 months with reports; months without reports are omitted. Counts do not measure vehicles on the road.</p></article></div>
+        <div class="section-title evidence-title"><div><span class="section-number">03</span><h2>Explore the evidence</h2></div><span>RECALLS · INVESTIGATIONS · COMPLAINTS</span></div>
+        <section class="card evidence-card"><div class="tabs" role="tablist" aria-label="Evidence type"><button class="tab active" role="tab" aria-selected="true" data-evidence="recalls">Recalls</button><button class="tab" role="tab" aria-selected="false" data-evidence="investigations">Investigations</button><button class="tab" role="tab" aria-selected="false" data-evidence="complaints">Complaints</button></div><form id="complaint-filters" class="filter-row" hidden><label>SEARCH NARRATIVE<input name="q" placeholder="Search words"></label><label>COMPONENT<input name="component" placeholder="Exact component"></label><label>FROM<input name="fromDate" type="date"></label><label>TO<input name="toDate" type="date"></label><button class="button button-outline button-small" type="submit">Apply filters</button></form><div id="evidence-list" class="empty-state"><strong>Choose a vehicle to begin</strong><p>Its public records will appear here.</p></div><div id="evidence-pagination" class="pagination"></div></section>
+      </section>
+      <section id="view-saved" class="view" hidden><div class="page-heading"><div><div class="eyebrow">YOUR WORKSPACE <span> / 02</span></div><h1>Saved vehicles.</h1><p>Keep frequently researched vehicle models close at hand.</p></div></div><div id="saved-content" class="stack"></div></section>
+      <section id="view-cases" class="view" hidden><div class="page-heading"><div><div class="eyebrow">ANALYST WORKSPACE <span> / 03</span></div><h1>Investigation cases.</h1><p>Connect complaint evidence, observations and decisions in one place.</p></div><button id="create-case" class="button button-primary">+ New case</button></div><div class="workspace-grid"><div id="case-list" class="card list-panel"></div><div id="case-detail" class="card detail-panel"><div class="empty-state"><strong>Select a case</strong><p>Its linked evidence and investigation notes will appear here.</p></div></div></div></section>
+      <section id="view-fleets" class="view" hidden><div class="page-heading"><div><div class="eyebrow">FLEET WORKSPACE <span> / 04</span></div><h1>Recall follow-through.</h1><p>Match a small fleet against recall campaigns and track work orders.</p></div><button id="create-fleet" class="button button-primary">+ New fleet</button></div><div class="workspace-grid"><div id="fleet-list" class="card list-panel"></div><div id="fleet-detail" class="card detail-panel"><div class="empty-state"><strong>Select a fleet</strong><p>Vehicles, recall matches and work orders will appear here.</p></div></div></div></section>
+      <section id="view-admin" class="view" hidden><div class="page-heading"><div><div class="eyebrow">ADMINISTRATION <span> / 05</span></div><h1>Project operations.</h1><p>Manage access and inspect the imported data.</p></div></div><div class="admin-grid"><div id="admin-users" class="card detail-panel"></div><div id="admin-imports" class="card detail-panel"></div></div></section>
+      <footer>INF2003 GROUP PROJECT <span>·</span> Vehicle Safety Recall &amp; Defect Investigation System</footer>
+    </div>
+  </main>
+</div>
+<dialog id="auth-dialog"><form id="auth-form" class="dialog-card"><div class="dialog-top"><span class="eyebrow">YOUR WORKSPACE</span><button type="button" class="icon-button" id="close-auth" aria-label="Close">×</button></div><h2 id="auth-title">Welcome back.</h2><p id="auth-copy">Sign in to save vehicles and manage your work.</p><label>EMAIL<input name="email" type="email" autocomplete="username" required></label><label>PASSWORD<input name="password" type="password" autocomplete="current-password" required></label><div id="auth-error" class="form-error" role="alert"></div><button type="submit" class="button button-primary full" id="auth-submit">Sign in</button><button type="button" class="text-button" id="toggle-auth">New here? Create an account</button><p class="dialog-note">New accounts start with normal user access. An administrator can assign analyst access.</p></form></dialog>
+</body>
+</html>
