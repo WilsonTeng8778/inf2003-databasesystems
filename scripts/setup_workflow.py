@@ -35,13 +35,24 @@ def main():
         database = connection.execute("SELECT current_database()").fetchone()[0]
         connection.execute(sql.SQL("GRANT CONNECT ON DATABASE {} TO {}").format(sql.Identifier(database), sql.Identifier(role)))
         connection.execute(sql.SQL("GRANT USAGE ON SCHEMA public TO {}").format(sql.Identifier(role)))
-        connection.execute(sql.SQL("GRANT SELECT ON vehicle_catalogue,saved_vehicle TO {}").format(sql.Identifier(role)))
+        connection.execute(sql.SQL("""GRANT SELECT ON vehicle_catalogue,saved_vehicle,analysis_case,
+            case_status_history,case_sync_outbox,fleet,fleet_vehicle,work_order,
+            fleet_recall_matches,recall_vehicle,data_import_log TO {}""").format(sql.Identifier(role)))
         connection.execute(sql.SQL("GRANT INSERT(user_id,model_year_id,nickname),UPDATE(nickname),DELETE ON saved_vehicle TO {}").format(sql.Identifier(role)))
         connection.execute(sql.SQL("GRANT USAGE ON SEQUENCE public.saved_vehicle_saved_vehicle_id_seq TO {}").format(sql.Identifier(role)))
+        connection.execute(sql.SQL("""GRANT INSERT,UPDATE,DELETE ON analysis_case,case_sync_outbox,
+            fleet,fleet_vehicle,work_order TO {}""").format(sql.Identifier(role)))
+        # The status-change trigger runs with the workflow role's privileges.
+        connection.execute(sql.SQL("GRANT INSERT ON case_status_history TO {}").format(sql.Identifier(role)))
+        for sequence in ["analysis_case_case_id_seq", "case_status_history_history_id_seq",
+                         "case_sync_outbox_job_id_seq", "fleet_fleet_id_seq",
+                         "fleet_vehicle_fleet_vehicle_id_seq", "work_order_work_order_id_seq"]:
+            connection.execute(sql.SQL("GRANT USAGE ON SEQUENCE public.{} TO {}").format(
+                sql.Identifier(sequence), sql.Identifier(role)))
         connection.execute(sql.SQL("ALTER ROLE {} SET statement_timeout='5s'").format(sql.Identifier(role)))
         set_key(str(path), "WORKFLOW_POSTGRES_USER", role)
         set_key(str(path), "WORKFLOW_POSTGRES_PASSWORD", password)
-    print("Saved-vehicle SQL access ready; credentials saved only in ignored .env. Existing records retained.")
+    print("Workflow SQL access ready; credentials saved only in ignored .env. Existing records retained.")
 
 
 if __name__ == "__main__":

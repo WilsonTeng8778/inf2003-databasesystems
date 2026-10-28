@@ -35,7 +35,7 @@ def main():
         connection.execute(sql.SQL("GRANT CONNECT ON DATABASE {} TO {}").format(
             sql.Identifier(database), sql.Identifier(role)))
         connection.execute(sql.SQL("GRANT USAGE ON SCHEMA public TO {}").format(sql.Identifier(role)))
-        connection.execute(sql.SQL("GRANT SELECT ON vehicle_catalogue,vehicle_safety_summary TO {}").format(
+        connection.execute(sql.SQL("GRANT SELECT ON vehicle_catalogue,vehicle_safety_summary,vehicle_recall_details,vehicle_investigation_details,dataset_snapshot TO {}").format(
             sql.Identifier(role)))
         connection.execute(sql.SQL("ALTER ROLE {} SET default_transaction_read_only=on").format(sql.Identifier(role)))
         connection.execute(sql.SQL("ALTER ROLE {} SET statement_timeout='5s'").format(sql.Identifier(role)))

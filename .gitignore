@@ -1,5 +1,7 @@
 # Local configuration and Python environment
 .env
+.env.*
+!.env.example
 .venv/
 __pycache__/
 *.py[cod]
@@ -10,6 +12,10 @@ data/raw/
 data/processed/
 data/staging/
 data/logs/
+data/runtime/
+benchmarks/results/
+submission/
+verification/results/
 
 # Editor and operating-system files
 .DS_Store
