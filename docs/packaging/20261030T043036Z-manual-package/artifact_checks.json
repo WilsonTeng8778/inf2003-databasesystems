@@ -1,0 +1,50 @@
+{
+  "checked_at_utc": "2026-10-30T04:34:44.699568+00:00",
+  "local_date": "2026-10-30",
+  "timezone": "Asia/Kuala_Lumpur",
+  "scope": "Refreshed review ZIP verification, archived documentation links, source/evidence consistency and packaged standalone verifier smoke check. No fresh-install/native/browser/import rerun.",
+  "final_review_export": {
+    "successful": true,
+    "files_verified": 452,
+    "raw_archives_verified": 4,
+    "uncompressed_bytes": 162344748,
+    "sha256": "59ca74e75cc521643002258228af6c72572caff165d0e950b000a76937b0619c",
+    "bytes": 158614910,
+    "technical_rehearsal": {
+      "evidence": "docs/rehearsals/20261030T040558-cfe0d503/report.json",
+      "previously_tested_files_checked": 135,
+      "previously_tested_files_unchanged": true,
+      "additional_source_files": [
+        "scripts/package_project.py",
+        "tests/test_package_project.py"
+      ],
+      "qualification": "Additional packaging tools/tests are checked separately; this does not renew the earlier application/browser run."
+    },
+    "qualification": "ZIP content/hash validation only; no fresh installation, import or browser run.",
+    "created_at_utc": "2026-10-30T04:34:03.407682+00:00",
+    "archive": "data/processed/packages/20261030T043401Z-9abc48c6/INF2003_Group19_Source_Data.zip",
+    "configured_long_secret_scan": {
+      "minimum_characters": 12,
+      "values_checked": 5,
+      "matches": 0
+    },
+    "fresh_installation_verified": false,
+    "final_submission_complete": false
+  },
+  "packaged_verifier_with_site_packages_disabled": {
+    "successful": true,
+    "files_verified": 452,
+    "sha256_matches_build": true
+  },
+  "archived_local_links_checked": 286,
+  "missing_archived_local_links": [],
+  "documentation_changes_since_preflight": [],
+  "manual_or_tooling_changes_since_tests": [],
+  "historical_evidence_files_checked": 17,
+  "historical_evidence_changes": [],
+  "package_files_differing_from_current_workspace": [],
+  "fresh_installation_verified": false,
+  "application_browser_tests_rerun": false,
+  "uploaded_or_pushed": false,
+  "successful": true
+}

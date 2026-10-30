@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore official recalls, consumer complaints and defect investigations for a vehicle, and keep a personal vehicle list.">
+  <title>{{ title }} · RecallScope</title>
+  <link rel="icon" href="{{ url_for('static', filename='mark.svg') }}" type="image/svg+xml">
+  <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
+  <script type="module" src="{{ url_for('static', filename='app.js') }}"></script>
+</head>
+<body data-page="{{ page }}">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header class="site-header">
+    <div class="nav-wrap">
+      <a class="brand" href="{{ url_for('pages.search') }}" aria-label="RecallScope home">
+        <img src="{{ url_for('static', filename='mark.svg') }}" width="38" height="38" alt="">
+        <span>RecallScope<small>VEHICLE SAFETY RESEARCH</small></span>
+      </a>
+      <nav class="primary-nav" aria-label="Main navigation">
+        <a href="{{ url_for('pages.search') }}" {% if page in ['search', 'profile'] %}aria-current="page"{% endif %}>Vehicle search</a>
+        <a href="{{ url_for('pages.complaint_explorer') }}" {% if page == 'complaints' or kind|default('') == 'complaints' %}aria-current="page"{% endif %}>Complaints</a>
+        <a href="{{ url_for('pages.analytics_dashboard') }}" {% if page == 'analytics' %}aria-current="page"{% endif %}>Analytics</a>
+        <a href="{{ url_for('pages.saved') }}" {% if page == 'saved' %}aria-current="page"{% endif %}>My vehicles</a>
+        <a href="{{ url_for('pages.fleet_list') }}" {% if page == 'fleets' %}aria-current="page"{% endif %}>My fleets</a>
+        <a href="{{ url_for('pages.case_list') }}" data-case-nav hidden {% if page == 'cases' %}aria-current="page"{% endif %}>Analyst cases</a>
+        <a href="{{ url_for('pages.admin_overview') }}" data-admin-nav hidden {% if page == 'admin' %}aria-current="page"{% endif %}>Admin</a>
+      </nav>
+      <div class="account-nav" id="account-nav" aria-label="Account">
+        <a class="button button-quiet" href="{{ url_for('pages.login') }}" data-signin-link>Sign in</a>
+      </div>
+    </div>
+  </header>
+  <main id="main" class="page-wrap" tabindex="-1">
+    <noscript><div class="notice notice-error">Enable JavaScript to search records, sign in and manage your saved vehicles.</div></noscript>
+    <div id="global-message" class="notice" role="status" hidden></div>
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="site-footer">
+    <div><span class="footer-brand">RecallScope</span><span>NHTSA data snapshot · Model-year research</span></div>
+    <span>INF2003 · Group 19</span>
+  </footer>
+</body>
+</html>

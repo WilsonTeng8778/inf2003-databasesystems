@@ -1,0 +1,36 @@
+{
+  "checked_at_utc": "2026-10-29T20:25:36.828904+00:00",
+  "local_date": "2026-10-30",
+  "timezone": "Asia/Kuala_Lumpur",
+  "scope": "Final documentation links, source/evidence hashes, whitespace and configured long-secret scan after the completed technical rehearsal. No application/browser/native tests rerun for these documentation edits.",
+  "documents_sha256": {
+    "PROJECT_GUIDE.md": "59d23dfdbdede4b6c932f840c6aee1cf554dd9d6c15e0bc6c89d2a993301659f",
+    "README.md": "b6d2daa71c459026d6dfade1863a207efd47ff0993a6d1bf8b5856a4f2ba6982",
+    "docs/TECHNICAL_REHEARSAL.md": "ce7c3793af224d18d42414a140a9683b095c65ebd5998738a942883003dbf59b",
+    "docs/FINAL_DEMO_CHECKLIST.md": "f1f7a4ae0f05c5a10be60fe1055576f1d1663c87eaa731a479b70e98ce9898d3",
+    "docs/FINAL_READINESS_REVIEW.md": "17d03461fde31c7259a88943f93bf3f7b35decb856500a4956b467f60dad01d9",
+    "docs/DATABASE_DESIGN.md": "3cd0b40364e6f79c7330856359ca2b2c72e18660055eb6774f67dab55ea2923f"
+  },
+  "local_links_checked": 283,
+  "broken_local_links": [],
+  "implementation_files_checked": 135,
+  "implementation_snapshot_matches_tested_code": true,
+  "historical_reports_checked": 17,
+  "historical_report_changes": [],
+  "fresh_child_reports_checked": 6,
+  "fresh_child_report_changes": [],
+  "reviewed_screenshots_checked": 4,
+  "reviewed_screenshot_changes": [],
+  "saved_performance_artifacts_checked": 27,
+  "saved_performance_artifact_changes": [],
+  "git_diff_check_exit_code": 0,
+  "private_env_ignored_by_git": true,
+  "configured_long_secret_scan": {
+    "minimum_characters": 12,
+    "values_checked": 5,
+    "git_visible_files_checked": 438,
+    "matching_files": [],
+    "qualification": "Short ordinary-word passwords are excluded from substring scanning; this is not a general secret-detection audit."
+  },
+  "successful": true
+}

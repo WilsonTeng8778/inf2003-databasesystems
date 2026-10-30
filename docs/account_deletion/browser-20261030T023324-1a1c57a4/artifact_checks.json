@@ -1,0 +1,22 @@
+{
+  "checked_at_utc": "2026-10-29T18:40:08.550204+00:00",
+  "local_links_checked": 263,
+  "broken_links": [],
+  "tested_source_hash_mismatches": [],
+  "historical_evidence_files_checked": 17,
+  "historical_reports_modified": [],
+  "generated_credential_matches_in_tracked_or_unignored_files": [],
+  "git_diff_check_exit_code": 0,
+  "owned_browser_profile_remaining": false,
+  "application_tests_rerun": false,
+  "browser_checks_passed": 238,
+  "documentation_sha256": {
+    "PROJECT_GUIDE.md": "571e14f59a578ae9ff85c1efe86cff858833e732e5653579d35ce79299c99ddb",
+    "README.md": "3c301623bda8a05933b9019b898d53eba6a3506a74cc72c2b35ecff181bb0712",
+    "docs/ACCOUNT_DELETION.md": "93697c0010e94c77a9e88b2f4f4c6807b26534081958745f830c62e2ba205c60",
+    "docs/FINAL_READINESS_REVIEW.md": "ed8bdf4b22630f8f3746ae8b761adc19533b2bac6d9fd0f936164e297b7ac5fe",
+    "docs/FINAL_DEMO_CHECKLIST.md": "a2ca9826e80541c61ef00b1ad3396b6cb4747ddedffefb8d3b0e088d1a843da7",
+    "docs/DATABASE_DESIGN.md": "e5ca8cf7b8706a204fa18ebd0aa7249d56fd5132525bc1aaa2d7e07e5992f0a3"
+  },
+  "successful": true
+}

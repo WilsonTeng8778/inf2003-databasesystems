@@ -1,0 +1,6 @@
+{
+  "recorded_at_utc": "2026-10-29T18:33:20.686877+00:00",
+  "interaction_run_passed": true,
+  "browser_checks_passed": 238,
+  "capture_note": "Account checks inherited the preceding analytics mobile viewport, so the first account-dialog image was mobile-sized despite its desktop-oriented filename. The verifier now explicitly selects desktop size at entry; a new run will provide correctly labelled desktop/mobile evidence. No application code changed."
+}

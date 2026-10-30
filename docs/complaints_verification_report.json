@@ -1,0 +1,258 @@
+{
+  "verified_at_utc": "2026-10-28T15:06:22.716915+00:00",
+  "checks": [
+    {
+      "method": "GET",
+      "path": "/api/health",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/vehicles/search?year=2022&make=HONDA&model=CIVIC",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/complaints?modelYearId=17527&pageSize=3",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/vehicles/safety-profile?year=2022&make=HONDA&model=CIVIC",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/complaints?year=2022&make=+honda+&model=civic&pageSize=3",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/complaints/11771245",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/complaints?modelYearId=17527&pageSize=3&page=2",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/complaints?modelYearId=17527&pageSize=3",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/complaints?modelYearId=17527&page=10000",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/complaints?modelYearId=17527&crash=true&pageSize=3",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/complaints?modelYearId=17527&crash=false&pageSize=3",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/complaints?modelYearId=17527&fire=true&pageSize=3",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/complaints?modelYearId=17527&fire=false&pageSize=3",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/complaints?modelYearId=17527&hasInjuries=true&pageSize=3",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/complaints?modelYearId=17527&hasInjuries=false&pageSize=3",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/complaints?modelYearId=17527&hasFatalities=true&pageSize=3",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/complaints?modelYearId=17527&hasFatalities=false&pageSize=3",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/complaints?modelYearId=17527&component=steering&pageSize=3",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/complaints?modelYearId=17527&receivedFrom=2026-10-14&receivedTo=2026-10-14&pageSize=3",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/complaints?modelYearId=17527&component=STEERING&crash=false&hasInjuries=false&receivedFrom=2020-01-01&receivedTo=2026-12-31&pageSize=3",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/complaints?modelYearId=17527&q=steering&pageSize=3",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/complaints?modelYearId=17527&q=%22steering+wheel%22+-brake&pageSize=3",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/complaints?pageSize=1",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/complaints?make=NO_SUCH_MAKE",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/complaints/99999999999999999999",
+      "status": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/complaints?crash=yes",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/complaints?hasInjuries=null",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/complaints?pageSize=101",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/complaints?page=10001",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/complaints?receivedFrom=2026-02-30",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/complaints?receivedFrom=2026-02-01&receivedTo=2026-01-01",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/complaints?q=",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/complaints?filter%5B%24ne%5D=anything",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/complaints?year=2022&year=2023",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/complaints/invalid",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/complaints/123?unexpected=yes",
+      "status": 400
+    },
+    {
+      "method": "POST",
+      "path": "/api/complaints",
+      "status": 405
+    },
+    {
+      "method": "POST",
+      "path": "/api/complaints/11771245",
+      "status": 405
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/complaints",
+      "status": 405
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/complaints/11771245",
+      "status": 405
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/complaints",
+      "status": 405
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/complaints/11771245",
+      "status": 405
+    }
+  ],
+  "assertions_passed": [
+    "SQL catalogue identity, safety-profile count and MongoDB vehicle-label filters agree: 885 Civic complaints",
+    "list previews and full narrative/provenance details agree with the stored document",
+    "stable ordering, disjoint consecutive pages, repeat reads and empty out-of-range pages",
+    "positive/negative crash/fire and injury/fatality filters match MongoDB, with nulls excluded from false/zero",
+    "array membership, inclusive receipt-date bounds and combined nested filters match stored records",
+    "narrative text search, quoted phrase and exclusion syntax execute through the existing text index",
+    "unfiltered reads, missing results, invalid inputs and attempts to edit imported complaints are handled"
+  ],
+  "record_counts_unchanged": true,
+  "record_counts": {
+    "model_year": 53555,
+    "recall": 13600,
+    "official_investigation": 3626,
+    "app_user": 1,
+    "saved_vehicle": 1,
+    "analysis_case": 0,
+    "fleet": 0,
+    "fleet_vehicle": 0,
+    "work_order": 0,
+    "complaints": 428837,
+    "case_details": 0,
+    "app_session": 0
+  },
+  "example": {
+    "modelYearId": 17527,
+    "make": "HONDA",
+    "model": "CIVIC",
+    "year": 2022,
+    "consumerComplaints": 885,
+    "sampleOdiNumber": "11771245"
+  },
+  "existing_indexes_checked": [
+    "vehicle_received",
+    "vehicle_components",
+    "narrative_text"
+  ],
+  "limitations": [
+    "No fixture records are inserted; null serialization and database outages also have isolated unit coverage.",
+    "Counts and pages are separate reads; a concurrent data refresh can change their results.",
+    "Index existence and working queries do not establish a before/after performance benchmark.",
+    "The visual complaint explorer and analyst-case editing are later work."
+  ]
+}

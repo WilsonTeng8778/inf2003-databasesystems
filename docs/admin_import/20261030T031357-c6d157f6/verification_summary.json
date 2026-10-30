@@ -1,0 +1,41 @@
+{
+  "recorded_at_utc": "2026-10-29T19:32:03.390537+00:00",
+  "verification_date_local": "2026-10-30",
+  "timezone": "Asia/Kuala_Lumpur",
+  "g2_acceptance": "COMPLETE",
+  "supported_entry_point": "Local ADMIN-authenticated terminal helper: scripts/admin_import.py; web monitoring stays read-only.",
+  "automated_tests": 196,
+  "native_checks": 32,
+  "native_report": "native_report.json",
+  "automated_report": "automated_tests.json",
+  "real_source_import_run": false,
+  "original_counts_and_import_history_retained": true,
+  "fixture_schema_database_files_removed": true,
+  "schema_version_changed": false,
+  "application_sql_grants_expanded": false,
+  "browser_suite_rerun": false,
+  "previous_browser_evidence": "../../account_deletion/browser-20261030T023324-1a1c57a4/frontend_report.json",
+  "source_sha256": {
+    "etl/runner.py": "551609e5faa57218aef42e3cb1d5c2dd154b284a08082dea11afd772e921c12e",
+    "scripts/admin_import.py": "0528473740cf1fec1effacd64022ce95b2658cb47a24ba228703842e24daa16c",
+    "scripts/import_all.py": "f2a299081f31e2586bdd0e625264767c92f14395c4b73ed2f61c37ba2c7499c9",
+    "scripts/verify_admin_import.py": "43675169bb4ce231fdf7ed5ae3c4210d3cdf57e8f5555a723b6b9b9b7b6159d2",
+    "tests/test_admin_import.py": "725b0258b7f2b6f97ab4171e3fca5961a9465f88b8424d16267fc950d7506cef",
+    "backend/templates/admin_imports.html": "95d2fd4cc94fd4e7a5a4df81773da44c36d7cfebbfa85359b3f5a849d6f6e7ea",
+    "etl/source.py": "7005650808a3770eb97e93a651e1c13fb5fdfdabbae0aa49efbe7311123e47ab",
+    "etl/common.py": "f7f13c0cf7d38cf6ccf4a769584d36b98eb6a5ff5e3f13e265e1424f90cf4993",
+    "etl/catalogue.py": "97f8a015ea27d8e1880bdbddfd3f4671b5b1c497eeed269ac38e49b9e97ce615",
+    "etl/import_recalls.py": "b5c046d017d31c494723072eefb38209960a1bd02223564b244fbd7956f31990",
+    "etl/import_investigations.py": "7c02cb8c33c5e1bfd7315ea6bb86666b91f008567f2bb1ba894b1dcd2ee67e96",
+    "etl/import_complaints.py": "b17ee22ef5cd4b4653e743c0e11acff9b1b054141bd83054cf192b9d7613a403",
+    "scripts/local_api.py": "b52027bb4df4d319509112c633e3be9abe1a45da8742c41c47e2d0dbb97c67d5"
+  },
+  "limitations": [
+    "Local setup credentials remain necessary alongside the application ADMIN sign-in.",
+    "Permission is checked at the start boundary; earlier stages and MongoDB batches can remain after a later failure.",
+    "Actual import history has per-stage outcomes, not a persistent requester/job queue.",
+    "Abrupt interruption can leave a RUNNING audit row.",
+    "Small real ETL fixtures do not establish full-volume throughput or teammate installation readiness.",
+    "The final integrated rehearsal and submission deliverables remain pending."
+  ]
+}

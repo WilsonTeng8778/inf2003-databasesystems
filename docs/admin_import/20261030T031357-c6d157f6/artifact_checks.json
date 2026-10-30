@@ -1,0 +1,20 @@
+{
+  "checked_at_utc": "2026-10-29T19:32:04.111723+00:00",
+  "local_links_checked": 264,
+  "broken_links": [],
+  "tested_source_changes": [],
+  "historical_reports_modified": [],
+  "generated_credential_matches": [],
+  "personal_env_ignored": true,
+  "git_diff_check_exit_code": 0,
+  "owned_unit_fixture_folders_remaining": [],
+  "documentation_sha256": {
+    "PROJECT_GUIDE.md": "41271fd33c414cbf092e76cbba4fb51027bea2843f5c447cf86931aca08e522a",
+    "README.md": "716f8184550f4510dbac97a454db73fb860941467c4038e2e85640ec7cb6f77a",
+    "docs/ADMIN_IMPORT.md": "e116b807fd7b2d323fdd7c6140a742271324f6b6e76aab9f182a561abdeaa33e",
+    "docs/FINAL_READINESS_REVIEW.md": "dfbee35a58031560d93d1905df4b69d041b43e0894ba25dd77694891878c6ecd",
+    "docs/FINAL_DEMO_CHECKLIST.md": "96a27e546e91c4627cfc86c9ad71accfd799d5d2266c5344b601706be1420879",
+    "docs/DATABASE_DESIGN.md": "a18e31b91a75f55db30c9b40b80d6f90d59b2350ff4aafe2268cdcd24fe92427"
+  },
+  "successful": true
+}

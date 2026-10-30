@@ -1,0 +1,176 @@
+{
+  "explainVersion": "1",
+  "queryPlanner": {
+    "namespace": "vehicle_safety.bench_393f2a545a1a472ca185b43928426da4",
+    "parsedQuery": {
+      "$and": [
+        {
+          "modelYearId": {
+            "$eq": 17527
+          }
+        },
+        {
+          "receivedDate": {
+            "$lte": "2026-10-22T23:59:59.999000"
+          }
+        },
+        {
+          "receivedDate": {
+            "$gte": "2020-01-01T00:00:00"
+          }
+        }
+      ]
+    },
+    "indexFilterSet": false,
+    "queryHash": "DAC1DA40",
+    "planCacheShapeHash": "DAC1DA40",
+    "planCacheKey": "AD46B23D",
+    "optimizationTimeMillis": 0,
+    "optimizationTimeMicros": 184,
+    "maxIndexedOrSolutionsReached": false,
+    "maxIndexedAndSolutionsReached": false,
+    "maxScansToExplodeReached": false,
+    "prunedSimilarIndexes": false,
+    "winningPlan": {
+      "isCached": false,
+      "stage": "PROJECTION_SIMPLE",
+      "transformBy": {
+        "odiNumber": 1,
+        "modelYearId": 1,
+        "vehicle": 1,
+        "components": 1,
+        "incident": 1,
+        "receivedDate": 1,
+        "incidentDate": 1,
+        "narrative": 1
+      },
+      "inputStage": {
+        "stage": "SORT",
+        "sortPattern": {
+          "receivedDate": -1,
+          "_id": -1
+        },
+        "memLimit": 104857600,
+        "limitAmount": 20,
+        "type": "simple",
+        "inputStage": {
+          "stage": "COLLSCAN",
+          "filter": {
+            "$and": [
+              {
+                "modelYearId": {
+                  "$eq": 17527
+                }
+              },
+              {
+                "receivedDate": {
+                  "$lte": "2026-10-22T23:59:59.999000"
+                }
+              },
+              {
+                "receivedDate": {
+                  "$gte": "2020-01-01T00:00:00"
+                }
+              }
+            ]
+          },
+          "nss": "vehicle_safety.bench_393f2a545a1a472ca185b43928426da4",
+          "direction": "forward"
+        }
+      }
+    },
+    "rejectedPlans": []
+  },
+  "executionStats": {
+    "executionSuccess": true,
+    "nReturned": 20,
+    "executionTimeMillis": 424,
+    "executionTimeMicros": 424915,
+    "totalKeysExamined": 0,
+    "totalDocsExamined": 428837,
+    "executionStages": {
+      "isCached": false,
+      "stage": "PROJECTION_SIMPLE",
+      "nReturned": 20,
+      "executionTimeMillisEstimate": 337,
+      "works": 428859,
+      "advanced": 20,
+      "needTime": 428838,
+      "needYield": 0,
+      "saveState": 28,
+      "restoreState": 28,
+      "isEOF": 1,
+      "transformBy": {
+        "odiNumber": 1,
+        "modelYearId": 1,
+        "vehicle": 1,
+        "components": 1,
+        "incident": 1,
+        "receivedDate": 1,
+        "incidentDate": 1,
+        "narrative": 1
+      },
+      "inputStage": {
+        "stage": "SORT",
+        "nReturned": 20,
+        "executionTimeMillisEstimate": 336,
+        "works": 428859,
+        "advanced": 20,
+        "needTime": 428838,
+        "needYield": 0,
+        "saveState": 28,
+        "restoreState": 28,
+        "isEOF": 1,
+        "sortPattern": {
+          "receivedDate": -1,
+          "_id": -1
+        },
+        "memLimit": 104857600,
+        "limitAmount": 20,
+        "type": "simple",
+        "totalDataSizeSorted": 28245,
+        "usedDisk": false,
+        "spills": 0,
+        "spilledRecords": 0,
+        "spilledBytes": 0,
+        "spilledDataStorageSize": 0,
+        "peakTrackedMemBytes": 31638,
+        "inputStage": {
+          "stage": "COLLSCAN",
+          "filter": {
+            "$and": [
+              {
+                "modelYearId": {
+                  "$eq": 17527
+                }
+              },
+              {
+                "receivedDate": {
+                  "$lte": "2026-10-22T23:59:59.999000"
+                }
+              },
+              {
+                "receivedDate": {
+                  "$gte": "2020-01-01T00:00:00"
+                }
+              }
+            ]
+          },
+          "nReturned": 885,
+          "executionTimeMillisEstimate": 310,
+          "works": 428838,
+          "advanced": 885,
+          "needTime": 427952,
+          "needYield": 0,
+          "saveState": 28,
+          "restoreState": 28,
+          "isEOF": 1,
+          "nss": "vehicle_safety.bench_393f2a545a1a472ca185b43928426da4",
+          "direction": "forward",
+          "docsExamined": 428837,
+          "seeks": 0
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,479 @@
+{
+  "verified_at_utc": "2026-10-28T15:36:42.918259+00:00",
+  "checks": [
+    {
+      "method": "GET",
+      "path": "/api/health",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/vehicles/search?year=2022&make=HONDA&model=CIVIC",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/vehicles/safety-profile?year=2022&make=HONDA&model=CIVIC",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/recalls?modelYearId=17527&pageSize=3",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/investigations?modelYearId=17527&pageSize=3",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/recalls?make=+honda+&model=civic&year=2022&pageSize=3",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/investigations?make=+honda+&model=civic&year=2022&pageSize=3",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/recalls/26V332000",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/investigations/EA23003",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/recalls/26v332000",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/investigations/ea23003",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/recalls/26V332000/vehicles?pageSize=3",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/recalls/26V332000/vehicles?page=10000",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/investigations/EA23003/vehicles?pageSize=3",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/investigations/EA23003/vehicles?page=10000",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/recalls?doNotDrive=true&pageSize=3",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/recalls?parkOutside=true&pageSize=3",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/recalls?doNotDrive=false&pageSize=3",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/recalls?parkOutside=false&pageSize=3",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/investigations?status=open&pageSize=3",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/investigations?status=closed&pageSize=3",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/investigations?investigationType=ea&pageSize=3",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/recalls?reportFrom=2026-05-21&reportTo=2026-05-21&pageSize=3",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/investigations?openedFrom=2023-11-29&openedTo=2023-11-29&pageSize=3",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/recalls?modelYearId=17527&component=AIR+BAGS%3ASENSOR%3AOCCUPANT+CLASSIFICATION%3AFRONT+PASSENGER&manufacturer=HONDA+%28AMERICAN+HONDA+MOTOR+CO.%29&pageSize=3",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/investigations?modelYearId=17527&component=STEERING&manufacturer=HONDA+%28AMERICAN+HONDA+MOTOR+CO.%29&pageSize=3",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/recalls/21V058000",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/recalls/21V058000/records?pageSize=1",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/recalls/21V058000/records?pageSize=1&page=2",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/investigations/EA15001",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/recalls?pageSize=1",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/recalls?make=NO_SUCH_MAKE",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/recalls?pageSize=101",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/recalls?page=10001",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/recalls?year=bad",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/recalls?unexpected=yes",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/recalls?year=2022&year=2023",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/investigations?pageSize=1",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/investigations?make=NO_SUCH_MAKE",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/investigations?pageSize=101",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/investigations?page=10001",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/investigations?year=bad",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/investigations?unexpected=yes",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/investigations?year=2022&year=2023",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/recalls?doNotDrive=null",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/recalls?reportFrom=2026-02-30",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/investigations?status=PENDING",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/investigations?openedFrom=2026-02-01&openedTo=2026-01-01",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/recalls/bad-number",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/recalls/MISSINGRECORD",
+      "status": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/recalls/MISSINGRECORD/vehicles",
+      "status": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/investigations/bad-number",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/investigations/MISSINGRECORD",
+      "status": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/investigations/MISSINGRECORD/vehicles",
+      "status": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/recalls/MISSINGRECORD/records",
+      "status": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/recalls/26V332000/vehicles?pageSize=101",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/recalls/26V332000/records?pageSize=101",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/investigations/EA23003/vehicles?pageSize=101",
+      "status": 400
+    },
+    {
+      "method": "POST",
+      "path": "/api/recalls",
+      "status": 405
+    },
+    {
+      "method": "POST",
+      "path": "/api/recalls/26V332000",
+      "status": 405
+    },
+    {
+      "method": "POST",
+      "path": "/api/recalls/26V332000/records",
+      "status": 405
+    },
+    {
+      "method": "POST",
+      "path": "/api/recalls/26V332000/vehicles",
+      "status": 405
+    },
+    {
+      "method": "POST",
+      "path": "/api/investigations",
+      "status": 405
+    },
+    {
+      "method": "POST",
+      "path": "/api/investigations/EA23003",
+      "status": 405
+    },
+    {
+      "method": "POST",
+      "path": "/api/investigations/EA23003/vehicles",
+      "status": 405
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/recalls",
+      "status": 405
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/recalls/26V332000",
+      "status": 405
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/recalls/26V332000/records",
+      "status": 405
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/recalls/26V332000/vehicles",
+      "status": 405
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/investigations",
+      "status": 405
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/investigations/EA23003",
+      "status": 405
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/investigations/EA23003/vehicles",
+      "status": 405
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/recalls",
+      "status": 405
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/recalls/26V332000",
+      "status": 405
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/recalls/26V332000/records",
+      "status": 405
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/recalls/26V332000/vehicles",
+      "status": 405
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/investigations",
+      "status": 405
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/investigations/EA23003",
+      "status": 405
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/investigations/EA23003/vehicles",
+      "status": 405
+    }
+  ],
+  "assertions_passed": [
+    "vehicle IDs and normalized labels agree with direct SQL and the safety profile: 4 Civic recalls, 2 investigations",
+    "details retain full official text, dates and tri-state flags, with case-insensitive external identifiers",
+    "affected vehicles are unique, sorted, paginated identities with correct total counts",
+    "recall flags, official investigation status/type and inclusive report/open-date bounds match direct SQL",
+    "many-to-many filters avoid duplicate parent rows; inline SQL edge cases verify vehicle+component scope without stored fixtures",
+    "large campaign source rows preserve component/vehicle grain and archive/line provenance with bounded pages",
+    "investigation components/manufacturers are retained and out-of-snapshot recall references remain visible without a broken detail link",
+    "unfiltered/empty lists, missing parent records, invalid queries and attempts to edit official records behave as documented",
+    "SQL reader has SELECT-only public research views and no direct access to account/workflow or official source tables"
+  ],
+  "record_counts_unchanged": true,
+  "record_counts": {
+    "model_year": 53555,
+    "recall": 13600,
+    "official_investigation": 3626,
+    "app_user": 1,
+    "saved_vehicle": 1,
+    "analysis_case": 0,
+    "fleet": 0,
+    "fleet_vehicle": 0,
+    "work_order": 0,
+    "complaints": 428837,
+    "case_details": 0,
+    "app_session": 0,
+    "recall_vehicle": 93743,
+    "recall_record": 219728,
+    "investigation_vehicle": 28647,
+    "investigation_manufacturer": 3943,
+    "investigation_component": 5361,
+    "investigation_recall": 1671
+  },
+  "sql_reader": {
+    "role": "vehicle_safety_reader",
+    "default_read_only": true,
+    "select_only_research_views": [
+      "research_recall",
+      "research_recall_vehicle",
+      "research_recall_record",
+      "research_investigation",
+      "research_investigation_vehicle",
+      "research_investigation_component",
+      "research_investigation_manufacturer",
+      "research_investigation_recall"
+    ],
+    "no_direct_access_to_checked_tables": [
+      "app_user",
+      "app_session",
+      "saved_vehicle",
+      "analysis_case",
+      "fleet",
+      "fleet_vehicle",
+      "work_order",
+      "recall",
+      "official_investigation"
+    ]
+  },
+  "example": {
+    "modelYearId": 17527,
+    "make": "HONDA",
+    "model": "CIVIC",
+    "year": 2022,
+    "recalls": 4,
+    "officialInvestigations": 2,
+    "campaignNumber": "26V332000",
+    "investigationNumber": "EA23003"
+  },
+  "large_campaign": {
+    "campaignNumber": "21V058000",
+    "sourceRecords": 18662
+  },
+  "limitations": [
+    "No fixture records are inserted. Database outages/null serialization have isolated unit coverage.",
+    "Count and page reads are separate and may change during a concurrent import.",
+    "Investigation components are stored at investigation level, not per affected vehicle.",
+    "Vehicle/component mismatch logic also uses inline SQL VALUES; the current snapshot may lack such a mixed campaign.",
+    "These checks are functional evidence, not index performance benchmarks.",
+    "Analyst-case editing, fleet workflows and browser screens remain later work."
+  ]
+}

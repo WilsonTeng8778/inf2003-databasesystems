@@ -22,7 +22,7 @@ class ApiTests(unittest.TestCase):
         self.client = self.app.test_client()
 
     def test_index_links_and_no_database_queries(self):
-        response = self.client.get("/")
+        response = self.client.get("/api")
         self.assertEqual(response.status_code, 200)
         self.assertIn("safetyProfile", response.json["links"])
         self.connect.assert_not_called()

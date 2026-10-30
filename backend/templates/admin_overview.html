@@ -1,0 +1,4 @@
+{% extends 'admin_base.html' %}
+{% block workspace %}
+<div class="interpretation-note"><span class="small-icon" aria-hidden="true">i</span><p id="admin-data-interpretation">Current counts describe the imported snapshot. Import counters describe individual attempts.</p></div><div class="section-heading"><div><p class="eyebrow">REFERENCE DATA INVENTORY</p><h2>What is stored now</h2></div><span class="subtle-chip" id="admin-schema-version"></span></div><p id="admin-datasets-status" class="status-line" role="status"></p><div id="admin-datasets" class="admin-dataset-grid" aria-busy="false"></div><p class="field-hint">A complaint can merge several component rows. Vehicle identities are make/model/year combinations; recall counts are campaigns. These totals are different units.</p>
+{% endblock %}

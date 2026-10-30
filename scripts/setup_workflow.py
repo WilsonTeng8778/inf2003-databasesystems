@@ -1,4 +1,4 @@
-"""Provision limited saved-vehicle access without changing stored project records."""
+"""Provision limited personal saved-vehicle/fleet access while retaining records."""
 
 import os
 import secrets
@@ -18,7 +18,7 @@ def main():
     settings = dotenv_values(path, interpolate=False)
     role = settings.get("WORKFLOW_POSTGRES_USER") or "vehicle_safety_workflow"
     if role in {os.getenv("POSTGRES_USER", "postgres"), settings.get("APP_POSTGRES_USER"),
-                settings.get("AUTH_POSTGRES_USER"), "postgres", "public"}:
+                settings.get("AUTH_POSTGRES_USER"), settings.get("CASE_POSTGRES_USER"), "postgres", "public"}:
         raise ValueError("Workflow access requires its own non-administrator SQL account")
     password = settings.get("WORKFLOW_POSTGRES_PASSWORD")
     with postgres() as connection:
@@ -38,10 +38,17 @@ def main():
         connection.execute(sql.SQL("GRANT SELECT ON vehicle_catalogue,saved_vehicle TO {}").format(sql.Identifier(role)))
         connection.execute(sql.SQL("GRANT INSERT(user_id,model_year_id,nickname),UPDATE(nickname),DELETE ON saved_vehicle TO {}").format(sql.Identifier(role)))
         connection.execute(sql.SQL("GRANT USAGE ON SEQUENCE public.saved_vehicle_saved_vehicle_id_seq TO {}").format(sql.Identifier(role)))
+        connection.execute(sql.SQL('GRANT SELECT ON fleet,fleet_vehicle,work_order,fleet_recall_matches TO {}').format(sql.Identifier(role)))
+        connection.execute(sql.SQL('GRANT INSERT(owner_id,name),UPDATE(name),DELETE ON fleet TO {}').format(sql.Identifier(role)))
+        connection.execute(sql.SQL('GRANT INSERT(fleet_id,model_year_id,label),UPDATE(label),DELETE ON fleet_vehicle TO {}').format(sql.Identifier(role)))
+        connection.execute(sql.SQL('''GRANT INSERT(fleet_vehicle_id,model_year_id,recall_id,notes),
+            UPDATE(status,notes,completed_at),DELETE ON work_order TO {}''').format(sql.Identifier(role)))
+        connection.execute(sql.SQL('''GRANT USAGE ON SEQUENCE fleet_fleet_id_seq,
+            fleet_vehicle_fleet_vehicle_id_seq,work_order_work_order_id_seq TO {}''').format(sql.Identifier(role)))
         connection.execute(sql.SQL("ALTER ROLE {} SET statement_timeout='5s'").format(sql.Identifier(role)))
         set_key(str(path), "WORKFLOW_POSTGRES_USER", role)
         set_key(str(path), "WORKFLOW_POSTGRES_PASSWORD", password)
-    print("Saved-vehicle SQL access ready; credentials saved only in ignored .env. Existing records retained.")
+    print("Saved-vehicle and fleet/work-order SQL access ready; credentials kept in ignored .env. Existing records retained.")
 
 
 if __name__ == "__main__":

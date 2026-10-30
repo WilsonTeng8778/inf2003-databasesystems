@@ -1,0 +1,54 @@
+{
+  "reviewed_at_utc": "2026-10-30T04:31:57.821291+00:00",
+  "local_date": "2026-10-30",
+  "timezone": "Asia/Kuala_Lumpur",
+  "scope": "Initial source/data/manual review candidate built and verified locally. Follow-up documentation and a refreshed final review export are recorded separately. No fresh-install/import/native/browser rerun.",
+  "automated_tests": {
+    "verified_at_utc": "2026-10-30T04:30:49.590692+00:00",
+    "local_date": "2026-10-30",
+    "timezone": "Asia/Kuala_Lumpur",
+    "exit_code": 0,
+    "tests_run": 210,
+    "successful": true,
+    "scope": "Automated suite including eight new package integrity tests. No native database/browser tests or fresh installation rerun."
+  },
+  "initial_checked_export": {
+    "successful": true,
+    "files_verified": 450,
+    "raw_archives_verified": 4,
+    "uncompressed_bytes": 162334391,
+    "sha256": "197c469bdbdb34c9efc0e0933617f31fa4ee473a583b218e70bee8393d294ab5",
+    "bytes": 158610132,
+    "technical_rehearsal": {
+      "evidence": "docs/rehearsals/20261030T040558-cfe0d503/report.json",
+      "previously_tested_files_checked": 135,
+      "previously_tested_files_unchanged": true,
+      "additional_source_files": [
+        "scripts/package_project.py",
+        "tests/test_package_project.py"
+      ],
+      "qualification": "Additional packaging tools/tests are checked separately; this does not renew the earlier application/browser run."
+    },
+    "qualification": "ZIP content/hash validation only; no fresh installation, import or browser run.",
+    "created_at_utc": "2026-10-30T04:31:10.266600+00:00",
+    "archive": "data/processed/packages/20261030T043107Z-145924f2/INF2003_Group19_Source_Data.zip",
+    "configured_long_secret_scan": {
+      "minimum_characters": 12,
+      "values_checked": 5,
+      "matches": 0
+    },
+    "fresh_installation_verified": false,
+    "final_submission_complete": false
+  },
+  "manual_and_tool_files_sha256": {
+    "USER_MANUAL.md": "83db578e190e94c9d41dd0b1f54d2522b65b5be116f07e68f299978e0aecb600",
+    "docs/FRESH_SETUP_CHECKLIST.md": "e24e92a868e660a9be4f31b2fe9c7b540ea59f8d5df76a42de78bc53cdaf2ff8",
+    "docs/SUBMISSION_PACKAGE.md": "8641a28c66559af4f7d0f61ab7298915a1dfea360230ca8344ce930a55330bfe",
+    "scripts/package_project.py": "1cf19def4352b3408f9060b07619cee261bf20de659dd0470475bc2757c7fb0c",
+    "tests/test_package_project.py": "aaa03c4249012fa2ca9c2eeee53814c4bb86ca04ad038ee0dd9a033ff2f4ff4a"
+  },
+  "fresh_installation_verified": false,
+  "application_browser_evidence_renewed": false,
+  "uploaded_or_pushed": false,
+  "successful": true
+}

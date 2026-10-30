@@ -1,0 +1,36 @@
+{
+  "checked_at_utc": "2026-10-30T04:33:54.899251+00:00",
+  "local_date": "2026-10-30",
+  "timezone": "Asia/Kuala_Lumpur",
+  "scope": "Documentation links, referenced script existence and whitespace; no fresh-install/application/browser tests.",
+  "documents_sha256": {
+    "USER_MANUAL.md": "83db578e190e94c9d41dd0b1f54d2522b65b5be116f07e68f299978e0aecb600",
+    "README.md": "333d4c200d0a421a277c9a0cd5b4421062f5af996e22ca702ce0eee8a39025c4",
+    "PROJECT_GUIDE.md": "847e0263cce1a87d6d687bc75028281fbcb8df054880d2510a9a48c80d571056",
+    "docs/SUBMISSION_PACKAGE.md": "8641a28c66559af4f7d0f61ab7298915a1dfea360230ca8344ce930a55330bfe",
+    "docs/FRESH_SETUP_CHECKLIST.md": "e24e92a868e660a9be4f31b2fe9c7b540ea59f8d5df76a42de78bc53cdaf2ff8",
+    "docs/FINAL_READINESS_REVIEW.md": "ca9ced06b83ccb84e3ec6693bd1bbf5af9d002214db42df0e56af3325de221b3",
+    "docs/FINAL_DEMO_CHECKLIST.md": "782ce8a4c8ca1cbc5675aa48086926c9104e0cb08038bb08a4da2033b07ecb3b"
+  },
+  "local_links_checked": 286,
+  "missing_local_links": [],
+  "git_diff_check_exit_code": 0,
+  "package_outputs_ignored_by_git": true,
+  "manual_scripts_checked": [
+    "scripts/admin_import.py",
+    "scripts/check_environment.py",
+    "scripts/create_admin.py",
+    "scripts/import_all.py",
+    "scripts/inspect_data.py",
+    "scripts/package_project.py",
+    "scripts/rehearse_project.py",
+    "scripts/safety_profile.py",
+    "scripts/setup_auth.py",
+    "scripts/setup_cases.py",
+    "scripts/setup_databases.py",
+    "scripts/setup_readonly_user.py",
+    "scripts/setup_workflow.py"
+  ],
+  "missing_manual_scripts": [],
+  "successful": true
+}

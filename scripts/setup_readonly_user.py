@@ -35,7 +35,14 @@ def main():
         connection.execute(sql.SQL("GRANT CONNECT ON DATABASE {} TO {}").format(
             sql.Identifier(database), sql.Identifier(role)))
         connection.execute(sql.SQL("GRANT USAGE ON SCHEMA public TO {}").format(sql.Identifier(role)))
-        connection.execute(sql.SQL("GRANT SELECT ON vehicle_catalogue,vehicle_safety_summary TO {}").format(
+        # Also upgrades an existing installation; no table rebuild or data import.
+        connection.execute((ROOT / "sql/research_views.sql").read_text(encoding="utf-8"), prepare=False)
+        connection.execute((ROOT / "sql/admin_views.sql").read_text(encoding="utf-8"), prepare=False)
+        connection.execute(sql.SQL("""GRANT SELECT ON vehicle_catalogue,vehicle_safety_summary,
+            research_recall,research_recall_vehicle,research_recall_record,research_investigation,
+            research_investigation_vehicle,research_investigation_component,
+            research_investigation_manufacturer,research_investigation_recall,
+            admin_reference_counts,admin_import_runs TO {}""").format(
             sql.Identifier(role)))
         connection.execute(sql.SQL("ALTER ROLE {} SET default_transaction_read_only=on").format(sql.Identifier(role)))
         connection.execute(sql.SQL("ALTER ROLE {} SET statement_timeout='5s'").format(sql.Identifier(role)))

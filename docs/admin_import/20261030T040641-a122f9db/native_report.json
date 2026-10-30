@@ -1,0 +1,189 @@
+{
+  "verified_at_utc": "2026-10-29T20:06:41.611923+00:00",
+  "successful": true,
+  "checks": [
+    "Actual four local archives match the inspected profile; checked without importing",
+    "Signed-out controller request cannot initiate an import",
+    "CLI output excludes its hidden password",
+    "CLI finally revokes its own application session",
+    "Normal/analyst CLI sign-in is denied before ETL",
+    "CLI output excludes its hidden password",
+    "CLI finally revokes its own application session",
+    "Normal/analyst CLI sign-in is denied before ETL",
+    "CLI output excludes its hidden password",
+    "CLI finally revokes its own application session",
+    "Cancelled confirmation runs no stages or audit writes",
+    "An existing project importer lock refuses a second import",
+    "Fresh role lookup blocks access revoked during confirmation",
+    "Fresh session lookup blocks sign-out during confirmation",
+    "Mismatched approved snapshot refuses import before any stage",
+    "Denied, busy and mismatched requests have no import stage audit rows",
+    "CLI output excludes its hidden password",
+    "CLI finally revokes its own application session",
+    "The actual prompted admin CLI completes real isolated ETL",
+    "All four import stages log COMPLETED outcomes",
+    "Actual SQL and MongoDB imports contain expected fixture entities",
+    "Real complaint importer merges repeated component rows into one document",
+    "CLI output excludes its hidden password",
+    "CLI finally revokes its own application session",
+    "Repeat CLI import refreshes entities without duplicate inserts",
+    "CLI output excludes its hidden password",
+    "CLI finally revokes its own application session",
+    "Actual MongoDB rejection produces a failed CLI exit and durable FAILED audit",
+    "Earlier completed stages remain accurately recorded when a later stage fails",
+    "CLI failure prints the exception category without raw document diagnostics",
+    "Shared session lock is available after success and failure",
+    "Import-history template serves the documented terminal entry point"
+  ],
+  "scope": "Real localhost auth and CLI main/controller with actual ETL, owned SQL schema and MongoDB database, and five synthetic raw rows. No full production-data import.",
+  "fixture_namespace": "bench_a122f9db0cb84bdd87a45b6009760b3e",
+  "fixture_schema_removed": true,
+  "fixture_database_removed": true,
+  "real_approved_archives_read_only": [
+    {
+      "dataset": "recalls",
+      "filename": "FLAT_RCL_POST_2010.zip",
+      "sha256": "97ce2503ceb614483645e6942cf59b8e634fa575a5738d6d4b46bbb2ee1c5396",
+      "bytes": 14971029
+    },
+    {
+      "dataset": "investigations",
+      "filename": "FLAT_INV.zip",
+      "sha256": "8d9dc5b71bc41748db6beca22df82a97cbfa2e9f2a7c85dfa0e49155314498c2",
+      "bytes": 4301580
+    },
+    {
+      "dataset": "complaints_2020_2024",
+      "filename": "COMPLAINTS_RECEIVED_2020-2024.zip",
+      "sha256": "21cacbbc1642fd514bfa17e7b31ae898c35404f0ae50478ffcaf235c3dde5884",
+      "bytes": 75874092
+    },
+    {
+      "dataset": "complaints_2025_2026",
+      "filename": "COMPLAINTS_RECEIVED_2025-2026.zip",
+      "sha256": "726c0c208cb0bda2c7f0375fbe23a941e7481f36adb7ec678e8c2814924b4c03",
+      "bytes": 42560546
+    }
+  ],
+  "fixture_import_counts": {
+    "model_year": 1,
+    "recall": 1,
+    "official_investigation": 1,
+    "complaints": 2
+  },
+  "fixture_audit_rows": [
+    {
+      "dataset": "vehicle_catalogue",
+      "status": "COMPLETED",
+      "inserted": 1,
+      "updated": 0,
+      "failure_category": null
+    },
+    {
+      "dataset": "recalls",
+      "status": "COMPLETED",
+      "inserted": 1,
+      "updated": 0,
+      "failure_category": null
+    },
+    {
+      "dataset": "investigations",
+      "status": "COMPLETED",
+      "inserted": 1,
+      "updated": 0,
+      "failure_category": null
+    },
+    {
+      "dataset": "complaints",
+      "status": "COMPLETED",
+      "inserted": 2,
+      "updated": 0,
+      "failure_category": null
+    },
+    {
+      "dataset": "vehicle_catalogue",
+      "status": "COMPLETED",
+      "inserted": 0,
+      "updated": 1,
+      "failure_category": null
+    },
+    {
+      "dataset": "recalls",
+      "status": "COMPLETED",
+      "inserted": 0,
+      "updated": 1,
+      "failure_category": null
+    },
+    {
+      "dataset": "investigations",
+      "status": "COMPLETED",
+      "inserted": 0,
+      "updated": 1,
+      "failure_category": null
+    },
+    {
+      "dataset": "complaints",
+      "status": "COMPLETED",
+      "inserted": 0,
+      "updated": 2,
+      "failure_category": null
+    },
+    {
+      "dataset": "vehicle_catalogue",
+      "status": "COMPLETED",
+      "inserted": 0,
+      "updated": 1,
+      "failure_category": null
+    },
+    {
+      "dataset": "recalls",
+      "status": "COMPLETED",
+      "inserted": 0,
+      "updated": 1,
+      "failure_category": null
+    },
+    {
+      "dataset": "investigations",
+      "status": "COMPLETED",
+      "inserted": 0,
+      "updated": 1,
+      "failure_category": null
+    },
+    {
+      "dataset": "complaints",
+      "status": "FAILED",
+      "inserted": 0,
+      "updated": 0,
+      "failure_category": "BulkWriteError"
+    }
+  ],
+  "console_success_example": "Approved local archives (checked against the inspected SHA-256 fingerprints):\n  FLAT_RCL_POST_2010.zip (248 bytes)\n    SHA-256: 508189356435133e5ee065297a1060e84c4db8b9b6c34d64c3ebc4fdfd0f8f7e\n  FLAT_INV.zip (239 bytes)\n    SHA-256: c5ee44d4a2cc8295f926e5eba991d9c9311d7e9e15366349e558b5cfd5892e47\n  COMPLAINTS_RECEIVED_2020-2024.zip (289 bytes)\n    SHA-256: 47a1b178c140299188b97228a29725c41f013bb45d2459f95fe7c0098e20e524\n  COMPLAINTS_RECEIVED_2025-2026.zip (263 bytes)\n    SHA-256: c43f82d021c8acb3765048bb06ec9bfebb06a98fbf6a1bc05fc3dead65dc50b7\nThis refreshes existing reference data using the current import rules. Users, saves, cases and fleets are retained.\nCompleted stages and MongoDB batches can remain if a later stage fails. Outcomes appear in Admin > Import history.\nImporting vehicle_catalogue...\nvehicle_catalogue: 5 rows read; 1 entities inserted; 0 existing entities refreshed; 0 out of scope; 0 rejected\nImporting recalls...\nrecalls: 1 rows read; 1 entities inserted; 0 existing entities refreshed; 0 out of scope; 0 rejected\nImporting investigations...\ninvestigations: 1 rows read; 1 entities inserted; 0 existing entities refreshed; 0 out of scope; 0 rejected\nImporting complaints...\ncomplaints: 3 rows read; 2 entities inserted; 0 existing entities refreshed; 0 out of scope; 0 rejected\nImport completed. Review the per-dataset outcomes in Admin > Import history.\n",
+  "console_failure_example": "Approved local archives (checked against the inspected SHA-256 fingerprints):\n  FLAT_RCL_POST_2010.zip (248 bytes)\n    SHA-256: 508189356435133e5ee065297a1060e84c4db8b9b6c34d64c3ebc4fdfd0f8f7e\n  FLAT_INV.zip (239 bytes)\n    SHA-256: c5ee44d4a2cc8295f926e5eba991d9c9311d7e9e15366349e558b5cfd5892e47\n  COMPLAINTS_RECEIVED_2020-2024.zip (289 bytes)\n    SHA-256: 47a1b178c140299188b97228a29725c41f013bb45d2459f95fe7c0098e20e524\n  COMPLAINTS_RECEIVED_2025-2026.zip (263 bytes)\n    SHA-256: c43f82d021c8acb3765048bb06ec9bfebb06a98fbf6a1bc05fc3dead65dc50b7\nThis refreshes existing reference data using the current import rules. Users, saves, cases and fleets are retained.\nCompleted stages and MongoDB batches can remain if a later stage fails. Outcomes appear in Admin > Import history.\nImporting vehicle_catalogue...\nvehicle_catalogue: 5 rows read; 0 entities inserted; 1 existing entities refreshed; 0 out of scope; 0 rejected\nImporting recalls...\nrecalls: 1 rows read; 0 entities inserted; 1 existing entities refreshed; 0 out of scope; 0 rejected\nImporting investigations...\ninvestigations: 1 rows read; 0 entities inserted; 1 existing entities refreshed; 0 out of scope; 0 rejected\nImporting complaints...\nImport command failed (BulkWriteError). Check the local services, source files and import history.\n",
+  "native_checks_passed": true,
+  "existing_import_history_retained": true,
+  "fixture_files_removed": true,
+  "existing_record_counts_retained": true,
+  "record_counts": {
+    "model_year": 53555,
+    "recall": 13600,
+    "official_investigation": 3626,
+    "app_user": 2,
+    "saved_vehicle": 1,
+    "analysis_case": 0,
+    "fleet": 0,
+    "fleet_vehicle": 0,
+    "work_order": 0,
+    "complaints": 428837,
+    "case_details": 0,
+    "app_session": 1,
+    "recall_vehicle": 93743,
+    "recall_record": 219728,
+    "investigation_vehicle": 28647,
+    "investigation_manufacturer": 3943,
+    "investigation_component": 5361,
+    "investigation_recall": 1671,
+    "case_content_operation": 0,
+    "case_status_history": 0
+  },
+  "finished_at_utc": "2026-10-29T20:06:47.063970+00:00"
+}

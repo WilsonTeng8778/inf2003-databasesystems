@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="profile-heading"><div><p class="eyebrow">YOUR PERSONAL COLLECTION</p><h1>My vehicles</h1><p class="intro">Keep the vehicles you care about within reach.</p></div><a href="{{ url_for('pages.search') }}" class="button button-primary">Find a vehicle <span aria-hidden="true">→</span></a></section>
+<p id="saved-status" class="status-line" role="status" aria-live="polite"></p>
+<section id="saved-content" aria-label="Your saved vehicles" aria-busy="true"><div class="empty-state panel"><div class="loading-ring" aria-hidden="true"></div><p>Loading your vehicle list…</p></div></section>
+<div id="saved-pagination" class="pagination" hidden></div>
+<dialog id="remove-dialog" aria-labelledby="remove-title"><form id="remove-form"><p class="eyebrow">MANAGE YOUR LIST</p><h2 id="remove-title">Remove saved vehicle?</h2><p id="remove-description" class="muted"></p><p id="remove-status" class="status-line" role="status"></p><div class="dialog-actions"><button class="button button-quiet" type="button" data-close-dialog="remove-dialog">Keep vehicle</button><button class="button button-danger" id="confirm-remove" type="submit">Remove vehicle</button></div></form></dialog>
+{% endblock %}

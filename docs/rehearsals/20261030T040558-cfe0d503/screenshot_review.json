@@ -1,0 +1,35 @@
+{
+  "reviewed_at_utc": "2026-10-29T20:18:03.606632+00:00",
+  "scope": "Representative visual inspection after the integrated run; not every screenshot or a full accessibility audit.",
+  "screenshots": [
+    {
+      "path": "docs/account_deletion/browser-20261030T040648-93e1432a/screenshots/admin-imports.png",
+      "width": 1425,
+      "height": 1470,
+      "sha256": "227190c4f051137f20f30ac17f57d101992f153aaa3bff14b16e0e94f36041ab",
+      "reviewed": true
+    },
+    {
+      "path": "docs/account_deletion/browser-20261030T040648-93e1432a/screenshots/case-detail-desktop.png",
+      "width": 1425,
+      "height": 2249,
+      "sha256": "dfe4d91cd15d76e2431edbf99b3fb52f3fbeb035b737b09325c46c1d704702f2",
+      "reviewed": true
+    },
+    {
+      "path": "docs/account_deletion/browser-20261030T040648-93e1432a/screenshots/work-order-desktop.png",
+      "width": 1425,
+      "height": 1135,
+      "sha256": "4ce3a6265fdd149614a6c3a6f3f1b6329c9a23cc816804cd36c03adcfa604a51",
+      "reviewed": true
+    },
+    {
+      "path": "docs/account_deletion/browser-20261030T040648-93e1432a/screenshots/account-delete-mobile.png",
+      "width": 358,
+      "height": 427,
+      "sha256": "bd75d692203ad747b3dd43b0dbe9528d176cff0e591a568a7eb39ef979e1a4ee",
+      "reviewed": true
+    }
+  ],
+  "blocking_visual_issues_found": false
+}

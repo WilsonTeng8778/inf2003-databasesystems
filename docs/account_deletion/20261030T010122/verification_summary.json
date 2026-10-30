@@ -1,0 +1,43 @@
+{
+  "recorded_at_utc": "2026-10-29T17:11:32.330353+00:00",
+  "verification_date_local": "2026-10-30",
+  "timezone": "Asia/Kuala_Lumpur",
+  "automated_tests": {
+    "command": ".\\.venv\\Scripts\\python.exe -m unittest discover -s tests -v",
+    "tests_run": 183,
+    "failures": 0,
+    "errors": 0,
+    "result": "OK",
+    "elapsed_seconds": 10.273,
+    "evidence_origin": "Recorded from the successful CLI runner output; not a second test run."
+  },
+  "javascript_syntax_checks": [
+    "node --check backend/static/admin.js",
+    "node --check scripts/browser_account_checks.mjs"
+  ],
+  "native_report": "native_report.json",
+  "api_report": "../api-20261030T010707-3f7c8a09/api_report.json",
+  "browser_verification": {
+    "executed": false,
+    "command": ".\\.venv\\Scripts\\python.exe scripts/verify_frontend.py --accounts",
+    "status": "PENDING",
+    "blocker": "Automatic approval review could not complete because its selected model was at capacity. Three attempts were not executed; this was not a safety determination."
+  },
+  "existing_accounts_deleted": false,
+  "full_import_run": false,
+  "source_sha256": {
+    "sql/migrations/004_account_deletion.sql": "a4cc197328f3f3d928744c5e5dddb85f2f56f549aed20bcab84588f652ed0290",
+    "scripts/setup_account_deletion.py": "0555809c69bc17cbd8158d968822e3f38dc9122ec4948dd33036113817b1d524",
+    "scripts/setup_auth.py": "060ec0de22780ccc28b1cd39d6f271aad82b7772cca495d7796851da6fbb357a",
+    "backend/auth.py": "7c0543194307b1949ad2919319970bd56e317d613255f4edb25052d101d100a9",
+    "backend/services/auth.py": "4d423d59f47cca39ba5f1f37b3304ece0b760b0f484a07d2ff8dd11a68e0f7d1",
+    "backend/static/admin.js": "63befa6f40bba8be4639db43afa0000d6ae16b03f21c9d36b6878067c2f7106a",
+    "backend/templates/admin_base.html": "bc20fcd49938d3c25a8a5f36256a2bf63477e62c520057f4bf05c7a7338c2e3f",
+    "backend/templates/admin_users.html": "775004d4967081b7a62237dc1296d74077e0b35d98a9d1e5d5e2015e79264951",
+    "scripts/verify_account_deletion.py": "f4a69f4c56fa74607513b1da0e4657922840cfbf98874a4c6c35a92085632553",
+    "scripts/verify_account_api.py": "869f3854886321fbc4836e1937aa4b1e74e9c781347cfc7bfb73610ef1fb63b5",
+    "scripts/browser_account_checks.mjs": "ff00537be9401bc7f1dcf5bdf6813dc335c11155add4f8ca47c00e083a8755bb",
+    "scripts/verify_frontend.py": "32e46763dfee4559d5e123e14e7652c0afb433812f56ded3db3065e849f54611",
+    "tests/test_auth.py": "1c7bf4834eeb07ccba119c5551f46dfe957809ff5a7625a771f02c75a5aa5c6d"
+  }
+}

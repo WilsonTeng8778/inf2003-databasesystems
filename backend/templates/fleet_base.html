@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<div id="fleet-page" data-view="{{ fleet_view }}">
+  <section class="profile-heading"><div><p class="eyebrow">PERSONAL RECALL TRACKING</p><h1 id="fleet-page-title">{{ 'My fleets' if fleet_view == 'list' else 'Fleet recall tracking' if fleet_view == 'detail' else 'Recall work order' }}</h1><p class="intro" id="fleet-page-subtitle">Keep your vehicles and recall follow-up together.</p></div><div class="case-heading-actions"><a class="button button-quiet" href="{{ url_for('pages.fleet_list') }}" {% if fleet_view == 'list' %}hidden{% endif %}>All my fleets</a><button id="fleet-refresh" class="button button-quiet" type="button" hidden>Refresh records</button></div></section>
+  <div id="fleet-gate" class="panel empty-state" role="status"><p>Checking your account…</p></div>
+  <p id="fleet-message" class="status-line" role="status" aria-live="polite"></p>
+  <div id="fleet-uncertain" class="notice notice-error" hidden><h2>Change not yet confirmed</h2><p>The connection or server could not confirm the outcome. Refresh the current records and inspect them before submitting another change.</p><button id="fleet-review-records" class="button button-quiet button-small" type="button">Refresh and review records</button></div>
+  <div id="fleet-workspace" hidden>{% block workspace %}{% endblock %}</div>
+  <dialog id="fleet-confirm-dialog" aria-labelledby="fleet-confirm-title"><form id="fleet-confirm-form" method="post"><p class="eyebrow">CONFIRM REMOVAL</p><h2 id="fleet-confirm-title">Remove this item?</h2><p id="fleet-confirm-description" class="muted"></p><div class="dialog-actions"><button class="button button-quiet" type="button" data-close-dialog="fleet-confirm-dialog">Cancel</button><button class="button button-danger" id="fleet-confirm-submit" data-fleet-write type="submit">Confirm removal</button></div></form></dialog>
+</div>
+{% endblock %}

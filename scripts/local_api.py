@@ -26,8 +26,10 @@ class LocalApi:
         self.cookies = http.cookiejar.CookieJar()
         self.opener = build_opener(ProxyHandler({}), HTTPCookieProcessor(self.cookies))
 
-    def request(self, path, body=None, *, method=None):
-        headers = {"Content-Type": "application/json"} if body is not None else {}
+    def request(self, path, body=None, *, method=None, headers=None):
+        headers = dict(headers or {})
+        if body is not None:
+            headers["Content-Type"] = "application/json"
         if self.csrf_token:
             headers["X-CSRF-Token"] = self.csrf_token
         data = json.dumps(body).encode("utf-8") if body is not None else None

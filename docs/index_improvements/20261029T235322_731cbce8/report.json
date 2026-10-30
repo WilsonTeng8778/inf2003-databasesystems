@@ -1,0 +1,339 @@
+{
+  "started_at_utc": "2026-10-29T15:53:22.976680+00:00",
+  "successful": true,
+  "checks": [
+    {
+      "name": "Eight service pages/counts/fields/order unchanged",
+      "passed": true
+    },
+    {
+      "name": "Both ordered fetch results unchanged",
+      "passed": true
+    },
+    {
+      "name": "Both live queries use the new index without a blocking sort",
+      "passed": true
+    },
+    {
+      "name": "Every prior complaint index retained unchanged",
+      "passed": true
+    },
+    {
+      "name": "All public SQL counts/indexes and Mongo counts/other indexes unchanged",
+      "passed": true
+    }
+  ],
+  "service_scenarios": [
+    {
+      "filters": {
+        "model_year_id": 17527,
+        "received_from": "2020-01-01",
+        "received_to": "2026-10-22"
+      },
+      "page": 1
+    },
+    {
+      "filters": {
+        "model_year_id": 17527,
+        "received_from": "2020-01-01",
+        "received_to": "2026-10-22"
+      },
+      "page": 2
+    },
+    {
+      "filters": {
+        "model_year_id": 17527,
+        "received_from": "2026-01-01",
+        "received_to": "2026-10-22"
+      },
+      "page": 1
+    },
+    {
+      "filters": {
+        "model_year_id": 17527,
+        "received_from": "2026-01-01",
+        "received_to": "2026-10-22"
+      },
+      "page": 2
+    },
+    {
+      "filters": {
+        "model_year_id": 17527,
+        "component": "STEERING"
+      },
+      "page": 1
+    },
+    {
+      "filters": {
+        "model_year_id": 17527,
+        "component": "STEERING"
+      },
+      "page": 2
+    },
+    {
+      "filters": {
+        "model_year_id": 17527,
+        "received_from": "1900-01-01",
+        "received_to": "1900-12-31"
+      },
+      "page": 1
+    },
+    {
+      "filters": {
+        "model_year_id": 17527,
+        "received_from": "1900-01-01",
+        "received_to": "1900-12-31"
+      },
+      "page": 2
+    }
+  ],
+  "index_existed_before": false,
+  "before": [
+    {
+      "id": "mongo_complaints_full_window",
+      "warmup_ms": [
+        8.3794,
+        4.8852,
+        6.7136
+      ],
+      "samples_ms": [
+        3.2348,
+        2.8111,
+        3.0313,
+        2.9609,
+        3.1689,
+        3.2714,
+        4.3862,
+        1.5511,
+        1.4987,
+        1.4579,
+        1.3702,
+        1.5476,
+        1.4405,
+        1.407,
+        1.3944
+      ],
+      "result_count": 20,
+      "ordered_result_sha256": "6e64435c0448ceacfb92d8b53d10788767c8d248f487e7fd6706edbbd3097442",
+      "summary": {
+        "n": 15,
+        "median_ms": 1.5511,
+        "p25_ms": 1.4491999999999998,
+        "p75_ms": 3.1001,
+        "min_ms": 1.3702,
+        "max_ms": 4.3862
+      },
+      "metrics": {
+        "nReturned": 20,
+        "executionTimeMillis": 2,
+        "totalDocsExamined": 885,
+        "totalKeysExamined": 885,
+        "winning_stages": [
+          "FETCH",
+          "IXSCAN",
+          "PROJECTION_SIMPLE",
+          "SORT"
+        ],
+        "winning_indexes": [
+          "vehicle_received"
+        ]
+      },
+      "plan_file": "mongo_complaints_full_window_before_plan.json"
+    },
+    {
+      "id": "mongo_complaints_2026",
+      "warmup_ms": [
+        0.6337,
+        0.5191,
+        0.4785
+      ],
+      "samples_ms": [
+        0.5658,
+        0.5098,
+        0.5088,
+        0.4559,
+        0.5499,
+        0.4771,
+        0.4475,
+        0.4257,
+        0.4894,
+        0.4975,
+        0.5147,
+        0.5112,
+        0.4638,
+        0.4654,
+        0.4823
+      ],
+      "result_count": 20,
+      "ordered_result_sha256": "6e64435c0448ceacfb92d8b53d10788767c8d248f487e7fd6706edbbd3097442",
+      "summary": {
+        "n": 15,
+        "median_ms": 0.4894,
+        "p25_ms": 0.4646,
+        "p75_ms": 0.5105,
+        "min_ms": 0.4257,
+        "max_ms": 0.5658
+      },
+      "metrics": {
+        "nReturned": 20,
+        "executionTimeMillis": 0,
+        "totalDocsExamined": 31,
+        "totalKeysExamined": 31,
+        "winning_stages": [
+          "FETCH",
+          "IXSCAN",
+          "PROJECTION_SIMPLE",
+          "SORT"
+        ],
+        "winning_indexes": [
+          "vehicle_received"
+        ]
+      },
+      "plan_file": "mongo_complaints_2026_before_plan.json"
+    }
+  ],
+  "create_index_call_ms": 1457.6944,
+  "after": [
+    {
+      "id": "mongo_complaints_full_window",
+      "warmup_ms": [
+        8.6709,
+        0.9592,
+        0.573
+      ],
+      "samples_ms": [
+        0.4809,
+        0.4733,
+        0.4159,
+        0.3744,
+        0.369,
+        0.3469,
+        0.3537,
+        0.4398,
+        0.3874,
+        0.3428,
+        0.399,
+        0.3655,
+        0.3823,
+        0.3948,
+        0.3726
+      ],
+      "result_count": 20,
+      "ordered_result_sha256": "6e64435c0448ceacfb92d8b53d10788767c8d248f487e7fd6706edbbd3097442",
+      "summary": {
+        "n": 15,
+        "median_ms": 0.3823,
+        "p25_ms": 0.36724999999999997,
+        "p75_ms": 0.40745,
+        "min_ms": 0.3428,
+        "max_ms": 0.4809
+      },
+      "metrics": {
+        "nReturned": 20,
+        "executionTimeMillis": 0,
+        "totalDocsExamined": 20,
+        "totalKeysExamined": 20,
+        "winning_stages": [
+          "FETCH",
+          "IXSCAN",
+          "LIMIT",
+          "PROJECTION_SIMPLE"
+        ],
+        "winning_indexes": [
+          "vehicle_received_ordered"
+        ]
+      },
+      "plan_file": "mongo_complaints_full_window_after_plan.json"
+    },
+    {
+      "id": "mongo_complaints_2026",
+      "warmup_ms": [
+        0.4779,
+        0.4668,
+        0.4584
+      ],
+      "samples_ms": [
+        0.3919,
+        0.3677,
+        0.3795,
+        0.3828,
+        0.3567,
+        0.3419,
+        0.3243,
+        0.3299,
+        0.3992,
+        0.3631,
+        0.3966,
+        0.3946,
+        0.358,
+        0.3485,
+        0.3265
+      ],
+      "result_count": 20,
+      "ordered_result_sha256": "6e64435c0448ceacfb92d8b53d10788767c8d248f487e7fd6706edbbd3097442",
+      "summary": {
+        "n": 15,
+        "median_ms": 0.3631,
+        "p25_ms": 0.34519999999999995,
+        "p75_ms": 0.38734999999999997,
+        "min_ms": 0.3243,
+        "max_ms": 0.3992
+      },
+      "metrics": {
+        "nReturned": 20,
+        "executionTimeMillis": 0,
+        "totalDocsExamined": 20,
+        "totalKeysExamined": 20,
+        "winning_stages": [
+          "FETCH",
+          "IXSCAN",
+          "LIMIT",
+          "PROJECTION_SIMPLE"
+        ],
+        "winning_indexes": [
+          "vehicle_received_ordered"
+        ]
+      },
+      "plan_file": "mongo_complaints_2026_after_plan.json"
+    }
+  ],
+  "service_result_hashes_before": [
+    "921a16140ad850fece5b769f3eb3f7224626da455b94d3b4b84613d41e8ce7b9",
+    "a39dc6cb91cf74dffc319177b9321bf038ce52f79cdd3079cd557908b2d4d399",
+    "b16cf13574869af232423c11c0e63b7fad836ba40f07f6bc72123f6a917289f8",
+    "232a87238b8b60685ef10639a34b44e62fcc1f0a83b33a4dc04359bb3badc53e",
+    "48d4664cdccb765784c6a95ca70633d08519ff9610d94810fee0adc0f41c4e3d",
+    "b23d60785b3af0b74f580f6d6aba454e5b4611fab784a19ff44dff8f62c7fd64",
+    "8230d0030ecca74179ae5aad03b1ae7eaabddab4834f4feb53110435aeb5ed70",
+    "5f85b4261655a09146cf9c4d95a3161c58cb73c84c1b3a4c72d7d5509cafb71f"
+  ],
+  "service_result_hashes_after": [
+    "921a16140ad850fece5b769f3eb3f7224626da455b94d3b4b84613d41e8ce7b9",
+    "a39dc6cb91cf74dffc319177b9321bf038ce52f79cdd3079cd557908b2d4d399",
+    "b16cf13574869af232423c11c0e63b7fad836ba40f07f6bc72123f6a917289f8",
+    "232a87238b8b60685ef10639a34b44e62fcc1f0a83b33a4dc04359bb3badc53e",
+    "48d4664cdccb765784c6a95ca70633d08519ff9610d94810fee0adc0f41c4e3d",
+    "b23d60785b3af0b74f580f6d6aba454e5b4611fab784a19ff44dff8f62c7fd64",
+    "8230d0030ecca74179ae5aad03b1ae7eaabddab4834f4feb53110435aeb5ed70",
+    "5f85b4261655a09146cf9c4d95a3161c58cb73c84c1b3a4c72d7d5509cafb71f"
+  ],
+  "index_definition": {
+    "v": 2,
+    "key": [
+      [
+        "modelYearId",
+        1
+      ],
+      [
+        "receivedDate",
+        -1
+      ],
+      [
+        "_id",
+        -1
+      ]
+    ]
+  },
+  "new_index_size_bytes": 9490432,
+  "finished_at_utc": "2026-10-29T15:53:25.087184+00:00"
+}

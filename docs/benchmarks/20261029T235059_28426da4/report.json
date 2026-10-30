@@ -1,0 +1,2141 @@
+{
+  "run_id": "20261029T235059_28426da4",
+  "started_at_utc": "2026-10-29T15:50:59.965239+00:00",
+  "local_timezone": "Asia/Kuala_Lumpur",
+  "namespace": "bench_393f2a545a1a472ca185b43928426da4",
+  "method": {
+    "measured_samples_per_round": 15,
+    "excluded_warmups_per_round": 3,
+    "rounds": 2,
+    "cache": "Warm OS/DB cache; no cache flush or DB restart",
+    "timing": "Client wall time through full fetch/decode; excludes hashing and EXPLAIN",
+    "connections": "One reused local connection per DB; PostgreSQL auto-prepare disabled",
+    "hints": "None; optimizers choose plans",
+    "postgres_phase_order": [
+      "baseline",
+      "indexed",
+      "indexed",
+      "baseline"
+    ],
+    "mongo_phase_order": [
+      "baseline",
+      "current",
+      "candidate",
+      "candidate",
+      "current",
+      "baseline"
+    ],
+    "baseline": "Primary-key indexes retained; secondary workload indexes removed only from copies"
+  },
+  "workloads": [
+    {
+      "id": "pg_recall_lookup",
+      "definition": {
+        "sql": "\nSELECT r.campaign_number, r.report_date, r.summary\nFROM \"bench_393f2a545a1a472ca185b43928426da4\".\"recall_vehicle\" rv JOIN \"bench_393f2a545a1a472ca185b43928426da4\".\"recall\" r ON r.recall_id=rv.recall_id\nWHERE rv.model_year_id=%s\nORDER BY r.report_date DESC NULLS LAST, r.campaign_number",
+        "parameters": [
+          17527
+        ]
+      },
+      "database": "PostgreSQL",
+      "phases": {
+        "baseline": {
+          "rounds": [
+            {
+              "warmup_ms": [
+                4.6487,
+                2.7523,
+                2.4152
+              ],
+              "samples_ms": [
+                2.4252,
+                2.2742,
+                2.3911,
+                2.5604,
+                2.3777,
+                2.3747,
+                2.4195,
+                2.3314,
+                2.3298,
+                2.2578,
+                2.5742,
+                2.8105,
+                6.0668,
+                4.0667,
+                12.6412
+              ],
+              "result_count": 4,
+              "ordered_result_sha256": "1b4b35a3e5fd40dbd06c2353f270a9de17a224074319ddf1dc5d0a2372a39510",
+              "summary": {
+                "n": 15,
+                "median_ms": 2.4195,
+                "p25_ms": 2.3530499999999996,
+                "p75_ms": 2.6923500000000002,
+                "min_ms": 2.2578,
+                "max_ms": 12.6412
+              },
+              "metrics": {
+                "execution_ms": 5.622,
+                "planning_ms": 0.165,
+                "returned_rows": 4.0,
+                "shared_hit_blocks": 519,
+                "shared_read_blocks": 0,
+                "scan_rows_processed_estimate": 93747.0,
+                "scans": [
+                  {
+                    "Node Type": "Seq Scan",
+                    "Relation Name": "recall_vehicle",
+                    "Actual Rows": 4.0,
+                    "Actual Loops": 1,
+                    "Rows Removed by Filter": 93739
+                  },
+                  {
+                    "Node Type": "Index Scan",
+                    "Relation Name": "recall",
+                    "Index Name": "recall_pkey",
+                    "Actual Rows": 1.0,
+                    "Actual Loops": 4,
+                    "Rows Removed by Index Recheck": 0
+                  }
+                ]
+              },
+              "plan_file": "pg_recall_lookup_baseline_1_plan.json"
+            },
+            {
+              "warmup_ms": [
+                4.7915,
+                3.1695,
+                2.3659
+              ],
+              "samples_ms": [
+                2.3999,
+                3.0424,
+                3.4262,
+                3.0706,
+                2.5639,
+                2.7382,
+                2.5509,
+                2.6167,
+                2.5342,
+                2.512,
+                2.6794,
+                2.8091,
+                2.7847,
+                2.8729,
+                2.5456
+              ],
+              "result_count": 4,
+              "ordered_result_sha256": "1b4b35a3e5fd40dbd06c2353f270a9de17a224074319ddf1dc5d0a2372a39510",
+              "summary": {
+                "n": 15,
+                "median_ms": 2.6794,
+                "p25_ms": 2.54825,
+                "p75_ms": 2.841,
+                "min_ms": 2.3999,
+                "max_ms": 3.4262
+              },
+              "metrics": {
+                "execution_ms": 2.218,
+                "planning_ms": 0.096,
+                "returned_rows": 4.0,
+                "shared_hit_blocks": 519,
+                "shared_read_blocks": 0,
+                "scan_rows_processed_estimate": 93747.0,
+                "scans": [
+                  {
+                    "Node Type": "Seq Scan",
+                    "Relation Name": "recall_vehicle",
+                    "Actual Rows": 4.0,
+                    "Actual Loops": 1,
+                    "Rows Removed by Filter": 93739
+                  },
+                  {
+                    "Node Type": "Index Scan",
+                    "Relation Name": "recall",
+                    "Index Name": "recall_pkey",
+                    "Actual Rows": 1.0,
+                    "Actual Loops": 4,
+                    "Rows Removed by Index Recheck": 0
+                  }
+                ]
+              },
+              "plan_file": "pg_recall_lookup_baseline_4_plan.json"
+            }
+          ],
+          "summary": {
+            "n": 30,
+            "median_ms": 2.56215,
+            "p25_ms": 2.4048,
+            "p75_ms": 2.81015,
+            "min_ms": 2.2578,
+            "max_ms": 12.6412
+          }
+        },
+        "indexed": {
+          "rounds": [
+            {
+              "warmup_ms": [
+                3.6367,
+                0.7913,
+                0.5861
+              ],
+              "samples_ms": [
+                0.6163,
+                0.4478,
+                0.3702,
+                0.3179,
+                0.3036,
+                0.3149,
+                0.3023,
+                0.2929,
+                0.2767,
+                0.2659,
+                0.2564,
+                0.2597,
+                0.2372,
+                0.2726,
+                0.2928
+              ],
+              "result_count": 4,
+              "ordered_result_sha256": "1b4b35a3e5fd40dbd06c2353f270a9de17a224074319ddf1dc5d0a2372a39510",
+              "summary": {
+                "n": 15,
+                "median_ms": 0.2929,
+                "p25_ms": 0.26925,
+                "p75_ms": 0.3164,
+                "min_ms": 0.2372,
+                "max_ms": 0.6163
+              },
+              "metrics": {
+                "execution_ms": 0.035,
+                "planning_ms": 0.144,
+                "returned_rows": 4.0,
+                "shared_hit_blocks": 16,
+                "shared_read_blocks": 0,
+                "scan_rows_processed_estimate": 8.0,
+                "scans": [
+                  {
+                    "Node Type": "Index Only Scan",
+                    "Relation Name": "recall_vehicle",
+                    "Index Name": "bench_vehicle_recall",
+                    "Actual Rows": 4.0,
+                    "Actual Loops": 1,
+                    "Rows Removed by Index Recheck": 0,
+                    "Heap Fetches": 0
+                  },
+                  {
+                    "Node Type": "Index Scan",
+                    "Relation Name": "recall",
+                    "Index Name": "recall_pkey",
+                    "Actual Rows": 1.0,
+                    "Actual Loops": 4,
+                    "Rows Removed by Index Recheck": 0
+                  }
+                ]
+              },
+              "plan_file": "pg_recall_lookup_indexed_2_plan.json"
+            },
+            {
+              "warmup_ms": [
+                1.3817,
+                0.3299,
+                0.2872
+              ],
+              "samples_ms": [
+                0.2099,
+                0.3443,
+                0.1828,
+                0.1738,
+                0.162,
+                0.156,
+                0.1538,
+                0.157,
+                0.1554,
+                0.1685,
+                0.2681,
+                0.271,
+                0.3702,
+                0.2494,
+                0.2161
+              ],
+              "result_count": 4,
+              "ordered_result_sha256": "1b4b35a3e5fd40dbd06c2353f270a9de17a224074319ddf1dc5d0a2372a39510",
+              "summary": {
+                "n": 15,
+                "median_ms": 0.1828,
+                "p25_ms": 0.1595,
+                "p75_ms": 0.25875000000000004,
+                "min_ms": 0.1538,
+                "max_ms": 0.3702
+              },
+              "metrics": {
+                "execution_ms": 0.018,
+                "planning_ms": 0.075,
+                "returned_rows": 4.0,
+                "shared_hit_blocks": 16,
+                "shared_read_blocks": 0,
+                "scan_rows_processed_estimate": 8.0,
+                "scans": [
+                  {
+                    "Node Type": "Index Only Scan",
+                    "Relation Name": "recall_vehicle",
+                    "Index Name": "bench_vehicle_recall",
+                    "Actual Rows": 4.0,
+                    "Actual Loops": 1,
+                    "Rows Removed by Index Recheck": 0,
+                    "Heap Fetches": 0
+                  },
+                  {
+                    "Node Type": "Index Scan",
+                    "Relation Name": "recall",
+                    "Index Name": "recall_pkey",
+                    "Actual Rows": 1.0,
+                    "Actual Loops": 4,
+                    "Rows Removed by Index Recheck": 0
+                  }
+                ]
+              },
+              "plan_file": "pg_recall_lookup_indexed_3_plan.json"
+            }
+          ],
+          "summary": {
+            "n": 30,
+            "median_ms": 0.267,
+            "p25_ms": 0.189575,
+            "p75_ms": 0.30327499999999996,
+            "min_ms": 0.1538,
+            "max_ms": 0.6163
+          }
+        }
+      },
+      "ordered_result_sha256": "1b4b35a3e5fd40dbd06c2353f270a9de17a224074319ddf1dc5d0a2372a39510"
+    },
+    {
+      "id": "pg_component_source_rows",
+      "definition": {
+        "sql": "\nSELECT rr.source_record_id, r.campaign_number, rr.component, rr.manufacturing_started, rr.manufacturing_ended\nFROM \"bench_393f2a545a1a472ca185b43928426da4\".\"recall_record\" rr JOIN \"bench_393f2a545a1a472ca185b43928426da4\".\"recall\" r ON r.recall_id=rr.recall_id\nWHERE rr.model_year_id=%s AND rr.component=%s\nORDER BY rr.source_record_id LIMIT 20",
+        "parameters": [
+          17527,
+          "STEERING"
+        ]
+      },
+      "database": "PostgreSQL",
+      "phases": {
+        "baseline": {
+          "rounds": [
+            {
+              "warmup_ms": [
+                37.1493,
+                23.9874,
+                22.8884
+              ],
+              "samples_ms": [
+                22.9396,
+                22.31,
+                145.0275,
+                27.0746,
+                23.214,
+                23.9034,
+                22.0693,
+                22.4355,
+                22.6556,
+                23.9565,
+                23.0909,
+                128.6473,
+                25.2189,
+                24.3273,
+                145.3647
+              ],
+              "result_count": 9,
+              "ordered_result_sha256": "067592b9fb9c0049ba5858a5fa93d0edb02415670e1edc0ea040060b0e79eaf2",
+              "summary": {
+                "n": 15,
+                "median_ms": 23.9034,
+                "p25_ms": 22.7976,
+                "p75_ms": 26.14675,
+                "min_ms": 22.0693,
+                "max_ms": 145.3647
+              },
+              "metrics": {
+                "execution_ms": 30.32,
+                "planning_ms": 0.118,
+                "returned_rows": 9.0,
+                "shared_hit_blocks": 3419,
+                "shared_read_blocks": 0,
+                "scan_rows_processed_estimate": 219738.0,
+                "scans": [
+                  {
+                    "Node Type": "Seq Scan",
+                    "Relation Name": "recall_record",
+                    "Actual Rows": 3.0,
+                    "Actual Loops": 3,
+                    "Rows Removed by Filter": 73240
+                  },
+                  {
+                    "Node Type": "Index Scan",
+                    "Relation Name": "recall",
+                    "Index Name": "recall_pkey",
+                    "Actual Rows": 1.0,
+                    "Actual Loops": 9,
+                    "Rows Removed by Index Recheck": 0
+                  }
+                ]
+              },
+              "plan_file": "pg_component_source_rows_baseline_1_plan.json"
+            },
+            {
+              "warmup_ms": [
+                26.421,
+                23.2667,
+                23.6572
+              ],
+              "samples_ms": [
+                22.4503,
+                23.4705,
+                23.4449,
+                141.6723,
+                26.4797,
+                24.9853,
+                23.9614,
+                128.9094,
+                27.2912,
+                22.9374,
+                21.9194,
+                136.9736,
+                136.8292,
+                26.2842,
+                22.8948
+              ],
+              "result_count": 9,
+              "ordered_result_sha256": "067592b9fb9c0049ba5858a5fa93d0edb02415670e1edc0ea040060b0e79eaf2",
+              "summary": {
+                "n": 15,
+                "median_ms": 24.9853,
+                "p25_ms": 23.19115,
+                "p75_ms": 78.1003,
+                "min_ms": 21.9194,
+                "max_ms": 141.6723
+              },
+              "metrics": {
+                "execution_ms": 133.037,
+                "planning_ms": 0.111,
+                "returned_rows": 9.0,
+                "shared_hit_blocks": 3419,
+                "shared_read_blocks": 0,
+                "scan_rows_processed_estimate": 219738.0,
+                "scans": [
+                  {
+                    "Node Type": "Seq Scan",
+                    "Relation Name": "recall_record",
+                    "Actual Rows": 3.0,
+                    "Actual Loops": 3,
+                    "Rows Removed by Filter": 73240
+                  },
+                  {
+                    "Node Type": "Index Scan",
+                    "Relation Name": "recall",
+                    "Index Name": "recall_pkey",
+                    "Actual Rows": 1.0,
+                    "Actual Loops": 9,
+                    "Rows Removed by Index Recheck": 0
+                  }
+                ]
+              },
+              "plan_file": "pg_component_source_rows_baseline_4_plan.json"
+            }
+          ],
+          "summary": {
+            "n": 30,
+            "median_ms": 23.95895,
+            "p25_ms": 22.93795,
+            "p75_ms": 27.23705,
+            "min_ms": 21.9194,
+            "max_ms": 145.3647
+          }
+        },
+        "indexed": {
+          "rounds": [
+            {
+              "warmup_ms": [
+                1.29,
+                0.2642,
+                0.227
+              ],
+              "samples_ms": [
+                0.2154,
+                0.1881,
+                0.1794,
+                0.1825,
+                0.1995,
+                0.1844,
+                0.1745,
+                0.2232,
+                0.1921,
+                0.181,
+                0.1713,
+                0.179,
+                0.1712,
+                0.1678,
+                0.1744
+              ],
+              "result_count": 9,
+              "ordered_result_sha256": "067592b9fb9c0049ba5858a5fa93d0edb02415670e1edc0ea040060b0e79eaf2",
+              "summary": {
+                "n": 15,
+                "median_ms": 0.181,
+                "p25_ms": 0.17445,
+                "p75_ms": 0.1901,
+                "min_ms": 0.1678,
+                "max_ms": 0.2232
+              },
+              "metrics": {
+                "execution_ms": 0.026,
+                "planning_ms": 0.07,
+                "returned_rows": 9.0,
+                "shared_hit_blocks": 34,
+                "shared_read_blocks": 0,
+                "scan_rows_processed_estimate": 24.0,
+                "scans": [
+                  {
+                    "Node Type": "Bitmap Heap Scan",
+                    "Relation Name": "recall_record",
+                    "Actual Rows": 9.0,
+                    "Actual Loops": 1,
+                    "Rows Removed by Filter": 6,
+                    "Rows Removed by Index Recheck": 0
+                  },
+                  {
+                    "Node Type": "Index Scan",
+                    "Relation Name": "recall",
+                    "Index Name": "recall_pkey",
+                    "Actual Rows": 1.0,
+                    "Actual Loops": 9,
+                    "Rows Removed by Index Recheck": 0
+                  }
+                ]
+              },
+              "plan_file": "pg_component_source_rows_indexed_2_plan.json"
+            },
+            {
+              "warmup_ms": [
+                1.1042,
+                0.2533,
+                0.2479
+              ],
+              "samples_ms": [
+                0.4044,
+                0.2823,
+                0.2965,
+                0.2535,
+                0.2096,
+                0.1899,
+                0.1827,
+                0.1876,
+                0.1796,
+                0.3762,
+                0.2587,
+                0.2125,
+                0.1925,
+                0.1845,
+                0.1776
+              ],
+              "result_count": 9,
+              "ordered_result_sha256": "067592b9fb9c0049ba5858a5fa93d0edb02415670e1edc0ea040060b0e79eaf2",
+              "summary": {
+                "n": 15,
+                "median_ms": 0.2096,
+                "p25_ms": 0.18605,
+                "p75_ms": 0.27049999999999996,
+                "min_ms": 0.1776,
+                "max_ms": 0.4044
+              },
+              "metrics": {
+                "execution_ms": 0.028,
+                "planning_ms": 0.071,
+                "returned_rows": 9.0,
+                "shared_hit_blocks": 34,
+                "shared_read_blocks": 0,
+                "scan_rows_processed_estimate": 24.0,
+                "scans": [
+                  {
+                    "Node Type": "Bitmap Heap Scan",
+                    "Relation Name": "recall_record",
+                    "Actual Rows": 9.0,
+                    "Actual Loops": 1,
+                    "Rows Removed by Filter": 6,
+                    "Rows Removed by Index Recheck": 0
+                  },
+                  {
+                    "Node Type": "Index Scan",
+                    "Relation Name": "recall",
+                    "Index Name": "recall_pkey",
+                    "Actual Rows": 1.0,
+                    "Actual Loops": 9,
+                    "Rows Removed by Index Recheck": 0
+                  }
+                ]
+              },
+              "plan_file": "pg_component_source_rows_indexed_3_plan.json"
+            }
+          ],
+          "summary": {
+            "n": 30,
+            "median_ms": 0.18785,
+            "p25_ms": 0.17945,
+            "p75_ms": 0.214675,
+            "min_ms": 0.1678,
+            "max_ms": 0.4044
+          }
+        }
+      },
+      "ordered_result_sha256": "067592b9fb9c0049ba5858a5fa93d0edb02415670e1edc0ea040060b0e79eaf2"
+    },
+    {
+      "id": "mongo_complaints_full_window",
+      "database": "MongoDB",
+      "definition": {
+        "id": "mongo_complaints_full_window",
+        "filter": {
+          "modelYearId": 17527,
+          "receivedDate": {
+            "$gte": "2020-01-01T00:00:00+00:00",
+            "$lte": "2026-10-22T23:59:59.999000+00:00"
+          }
+        },
+        "projection": {
+          "odiNumber": 1,
+          "modelYearId": 1,
+          "vehicle": 1,
+          "components": 1,
+          "incident": 1,
+          "receivedDate": 1,
+          "incidentDate": 1,
+          "narrative": 1
+        },
+        "sort": {
+          "receivedDate": -1,
+          "_id": -1
+        },
+        "limit": 20
+      },
+      "matched_documents": 885,
+      "phases": {
+        "baseline": {
+          "rounds": [
+            {
+              "warmup_ms": [
+                247.3622,
+                264.3496,
+                220.1869
+              ],
+              "samples_ms": [
+                248.5254,
+                226.0429,
+                218.0616,
+                226.6331,
+                267.7266,
+                260.6235,
+                255.2321,
+                267.9895,
+                280.0487,
+                286.9245,
+                273.3003,
+                269.1471,
+                200.7698,
+                223.9099,
+                143.2811
+              ],
+              "result_count": 20,
+              "ordered_result_sha256": "6e64435c0448ceacfb92d8b53d10788767c8d248f487e7fd6706edbbd3097442",
+              "summary": {
+                "n": 15,
+                "median_ms": 255.2321,
+                "p25_ms": 224.9764,
+                "p75_ms": 268.5683,
+                "min_ms": 143.2811,
+                "max_ms": 286.9245
+              },
+              "metrics": {
+                "nReturned": 20,
+                "executionTimeMillis": 424,
+                "totalDocsExamined": 428837,
+                "totalKeysExamined": 0,
+                "winning_stages": [
+                  "COLLSCAN",
+                  "PROJECTION_SIMPLE",
+                  "SORT"
+                ],
+                "winning_indexes": []
+              },
+              "plan_file": "mongo_complaints_full_window_baseline_1_plan.json"
+            },
+            {
+              "warmup_ms": [
+                240.3387,
+                215.2115,
+                243.4102
+              ],
+              "samples_ms": [
+                255.3527,
+                248.1844,
+                230.5979,
+                279.4802,
+                248.0501,
+                226.2141,
+                220.8879,
+                247.4384,
+                214.3191,
+                212.3975,
+                209.0668,
+                207.3182,
+                289.2205,
+                144.7033,
+                256.0203
+              ],
+              "result_count": 20,
+              "ordered_result_sha256": "6e64435c0448ceacfb92d8b53d10788767c8d248f487e7fd6706edbbd3097442",
+              "summary": {
+                "n": 15,
+                "median_ms": 230.5979,
+                "p25_ms": 213.35829999999999,
+                "p75_ms": 251.76855,
+                "min_ms": 144.7033,
+                "max_ms": 289.2205
+              },
+              "metrics": {
+                "nReturned": 20,
+                "executionTimeMillis": 439,
+                "totalDocsExamined": 428837,
+                "totalKeysExamined": 0,
+                "winning_stages": [
+                  "COLLSCAN",
+                  "PROJECTION_SIMPLE",
+                  "SORT"
+                ],
+                "winning_indexes": []
+              },
+              "plan_file": "mongo_complaints_full_window_baseline_6_plan.json"
+            }
+          ],
+          "summary": {
+            "n": 30,
+            "median_ms": 247.74425,
+            "p25_ms": 218.76817499999999,
+            "p75_ms": 265.950825,
+            "min_ms": 143.2811,
+            "max_ms": 289.2205
+          }
+        },
+        "current": {
+          "rounds": [
+            {
+              "warmup_ms": [
+                14.2865,
+                3.1836,
+                1.7745
+              ],
+              "samples_ms": [
+                8.3392,
+                1.8421,
+                9.3248,
+                2.4845,
+                1.6656,
+                3.3844,
+                1.694,
+                1.785,
+                1.4146,
+                1.6783,
+                1.4831,
+                1.3378,
+                1.4633,
+                1.3668,
+                1.3154
+              ],
+              "result_count": 20,
+              "ordered_result_sha256": "6e64435c0448ceacfb92d8b53d10788767c8d248f487e7fd6706edbbd3097442",
+              "summary": {
+                "n": 15,
+                "median_ms": 1.6783,
+                "p25_ms": 1.4389500000000002,
+                "p75_ms": 2.1633,
+                "min_ms": 1.3154,
+                "max_ms": 9.3248
+              },
+              "metrics": {
+                "nReturned": 20,
+                "executionTimeMillis": 2,
+                "totalDocsExamined": 885,
+                "totalKeysExamined": 885,
+                "winning_stages": [
+                  "FETCH",
+                  "IXSCAN",
+                  "PROJECTION_SIMPLE",
+                  "SORT"
+                ],
+                "winning_indexes": [
+                  "vehicle_received"
+                ]
+              },
+              "plan_file": "mongo_complaints_full_window_current_2_plan.json"
+            },
+            {
+              "warmup_ms": [
+                11.976,
+                1.7567,
+                1.4507
+              ],
+              "samples_ms": [
+                1.5485,
+                1.465,
+                1.614,
+                4.5886,
+                1.404,
+                1.5549,
+                1.3754,
+                1.3178,
+                1.3024,
+                1.2094,
+                5.8536,
+                2.8407,
+                1.6561,
+                1.4537,
+                1.4277
+              ],
+              "result_count": 20,
+              "ordered_result_sha256": "6e64435c0448ceacfb92d8b53d10788767c8d248f487e7fd6706edbbd3097442",
+              "summary": {
+                "n": 15,
+                "median_ms": 1.465,
+                "p25_ms": 1.3897,
+                "p75_ms": 1.6350500000000001,
+                "min_ms": 1.2094,
+                "max_ms": 5.8536
+              },
+              "metrics": {
+                "nReturned": 20,
+                "executionTimeMillis": 1,
+                "totalDocsExamined": 885,
+                "totalKeysExamined": 885,
+                "winning_stages": [
+                  "FETCH",
+                  "IXSCAN",
+                  "PROJECTION_SIMPLE",
+                  "SORT"
+                ],
+                "winning_indexes": [
+                  "vehicle_received"
+                ]
+              },
+              "plan_file": "mongo_complaints_full_window_current_5_plan.json"
+            }
+          ],
+          "summary": {
+            "n": 30,
+            "median_ms": 1.5516999999999999,
+            "p25_ms": 1.40665,
+            "p75_ms": 1.827825,
+            "min_ms": 1.2094,
+            "max_ms": 9.3248
+          }
+        },
+        "candidate": {
+          "rounds": [
+            {
+              "warmup_ms": [
+                14.9732,
+                0.8698,
+                0.5625
+              ],
+              "samples_ms": [
+                1.5153,
+                0.5104,
+                0.6253,
+                1.4061,
+                0.4657,
+                0.3835,
+                0.3632,
+                0.7319,
+                0.6185,
+                0.4498,
+                0.4191,
+                0.3694,
+                0.3667,
+                1.2264,
+                0.6046
+              ],
+              "result_count": 20,
+              "ordered_result_sha256": "6e64435c0448ceacfb92d8b53d10788767c8d248f487e7fd6706edbbd3097442",
+              "summary": {
+                "n": 15,
+                "median_ms": 0.5104,
+                "p25_ms": 0.4013,
+                "p75_ms": 0.6786,
+                "min_ms": 0.3632,
+                "max_ms": 1.5153
+              },
+              "metrics": {
+                "nReturned": 20,
+                "executionTimeMillis": 0,
+                "totalDocsExamined": 20,
+                "totalKeysExamined": 20,
+                "winning_stages": [
+                  "FETCH",
+                  "IXSCAN",
+                  "LIMIT",
+                  "PROJECTION_SIMPLE"
+                ],
+                "winning_indexes": [
+                  "vehicle_received_ordered"
+                ]
+              },
+              "plan_file": "mongo_complaints_full_window_candidate_3_plan.json"
+            },
+            {
+              "warmup_ms": [
+                17.0542,
+                0.8608,
+                0.539
+              ],
+              "samples_ms": [
+                0.4502,
+                0.4351,
+                0.454,
+                3.1653,
+                3.2643,
+                0.4398,
+                0.4621,
+                0.4018,
+                0.5743,
+                0.495,
+                0.3866,
+                0.364,
+                0.3561,
+                0.4204,
+                0.3919
+              ],
+              "result_count": 20,
+              "ordered_result_sha256": "6e64435c0448ceacfb92d8b53d10788767c8d248f487e7fd6706edbbd3097442",
+              "summary": {
+                "n": 15,
+                "median_ms": 0.4398,
+                "p25_ms": 0.39685000000000004,
+                "p75_ms": 0.47855000000000003,
+                "min_ms": 0.3561,
+                "max_ms": 3.2643
+              },
+              "metrics": {
+                "nReturned": 20,
+                "executionTimeMillis": 0,
+                "totalDocsExamined": 20,
+                "totalKeysExamined": 20,
+                "winning_stages": [
+                  "FETCH",
+                  "IXSCAN",
+                  "LIMIT",
+                  "PROJECTION_SIMPLE"
+                ],
+                "winning_indexes": [
+                  "vehicle_received_ordered"
+                ]
+              },
+              "plan_file": "mongo_complaints_full_window_candidate_4_plan.json"
+            }
+          ],
+          "summary": {
+            "n": 30,
+            "median_ms": 0.4521,
+            "p25_ms": 0.394375,
+            "p75_ms": 0.615025,
+            "min_ms": 0.3561,
+            "max_ms": 3.2643
+          }
+        }
+      },
+      "ordered_result_sha256": "6e64435c0448ceacfb92d8b53d10788767c8d248f487e7fd6706edbbd3097442"
+    },
+    {
+      "id": "mongo_complaints_2026",
+      "database": "MongoDB",
+      "definition": {
+        "id": "mongo_complaints_2026",
+        "filter": {
+          "modelYearId": 17527,
+          "receivedDate": {
+            "$gte": "2026-01-01T00:00:00+00:00",
+            "$lte": "2026-10-22T23:59:59.999000+00:00"
+          }
+        },
+        "projection": {
+          "odiNumber": 1,
+          "modelYearId": 1,
+          "vehicle": 1,
+          "components": 1,
+          "incident": 1,
+          "receivedDate": 1,
+          "incidentDate": 1,
+          "narrative": 1
+        },
+        "sort": {
+          "receivedDate": -1,
+          "_id": -1
+        },
+        "limit": 20
+      },
+      "matched_documents": 31,
+      "phases": {
+        "baseline": {
+          "rounds": [
+            {
+              "warmup_ms": [
+                251.3825,
+                255.3523,
+                266.5873
+              ],
+              "samples_ms": [
+                224.2181,
+                237.565,
+                206.6645,
+                242.2155,
+                285.2528,
+                251.6115,
+                251.9935,
+                235.6133,
+                304.0637,
+                146.1943,
+                273.6092,
+                266.1369,
+                256.4396,
+                202.044,
+                236.7911
+              ],
+              "result_count": 20,
+              "ordered_result_sha256": "6e64435c0448ceacfb92d8b53d10788767c8d248f487e7fd6706edbbd3097442",
+              "summary": {
+                "n": 15,
+                "median_ms": 242.2155,
+                "p25_ms": 229.91570000000002,
+                "p75_ms": 261.28825,
+                "min_ms": 146.1943,
+                "max_ms": 304.0637
+              },
+              "metrics": {
+                "nReturned": 20,
+                "executionTimeMillis": 448,
+                "totalDocsExamined": 428837,
+                "totalKeysExamined": 0,
+                "winning_stages": [
+                  "COLLSCAN",
+                  "PROJECTION_SIMPLE",
+                  "SORT"
+                ],
+                "winning_indexes": []
+              },
+              "plan_file": "mongo_complaints_2026_baseline_1_plan.json"
+            },
+            {
+              "warmup_ms": [
+                240.2397,
+                255.7536,
+                254.664
+              ],
+              "samples_ms": [
+                250.3789,
+                264.0471,
+                273.6973,
+                270.6492,
+                246.5349,
+                256.7616,
+                238.8413,
+                220.727,
+                227.1508,
+                186.2331,
+                246.2278,
+                236.2021,
+                206.6937,
+                251.9187,
+                288.5664
+              ],
+              "result_count": 20,
+              "ordered_result_sha256": "6e64435c0448ceacfb92d8b53d10788767c8d248f487e7fd6706edbbd3097442",
+              "summary": {
+                "n": 15,
+                "median_ms": 246.5349,
+                "p25_ms": 231.67645,
+                "p75_ms": 260.40435,
+                "min_ms": 186.2331,
+                "max_ms": 288.5664
+              },
+              "metrics": {
+                "nReturned": 20,
+                "executionTimeMillis": 446,
+                "totalDocsExamined": 428837,
+                "totalKeysExamined": 0,
+                "winning_stages": [
+                  "COLLSCAN",
+                  "PROJECTION_SIMPLE",
+                  "SORT"
+                ],
+                "winning_indexes": []
+              },
+              "plan_file": "mongo_complaints_2026_baseline_6_plan.json"
+            }
+          ],
+          "summary": {
+            "n": 30,
+            "median_ms": 246.38135,
+            "p25_ms": 229.266425,
+            "p75_ms": 262.225725,
+            "min_ms": 146.1943,
+            "max_ms": 304.0637
+          }
+        },
+        "current": {
+          "rounds": [
+            {
+              "warmup_ms": [
+                0.7171,
+                0.5339,
+                0.6745
+              ],
+              "samples_ms": [
+                0.5447,
+                0.5321,
+                0.4929,
+                0.4595,
+                0.4446,
+                0.466,
+                0.4676,
+                0.5018,
+                0.463,
+                0.4757,
+                0.5015,
+                0.4866,
+                0.6006,
+                0.4662,
+                0.5243
+              ],
+              "result_count": 20,
+              "ordered_result_sha256": "6e64435c0448ceacfb92d8b53d10788767c8d248f487e7fd6706edbbd3097442",
+              "summary": {
+                "n": 15,
+                "median_ms": 0.4866,
+                "p25_ms": 0.4661,
+                "p75_ms": 0.51305,
+                "min_ms": 0.4446,
+                "max_ms": 0.6006
+              },
+              "metrics": {
+                "nReturned": 20,
+                "executionTimeMillis": 0,
+                "totalDocsExamined": 31,
+                "totalKeysExamined": 31,
+                "winning_stages": [
+                  "FETCH",
+                  "IXSCAN",
+                  "PROJECTION_SIMPLE",
+                  "SORT"
+                ],
+                "winning_indexes": [
+                  "vehicle_received"
+                ]
+              },
+              "plan_file": "mongo_complaints_2026_current_2_plan.json"
+            },
+            {
+              "warmup_ms": [
+                0.6526,
+                0.5785,
+                0.5986
+              ],
+              "samples_ms": [
+                0.5868,
+                0.4916,
+                0.5162,
+                0.4706,
+                0.4774,
+                0.6176,
+                0.5945,
+                0.5521,
+                0.5019,
+                0.4809,
+                0.4576,
+                0.5694,
+                0.5622,
+                0.4761,
+                0.5063
+              ],
+              "result_count": 20,
+              "ordered_result_sha256": "6e64435c0448ceacfb92d8b53d10788767c8d248f487e7fd6706edbbd3097442",
+              "summary": {
+                "n": 15,
+                "median_ms": 0.5063,
+                "p25_ms": 0.47914999999999996,
+                "p75_ms": 0.5658000000000001,
+                "min_ms": 0.4576,
+                "max_ms": 0.6176
+              },
+              "metrics": {
+                "nReturned": 20,
+                "executionTimeMillis": 0,
+                "totalDocsExamined": 31,
+                "totalKeysExamined": 31,
+                "winning_stages": [
+                  "FETCH",
+                  "IXSCAN",
+                  "PROJECTION_SIMPLE",
+                  "SORT"
+                ],
+                "winning_indexes": [
+                  "vehicle_received"
+                ]
+              },
+              "plan_file": "mongo_complaints_2026_current_5_plan.json"
+            }
+          ],
+          "summary": {
+            "n": 30,
+            "median_ms": 0.4972,
+            "p25_ms": 0.471875,
+            "p75_ms": 0.54155,
+            "min_ms": 0.4446,
+            "max_ms": 0.6176
+          }
+        },
+        "candidate": {
+          "rounds": [
+            {
+              "warmup_ms": [
+                0.4808,
+                0.4853,
+                0.4091
+              ],
+              "samples_ms": [
+                0.4154,
+                0.4408,
+                0.4167,
+                0.3744,
+                0.6028,
+                0.3596,
+                0.3505,
+                0.6506,
+                0.4181,
+                0.3685,
+                0.3647,
+                0.4124,
+                0.3718,
+                0.3783,
+                0.4848
+              ],
+              "result_count": 20,
+              "ordered_result_sha256": "6e64435c0448ceacfb92d8b53d10788767c8d248f487e7fd6706edbbd3097442",
+              "summary": {
+                "n": 15,
+                "median_ms": 0.4124,
+                "p25_ms": 0.37015,
+                "p75_ms": 0.42945,
+                "min_ms": 0.3505,
+                "max_ms": 0.6506
+              },
+              "metrics": {
+                "nReturned": 20,
+                "executionTimeMillis": 0,
+                "totalDocsExamined": 20,
+                "totalKeysExamined": 20,
+                "winning_stages": [
+                  "FETCH",
+                  "IXSCAN",
+                  "LIMIT",
+                  "PROJECTION_SIMPLE"
+                ],
+                "winning_indexes": [
+                  "vehicle_received_ordered"
+                ]
+              },
+              "plan_file": "mongo_complaints_2026_candidate_3_plan.json"
+            },
+            {
+              "warmup_ms": [
+                0.5339,
+                0.4715,
+                2.196
+              ],
+              "samples_ms": [
+                0.417,
+                0.5319,
+                0.4688,
+                0.4234,
+                0.3911,
+                0.3917,
+                0.3756,
+                0.4104,
+                0.5037,
+                0.3641,
+                0.4126,
+                0.3554,
+                0.3387,
+                0.3501,
+                0.3377
+              ],
+              "result_count": 20,
+              "ordered_result_sha256": "6e64435c0448ceacfb92d8b53d10788767c8d248f487e7fd6706edbbd3097442",
+              "summary": {
+                "n": 15,
+                "median_ms": 0.3917,
+                "p25_ms": 0.35975,
+                "p75_ms": 0.4202,
+                "min_ms": 0.3377,
+                "max_ms": 0.5319
+              },
+              "metrics": {
+                "nReturned": 20,
+                "executionTimeMillis": 0,
+                "totalDocsExamined": 20,
+                "totalKeysExamined": 20,
+                "winning_stages": [
+                  "FETCH",
+                  "IXSCAN",
+                  "LIMIT",
+                  "PROJECTION_SIMPLE"
+                ],
+                "winning_indexes": [
+                  "vehicle_received_ordered"
+                ]
+              },
+              "plan_file": "mongo_complaints_2026_candidate_4_plan.json"
+            }
+          ],
+          "summary": {
+            "n": 30,
+            "median_ms": 0.40105,
+            "p25_ms": 0.36565000000000003,
+            "p75_ms": 0.422075,
+            "min_ms": 0.3377,
+            "max_ms": 0.6506
+          }
+        }
+      },
+      "ordered_result_sha256": "6e64435c0448ceacfb92d8b53d10788767c8d248f487e7fd6706edbbd3097442"
+    }
+  ],
+  "cleanup": {
+    "postgres_schema_removed": true,
+    "mongo_collection_removed": true
+  },
+  "environment": {
+    "os": "Windows 11",
+    "architecture": "AMD64",
+    "python": "3.13.7",
+    "logical_cpu_threads": 20,
+    "drivers": {
+      "psycopg": "3.3.6",
+      "pymongo": "4.19.0"
+    },
+    "postgres_version": "18.6",
+    "mongo_version": "9.0.4",
+    "postgres_settings": {
+      "shared_buffers": "128MB",
+      "work_mem": "4MB",
+      "effective_cache_size": "4GB",
+      "random_page_cost": "4",
+      "max_parallel_workers_per_gather": "2",
+      "jit": "on",
+      "default_statistics_target": "100"
+    },
+    "cpu": "Intel(R) Core(TM) i5-14600KF",
+    "physical_ram_bytes": 34055770112
+  },
+  "source_before": {
+    "postgres_counts": {
+      "analysis_case": 0,
+      "app_session": 1,
+      "app_user": 2,
+      "case_content_operation": 0,
+      "case_status_history": 0,
+      "data_import_log": 12,
+      "fleet": 0,
+      "fleet_vehicle": 0,
+      "investigation_component": 5361,
+      "investigation_manufacturer": 3943,
+      "investigation_recall": 1671,
+      "investigation_vehicle": 28647,
+      "manufacturer": 1414,
+      "manufacturer_make": 1663,
+      "model_year": 53555,
+      "official_investigation": 3626,
+      "recall": 13600,
+      "recall_record": 219728,
+      "recall_vehicle": 93743,
+      "saved_vehicle": 1,
+      "schema_version": 3,
+      "vehicle_make": 1349,
+      "vehicle_model": 11007,
+      "vehicle_source": 74400,
+      "work_order": 0
+    },
+    "postgres_indexes": [
+      [
+        "analysis_case",
+        "analysis_case_pkey",
+        "CREATE UNIQUE INDEX analysis_case_pkey ON public.analysis_case USING btree (case_id)"
+      ],
+      [
+        "analysis_case",
+        "idx_analysis_case_assigned",
+        "CREATE INDEX idx_analysis_case_assigned ON public.analysis_case USING btree (assigned_to, status)"
+      ],
+      [
+        "app_session",
+        "app_session_pkey",
+        "CREATE UNIQUE INDEX app_session_pkey ON public.app_session USING btree (token_hash)"
+      ],
+      [
+        "app_session",
+        "idx_app_session_expiry",
+        "CREATE INDEX idx_app_session_expiry ON public.app_session USING btree (expires_at)"
+      ],
+      [
+        "app_session",
+        "idx_app_session_user",
+        "CREATE INDEX idx_app_session_user ON public.app_session USING btree (user_id)"
+      ],
+      [
+        "app_user",
+        "app_user_email_key",
+        "CREATE UNIQUE INDEX app_user_email_key ON public.app_user USING btree (email)"
+      ],
+      [
+        "app_user",
+        "app_user_pkey",
+        "CREATE UNIQUE INDEX app_user_pkey ON public.app_user USING btree (user_id)"
+      ],
+      [
+        "case_content_operation",
+        "case_content_operation_case_id_revision_key",
+        "CREATE UNIQUE INDEX case_content_operation_case_id_revision_key ON public.case_content_operation USING btree (case_id, revision)"
+      ],
+      [
+        "case_content_operation",
+        "case_content_operation_pkey",
+        "CREATE UNIQUE INDEX case_content_operation_pkey ON public.case_content_operation USING btree (operation_id)"
+      ],
+      [
+        "case_content_operation",
+        "idx_case_operation_owner",
+        "CREATE INDEX idx_case_operation_owner ON public.case_content_operation USING btree (owner_id, state, created_at)"
+      ],
+      [
+        "case_content_operation",
+        "idx_case_operation_pending",
+        "CREATE UNIQUE INDEX idx_case_operation_pending ON public.case_content_operation USING btree (case_id) WHERE (state = 'PENDING'::text)"
+      ],
+      [
+        "case_status_history",
+        "case_status_history_pkey",
+        "CREATE UNIQUE INDEX case_status_history_pkey ON public.case_status_history USING btree (history_id)"
+      ],
+      [
+        "data_import_log",
+        "data_import_log_pkey",
+        "CREATE UNIQUE INDEX data_import_log_pkey ON public.data_import_log USING btree (import_id)"
+      ],
+      [
+        "fleet",
+        "fleet_owner_id_name_key",
+        "CREATE UNIQUE INDEX fleet_owner_id_name_key ON public.fleet USING btree (owner_id, name)"
+      ],
+      [
+        "fleet",
+        "fleet_pkey",
+        "CREATE UNIQUE INDEX fleet_pkey ON public.fleet USING btree (fleet_id)"
+      ],
+      [
+        "fleet_vehicle",
+        "fleet_vehicle_fleet_id_label_key",
+        "CREATE UNIQUE INDEX fleet_vehicle_fleet_id_label_key ON public.fleet_vehicle USING btree (fleet_id, label)"
+      ],
+      [
+        "fleet_vehicle",
+        "fleet_vehicle_fleet_vehicle_id_model_year_id_key",
+        "CREATE UNIQUE INDEX fleet_vehicle_fleet_vehicle_id_model_year_id_key ON public.fleet_vehicle USING btree (fleet_vehicle_id, model_year_id)"
+      ],
+      [
+        "fleet_vehicle",
+        "fleet_vehicle_pkey",
+        "CREATE UNIQUE INDEX fleet_vehicle_pkey ON public.fleet_vehicle USING btree (fleet_vehicle_id)"
+      ],
+      [
+        "fleet_vehicle",
+        "idx_fleet_vehicle_fleet",
+        "CREATE INDEX idx_fleet_vehicle_fleet ON public.fleet_vehicle USING btree (fleet_id)"
+      ],
+      [
+        "investigation_component",
+        "investigation_component_pkey",
+        "CREATE UNIQUE INDEX investigation_component_pkey ON public.investigation_component USING btree (investigation_id, component)"
+      ],
+      [
+        "investigation_manufacturer",
+        "investigation_manufacturer_pkey",
+        "CREATE UNIQUE INDEX investigation_manufacturer_pkey ON public.investigation_manufacturer USING btree (investigation_id, manufacturer_id)"
+      ],
+      [
+        "investigation_recall",
+        "investigation_recall_pkey",
+        "CREATE UNIQUE INDEX investigation_recall_pkey ON public.investigation_recall USING btree (investigation_id, campaign_number)"
+      ],
+      [
+        "investigation_vehicle",
+        "idx_investigation_vehicle_model_year",
+        "CREATE INDEX idx_investigation_vehicle_model_year ON public.investigation_vehicle USING btree (model_year_id, investigation_id)"
+      ],
+      [
+        "investigation_vehicle",
+        "investigation_vehicle_pkey",
+        "CREATE UNIQUE INDEX investigation_vehicle_pkey ON public.investigation_vehicle USING btree (investigation_id, model_year_id)"
+      ],
+      [
+        "manufacturer",
+        "manufacturer_name_key",
+        "CREATE UNIQUE INDEX manufacturer_name_key ON public.manufacturer USING btree (name)"
+      ],
+      [
+        "manufacturer",
+        "manufacturer_pkey",
+        "CREATE UNIQUE INDEX manufacturer_pkey ON public.manufacturer USING btree (manufacturer_id)"
+      ],
+      [
+        "manufacturer_make",
+        "idx_manufacturer_make_make",
+        "CREATE INDEX idx_manufacturer_make_make ON public.manufacturer_make USING btree (make_id, manufacturer_id)"
+      ],
+      [
+        "manufacturer_make",
+        "manufacturer_make_pkey",
+        "CREATE UNIQUE INDEX manufacturer_make_pkey ON public.manufacturer_make USING btree (manufacturer_id, make_id)"
+      ],
+      [
+        "model_year",
+        "model_year_model_id_year_key",
+        "CREATE UNIQUE INDEX model_year_model_id_year_key ON public.model_year USING btree (model_id, year)"
+      ],
+      [
+        "model_year",
+        "model_year_pkey",
+        "CREATE UNIQUE INDEX model_year_pkey ON public.model_year USING btree (model_year_id)"
+      ],
+      [
+        "official_investigation",
+        "official_investigation_investigation_number_key",
+        "CREATE UNIQUE INDEX official_investigation_investigation_number_key ON public.official_investigation USING btree (investigation_number)"
+      ],
+      [
+        "official_investigation",
+        "official_investigation_pkey",
+        "CREATE UNIQUE INDEX official_investigation_pkey ON public.official_investigation USING btree (investigation_id)"
+      ],
+      [
+        "recall",
+        "recall_campaign_number_key",
+        "CREATE UNIQUE INDEX recall_campaign_number_key ON public.recall USING btree (campaign_number)"
+      ],
+      [
+        "recall",
+        "recall_pkey",
+        "CREATE UNIQUE INDEX recall_pkey ON public.recall USING btree (recall_id)"
+      ],
+      [
+        "recall_record",
+        "idx_recall_record_vehicle",
+        "CREATE INDEX idx_recall_record_vehicle ON public.recall_record USING btree (model_year_id, recall_id)"
+      ],
+      [
+        "recall_record",
+        "recall_record_pkey",
+        "CREATE UNIQUE INDEX recall_record_pkey ON public.recall_record USING btree (source_record_id)"
+      ],
+      [
+        "recall_vehicle",
+        "idx_recall_vehicle_model_year",
+        "CREATE INDEX idx_recall_vehicle_model_year ON public.recall_vehicle USING btree (model_year_id, recall_id)"
+      ],
+      [
+        "recall_vehicle",
+        "recall_vehicle_pkey",
+        "CREATE UNIQUE INDEX recall_vehicle_pkey ON public.recall_vehicle USING btree (recall_id, model_year_id)"
+      ],
+      [
+        "saved_vehicle",
+        "saved_vehicle_pkey",
+        "CREATE UNIQUE INDEX saved_vehicle_pkey ON public.saved_vehicle USING btree (saved_vehicle_id)"
+      ],
+      [
+        "saved_vehicle",
+        "saved_vehicle_user_id_model_year_id_key",
+        "CREATE UNIQUE INDEX saved_vehicle_user_id_model_year_id_key ON public.saved_vehicle USING btree (user_id, model_year_id)"
+      ],
+      [
+        "schema_version",
+        "schema_version_pkey",
+        "CREATE UNIQUE INDEX schema_version_pkey ON public.schema_version USING btree (version)"
+      ],
+      [
+        "vehicle_make",
+        "vehicle_make_name_key",
+        "CREATE UNIQUE INDEX vehicle_make_name_key ON public.vehicle_make USING btree (name)"
+      ],
+      [
+        "vehicle_make",
+        "vehicle_make_pkey",
+        "CREATE UNIQUE INDEX vehicle_make_pkey ON public.vehicle_make USING btree (make_id)"
+      ],
+      [
+        "vehicle_model",
+        "vehicle_model_make_id_name_key",
+        "CREATE UNIQUE INDEX vehicle_model_make_id_name_key ON public.vehicle_model USING btree (make_id, name)"
+      ],
+      [
+        "vehicle_model",
+        "vehicle_model_pkey",
+        "CREATE UNIQUE INDEX vehicle_model_pkey ON public.vehicle_model USING btree (model_id)"
+      ],
+      [
+        "vehicle_source",
+        "vehicle_source_pkey",
+        "CREATE UNIQUE INDEX vehicle_source_pkey ON public.vehicle_source USING btree (model_year_id, source_name)"
+      ],
+      [
+        "work_order",
+        "work_order_fleet_vehicle_id_recall_id_key",
+        "CREATE UNIQUE INDEX work_order_fleet_vehicle_id_recall_id_key ON public.work_order USING btree (fleet_vehicle_id, recall_id)"
+      ],
+      [
+        "work_order",
+        "work_order_pkey",
+        "CREATE UNIQUE INDEX work_order_pkey ON public.work_order USING btree (work_order_id)"
+      ]
+    ],
+    "mongo_counts": {
+      "complaints": 428837,
+      "case_details": 0
+    },
+    "mongo_indexes": {
+      "complaints": [
+        {
+          "v": 2,
+          "key": {
+            "_id": 1
+          },
+          "name": "_id_"
+        },
+        {
+          "v": 2,
+          "key": {
+            "modelYearId": 1,
+            "receivedDate": -1
+          },
+          "name": "vehicle_received"
+        },
+        {
+          "v": 2,
+          "key": {
+            "modelYearId": 1,
+            "components": 1
+          },
+          "name": "vehicle_components"
+        },
+        {
+          "v": 2,
+          "key": {
+            "_fts": "text",
+            "_ftsx": 1
+          },
+          "name": "narrative_text",
+          "weights": {
+            "narrative": 1
+          },
+          "default_language": "english",
+          "language_override": "language",
+          "textIndexVersion": 3
+        }
+      ],
+      "case_details": [
+        {
+          "v": 2,
+          "key": {
+            "_id": 1
+          },
+          "name": "_id_"
+        },
+        {
+          "v": 2,
+          "key": {
+            "caseId": 1
+          },
+          "name": "case_id_unique",
+          "unique": true
+        }
+      ]
+    }
+  },
+  "selection": {
+    "make": "HONDA",
+    "model": "CIVIC",
+    "year": 2022,
+    "model_year_id": 17527
+  },
+  "copied_sql_counts": {
+    "recall": 13600,
+    "recall_vehicle": 93743,
+    "recall_record": 219728
+  },
+  "copied_mongo_count": 428837,
+  "sql_copy_indexes": {
+    "baseline": [
+      [
+        "recall",
+        "recall_pkey",
+        "CREATE UNIQUE INDEX recall_pkey ON bench_393f2a545a1a472ca185b43928426da4.recall USING btree (recall_id)"
+      ],
+      [
+        "recall_record",
+        "recall_record_pkey",
+        "CREATE UNIQUE INDEX recall_record_pkey ON bench_393f2a545a1a472ca185b43928426da4.recall_record USING btree (source_record_id)"
+      ],
+      [
+        "recall_vehicle",
+        "recall_vehicle_pkey",
+        "CREATE UNIQUE INDEX recall_vehicle_pkey ON bench_393f2a545a1a472ca185b43928426da4.recall_vehicle USING btree (recall_id, model_year_id)"
+      ]
+    ],
+    "indexed": [
+      [
+        "recall",
+        "recall_pkey",
+        "CREATE UNIQUE INDEX recall_pkey ON bench_393f2a545a1a472ca185b43928426da4.recall USING btree (recall_id)"
+      ],
+      [
+        "recall_record",
+        "bench_source_vehicle",
+        "CREATE INDEX bench_source_vehicle ON bench_393f2a545a1a472ca185b43928426da4.recall_record USING btree (model_year_id, recall_id)"
+      ],
+      [
+        "recall_record",
+        "recall_record_pkey",
+        "CREATE UNIQUE INDEX recall_record_pkey ON bench_393f2a545a1a472ca185b43928426da4.recall_record USING btree (source_record_id)"
+      ],
+      [
+        "recall_vehicle",
+        "bench_vehicle_recall",
+        "CREATE INDEX bench_vehicle_recall ON bench_393f2a545a1a472ca185b43928426da4.recall_vehicle USING btree (model_year_id, recall_id)"
+      ],
+      [
+        "recall_vehicle",
+        "recall_vehicle_pkey",
+        "CREATE UNIQUE INDEX recall_vehicle_pkey ON bench_393f2a545a1a472ca185b43928426da4.recall_vehicle USING btree (recall_id, model_year_id)"
+      ]
+    ]
+  },
+  "mongo_copy_indexes": {
+    "baseline": [
+      {
+        "v": 2,
+        "key": {
+          "_id": 1
+        },
+        "name": "_id_"
+      }
+    ],
+    "current": [
+      {
+        "v": 2,
+        "key": {
+          "_id": 1
+        },
+        "name": "_id_"
+      },
+      {
+        "v": 2,
+        "key": {
+          "modelYearId": 1,
+          "receivedDate": -1
+        },
+        "name": "vehicle_received"
+      }
+    ],
+    "candidate": [
+      {
+        "v": 2,
+        "key": {
+          "_id": 1
+        },
+        "name": "_id_"
+      },
+      {
+        "v": 2,
+        "key": {
+          "modelYearId": 1,
+          "receivedDate": -1
+        },
+        "name": "vehicle_received"
+      },
+      {
+        "v": 2,
+        "key": {
+          "modelYearId": 1,
+          "receivedDate": -1,
+          "_id": -1
+        },
+        "name": "vehicle_received_ordered"
+      }
+    ]
+  },
+  "copy_sizes": {
+    "postgres_total_bytes": {
+      "recall": 12173312,
+      "recall_vehicle": 7168000,
+      "recall_record": 32792576
+    },
+    "mongodb": {
+      "size": 479406854,
+      "count": 428837,
+      "storageSize": 231596032,
+      "totalIndexSize": 5582848
+    }
+  },
+  "source_after": {
+    "postgres_counts": {
+      "analysis_case": 0,
+      "app_session": 1,
+      "app_user": 2,
+      "case_content_operation": 0,
+      "case_status_history": 0,
+      "data_import_log": 12,
+      "fleet": 0,
+      "fleet_vehicle": 0,
+      "investigation_component": 5361,
+      "investigation_manufacturer": 3943,
+      "investigation_recall": 1671,
+      "investigation_vehicle": 28647,
+      "manufacturer": 1414,
+      "manufacturer_make": 1663,
+      "model_year": 53555,
+      "official_investigation": 3626,
+      "recall": 13600,
+      "recall_record": 219728,
+      "recall_vehicle": 93743,
+      "saved_vehicle": 1,
+      "schema_version": 3,
+      "vehicle_make": 1349,
+      "vehicle_model": 11007,
+      "vehicle_source": 74400,
+      "work_order": 0
+    },
+    "postgres_indexes": [
+      [
+        "analysis_case",
+        "analysis_case_pkey",
+        "CREATE UNIQUE INDEX analysis_case_pkey ON public.analysis_case USING btree (case_id)"
+      ],
+      [
+        "analysis_case",
+        "idx_analysis_case_assigned",
+        "CREATE INDEX idx_analysis_case_assigned ON public.analysis_case USING btree (assigned_to, status)"
+      ],
+      [
+        "app_session",
+        "app_session_pkey",
+        "CREATE UNIQUE INDEX app_session_pkey ON public.app_session USING btree (token_hash)"
+      ],
+      [
+        "app_session",
+        "idx_app_session_expiry",
+        "CREATE INDEX idx_app_session_expiry ON public.app_session USING btree (expires_at)"
+      ],
+      [
+        "app_session",
+        "idx_app_session_user",
+        "CREATE INDEX idx_app_session_user ON public.app_session USING btree (user_id)"
+      ],
+      [
+        "app_user",
+        "app_user_email_key",
+        "CREATE UNIQUE INDEX app_user_email_key ON public.app_user USING btree (email)"
+      ],
+      [
+        "app_user",
+        "app_user_pkey",
+        "CREATE UNIQUE INDEX app_user_pkey ON public.app_user USING btree (user_id)"
+      ],
+      [
+        "case_content_operation",
+        "case_content_operation_case_id_revision_key",
+        "CREATE UNIQUE INDEX case_content_operation_case_id_revision_key ON public.case_content_operation USING btree (case_id, revision)"
+      ],
+      [
+        "case_content_operation",
+        "case_content_operation_pkey",
+        "CREATE UNIQUE INDEX case_content_operation_pkey ON public.case_content_operation USING btree (operation_id)"
+      ],
+      [
+        "case_content_operation",
+        "idx_case_operation_owner",
+        "CREATE INDEX idx_case_operation_owner ON public.case_content_operation USING btree (owner_id, state, created_at)"
+      ],
+      [
+        "case_content_operation",
+        "idx_case_operation_pending",
+        "CREATE UNIQUE INDEX idx_case_operation_pending ON public.case_content_operation USING btree (case_id) WHERE (state = 'PENDING'::text)"
+      ],
+      [
+        "case_status_history",
+        "case_status_history_pkey",
+        "CREATE UNIQUE INDEX case_status_history_pkey ON public.case_status_history USING btree (history_id)"
+      ],
+      [
+        "data_import_log",
+        "data_import_log_pkey",
+        "CREATE UNIQUE INDEX data_import_log_pkey ON public.data_import_log USING btree (import_id)"
+      ],
+      [
+        "fleet",
+        "fleet_owner_id_name_key",
+        "CREATE UNIQUE INDEX fleet_owner_id_name_key ON public.fleet USING btree (owner_id, name)"
+      ],
+      [
+        "fleet",
+        "fleet_pkey",
+        "CREATE UNIQUE INDEX fleet_pkey ON public.fleet USING btree (fleet_id)"
+      ],
+      [
+        "fleet_vehicle",
+        "fleet_vehicle_fleet_id_label_key",
+        "CREATE UNIQUE INDEX fleet_vehicle_fleet_id_label_key ON public.fleet_vehicle USING btree (fleet_id, label)"
+      ],
+      [
+        "fleet_vehicle",
+        "fleet_vehicle_fleet_vehicle_id_model_year_id_key",
+        "CREATE UNIQUE INDEX fleet_vehicle_fleet_vehicle_id_model_year_id_key ON public.fleet_vehicle USING btree (fleet_vehicle_id, model_year_id)"
+      ],
+      [
+        "fleet_vehicle",
+        "fleet_vehicle_pkey",
+        "CREATE UNIQUE INDEX fleet_vehicle_pkey ON public.fleet_vehicle USING btree (fleet_vehicle_id)"
+      ],
+      [
+        "fleet_vehicle",
+        "idx_fleet_vehicle_fleet",
+        "CREATE INDEX idx_fleet_vehicle_fleet ON public.fleet_vehicle USING btree (fleet_id)"
+      ],
+      [
+        "investigation_component",
+        "investigation_component_pkey",
+        "CREATE UNIQUE INDEX investigation_component_pkey ON public.investigation_component USING btree (investigation_id, component)"
+      ],
+      [
+        "investigation_manufacturer",
+        "investigation_manufacturer_pkey",
+        "CREATE UNIQUE INDEX investigation_manufacturer_pkey ON public.investigation_manufacturer USING btree (investigation_id, manufacturer_id)"
+      ],
+      [
+        "investigation_recall",
+        "investigation_recall_pkey",
+        "CREATE UNIQUE INDEX investigation_recall_pkey ON public.investigation_recall USING btree (investigation_id, campaign_number)"
+      ],
+      [
+        "investigation_vehicle",
+        "idx_investigation_vehicle_model_year",
+        "CREATE INDEX idx_investigation_vehicle_model_year ON public.investigation_vehicle USING btree (model_year_id, investigation_id)"
+      ],
+      [
+        "investigation_vehicle",
+        "investigation_vehicle_pkey",
+        "CREATE UNIQUE INDEX investigation_vehicle_pkey ON public.investigation_vehicle USING btree (investigation_id, model_year_id)"
+      ],
+      [
+        "manufacturer",
+        "manufacturer_name_key",
+        "CREATE UNIQUE INDEX manufacturer_name_key ON public.manufacturer USING btree (name)"
+      ],
+      [
+        "manufacturer",
+        "manufacturer_pkey",
+        "CREATE UNIQUE INDEX manufacturer_pkey ON public.manufacturer USING btree (manufacturer_id)"
+      ],
+      [
+        "manufacturer_make",
+        "idx_manufacturer_make_make",
+        "CREATE INDEX idx_manufacturer_make_make ON public.manufacturer_make USING btree (make_id, manufacturer_id)"
+      ],
+      [
+        "manufacturer_make",
+        "manufacturer_make_pkey",
+        "CREATE UNIQUE INDEX manufacturer_make_pkey ON public.manufacturer_make USING btree (manufacturer_id, make_id)"
+      ],
+      [
+        "model_year",
+        "model_year_model_id_year_key",
+        "CREATE UNIQUE INDEX model_year_model_id_year_key ON public.model_year USING btree (model_id, year)"
+      ],
+      [
+        "model_year",
+        "model_year_pkey",
+        "CREATE UNIQUE INDEX model_year_pkey ON public.model_year USING btree (model_year_id)"
+      ],
+      [
+        "official_investigation",
+        "official_investigation_investigation_number_key",
+        "CREATE UNIQUE INDEX official_investigation_investigation_number_key ON public.official_investigation USING btree (investigation_number)"
+      ],
+      [
+        "official_investigation",
+        "official_investigation_pkey",
+        "CREATE UNIQUE INDEX official_investigation_pkey ON public.official_investigation USING btree (investigation_id)"
+      ],
+      [
+        "recall",
+        "recall_campaign_number_key",
+        "CREATE UNIQUE INDEX recall_campaign_number_key ON public.recall USING btree (campaign_number)"
+      ],
+      [
+        "recall",
+        "recall_pkey",
+        "CREATE UNIQUE INDEX recall_pkey ON public.recall USING btree (recall_id)"
+      ],
+      [
+        "recall_record",
+        "idx_recall_record_vehicle",
+        "CREATE INDEX idx_recall_record_vehicle ON public.recall_record USING btree (model_year_id, recall_id)"
+      ],
+      [
+        "recall_record",
+        "recall_record_pkey",
+        "CREATE UNIQUE INDEX recall_record_pkey ON public.recall_record USING btree (source_record_id)"
+      ],
+      [
+        "recall_vehicle",
+        "idx_recall_vehicle_model_year",
+        "CREATE INDEX idx_recall_vehicle_model_year ON public.recall_vehicle USING btree (model_year_id, recall_id)"
+      ],
+      [
+        "recall_vehicle",
+        "recall_vehicle_pkey",
+        "CREATE UNIQUE INDEX recall_vehicle_pkey ON public.recall_vehicle USING btree (recall_id, model_year_id)"
+      ],
+      [
+        "saved_vehicle",
+        "saved_vehicle_pkey",
+        "CREATE UNIQUE INDEX saved_vehicle_pkey ON public.saved_vehicle USING btree (saved_vehicle_id)"
+      ],
+      [
+        "saved_vehicle",
+        "saved_vehicle_user_id_model_year_id_key",
+        "CREATE UNIQUE INDEX saved_vehicle_user_id_model_year_id_key ON public.saved_vehicle USING btree (user_id, model_year_id)"
+      ],
+      [
+        "schema_version",
+        "schema_version_pkey",
+        "CREATE UNIQUE INDEX schema_version_pkey ON public.schema_version USING btree (version)"
+      ],
+      [
+        "vehicle_make",
+        "vehicle_make_name_key",
+        "CREATE UNIQUE INDEX vehicle_make_name_key ON public.vehicle_make USING btree (name)"
+      ],
+      [
+        "vehicle_make",
+        "vehicle_make_pkey",
+        "CREATE UNIQUE INDEX vehicle_make_pkey ON public.vehicle_make USING btree (make_id)"
+      ],
+      [
+        "vehicle_model",
+        "vehicle_model_make_id_name_key",
+        "CREATE UNIQUE INDEX vehicle_model_make_id_name_key ON public.vehicle_model USING btree (make_id, name)"
+      ],
+      [
+        "vehicle_model",
+        "vehicle_model_pkey",
+        "CREATE UNIQUE INDEX vehicle_model_pkey ON public.vehicle_model USING btree (model_id)"
+      ],
+      [
+        "vehicle_source",
+        "vehicle_source_pkey",
+        "CREATE UNIQUE INDEX vehicle_source_pkey ON public.vehicle_source USING btree (model_year_id, source_name)"
+      ],
+      [
+        "work_order",
+        "work_order_fleet_vehicle_id_recall_id_key",
+        "CREATE UNIQUE INDEX work_order_fleet_vehicle_id_recall_id_key ON public.work_order USING btree (fleet_vehicle_id, recall_id)"
+      ],
+      [
+        "work_order",
+        "work_order_pkey",
+        "CREATE UNIQUE INDEX work_order_pkey ON public.work_order USING btree (work_order_id)"
+      ]
+    ],
+    "mongo_counts": {
+      "complaints": 428837,
+      "case_details": 0
+    },
+    "mongo_indexes": {
+      "complaints": [
+        {
+          "v": 2,
+          "key": {
+            "_id": 1
+          },
+          "name": "_id_"
+        },
+        {
+          "v": 2,
+          "key": {
+            "modelYearId": 1,
+            "receivedDate": -1
+          },
+          "name": "vehicle_received"
+        },
+        {
+          "v": 2,
+          "key": {
+            "modelYearId": 1,
+            "components": 1
+          },
+          "name": "vehicle_components"
+        },
+        {
+          "v": 2,
+          "key": {
+            "_fts": "text",
+            "_ftsx": 1
+          },
+          "name": "narrative_text",
+          "weights": {
+            "narrative": 1
+          },
+          "default_language": "english",
+          "language_override": "language",
+          "textIndexVersion": 3
+        }
+      ],
+      "case_details": [
+        {
+          "v": 2,
+          "key": {
+            "_id": 1
+          },
+          "name": "_id_"
+        },
+        {
+          "v": 2,
+          "key": {
+            "caseId": 1
+          },
+          "name": "case_id_unique",
+          "unique": true
+        }
+      ]
+    }
+  },
+  "source_counts_and_indexes_unchanged": true,
+  "cleanup_errors": [],
+  "finished_at_utc": "2026-10-29T15:51:37.494739+00:00",
+  "successful": true
+}

@@ -1,0 +1,11 @@
+{
+  "verified_at_utc": "2026-10-29T15:54:09.926381+00:00",
+  "command": ".\\.venv\\Scripts\\python.exe -m unittest discover -s tests -v",
+  "tests_run": 177,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "successful": true,
+  "browser_tests_rerun": false,
+  "scope": "Existing application unit/contract tests plus seven benchmark measurement-integrity tests; native benchmark and live-index checks are separate evidence."
+}

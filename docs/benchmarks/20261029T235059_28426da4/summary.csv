@@ -1,0 +1,11 @@
+database,workload,phase,n,median_ms,p25_ms,p75_ms,min_ms,max_ms,returned_rows,pg_shared_hit_blocks_round_1,mongo_docs_examined_round_1,mongo_keys_examined_round_1
+PostgreSQL,pg_recall_lookup,baseline,30,2.56215,2.4048,2.81015,2.2578,12.6412,4,519,,
+PostgreSQL,pg_recall_lookup,indexed,30,0.267,0.189575,0.30327499999999996,0.1538,0.6163,4,16,,
+PostgreSQL,pg_component_source_rows,baseline,30,23.95895,22.93795,27.23705,21.9194,145.3647,9,3419,,
+PostgreSQL,pg_component_source_rows,indexed,30,0.18785,0.17945,0.214675,0.1678,0.4044,9,34,,
+MongoDB,mongo_complaints_full_window,baseline,30,247.74425,218.76817499999999,265.950825,143.2811,289.2205,20,,428837,0
+MongoDB,mongo_complaints_full_window,current,30,1.5516999999999999,1.40665,1.827825,1.2094,9.3248,20,,885,885
+MongoDB,mongo_complaints_full_window,candidate,30,0.4521,0.394375,0.615025,0.3561,3.2643,20,,20,20
+MongoDB,mongo_complaints_2026,baseline,30,246.38135,229.266425,262.225725,146.1943,304.0637,20,,428837,0
+MongoDB,mongo_complaints_2026,current,30,0.4972,0.471875,0.54155,0.4446,0.6176,20,,31,31
+MongoDB,mongo_complaints_2026,candidate,30,0.40105,0.36565000000000003,0.422075,0.3377,0.6506,20,,20,20

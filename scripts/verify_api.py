@@ -52,7 +52,7 @@ def main():
         return result
 
     try:
-        request("/", 200)
+        request("/api", 200)
         health = request("/api/health", 200)
         assert health["databases"] == {"postgresql": "ok", "mongodb": "ok"}
         search = request("/api/vehicles/search?year=2022&make=honda&model=civic&pageSize=1", 200)

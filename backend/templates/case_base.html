@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<div id="case-page" data-view="{{ case_view }}">
+  <section class="profile-heading"><div><p class="eyebrow">INTERNAL ANALYST WORKSPACE</p><h1 id="case-page-title">{{ 'New analyst case' if case_view == 'new' else 'Analyst cases' if case_view == 'list' else 'Analysis case' }}</h1><p class="intro" id="case-page-subtitle">Collect the reports. Record the reasoning.</p></div><div class="case-heading-actions"><a class="button button-quiet" href="{{ url_for('pages.case_list') }}" {% if case_view == 'list' %}hidden{% endif %}>All cases</a><a class="button button-primary" id="case-new-link" href="{{ url_for('pages.case_new') }}" hidden>New case <span aria-hidden="true">+</span></a></div></section>
+  <div id="case-gate" class="panel empty-state" role="status"><p>Checking your workspace access…</p></div>
+  <p id="case-message" class="status-line" role="status" aria-live="polite"></p>
+  <div id="case-command-recovery" class="notice notice-error" hidden><h2>Change not yet confirmed</h2><p id="case-command-description"></p><p>Keep this page open and retry the same change. If you leave, review case records and saved update receipts before submitting it again.</p><button id="case-command-retry" class="button button-quiet button-small" type="button">Retry same change</button><details><summary>Request reference</summary><p id="case-command-reference"></p></details></div>
+  <div id="case-workspace" hidden>{% block workspace %}{% endblock %}</div>
+</div>
+{% endblock %}

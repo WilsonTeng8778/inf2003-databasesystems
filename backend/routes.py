@@ -1,5 +1,8 @@
 """Read-only research endpoints, validation, and request-scoped SQL connections."""
 
+import re
+from datetime import date
+
 from flask import Blueprint, abort, current_app, g, jsonify, request
 from psycopg import Error as PostgresError
 from pymongo.errors import PyMongoError
@@ -40,7 +43,7 @@ def number(field, *, required=False, default=None, minimum=1, maximum=2147483647
             abort(400, description=f"{field} is required")
         return default
     value = value.strip()
-    if not value.isascii() or not value.isdecimal() or len(value) > 10:
+    if not value.isascii() or not value.isdecimal() or len(value) > max(10, len(str(maximum))):
         abort(400, description=f"{field} must be an integer")
     parsed = int(value)
     if not minimum <= parsed <= maximum:
@@ -58,6 +61,28 @@ def text(field, *, required=False, maximum=256):
     if not value or len(value) > maximum or not value.isprintable():
         abort(400, description=f"{field} must contain 1 to {maximum} printable characters")
     return value
+
+
+def boolean(field):
+    value = request.args.get(field)
+    if value is None:
+        return None
+    value = value.strip().lower()
+    if value not in {"true", "false"}:
+        abort(400, description=f"{field} must be true or false")
+    return value == "true"
+
+
+def calendar_date(field):
+    value = request.args.get(field)
+    if value is None:
+        return None
+    if re.fullmatch(r"[0-9]{4}-[0-9]{2}-[0-9]{2}", value):
+        try:
+            return date.fromisoformat(value)
+        except ValueError:
+            pass
+    abort(400, description=f"{field} must be a valid YYYY-MM-DD date")
 
 
 @api.get("/health")

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<a class="back-link" href="{{ url_for('pages.search') }}">← Back to vehicle search</a>
+<section class="profile-heading"><div><p class="eyebrow">VEHICLE SAFETY PROFILE</p><h1 id="profile-title">Loading vehicle…</h1><p id="profile-subtitle" class="intro">The records, together in one place.</p></div><div class="profile-actions"><button id="save-vehicle" class="button button-primary" disabled>Save vehicle</button><a href="{{ url_for('pages.saved') }}" class="text-link" id="saved-shortcut" hidden>View my vehicles →</a></div></section>
+<p id="profile-status" class="status-line" role="status" aria-live="polite"></p>
+<a id="profile-analytics-link" class="text-link" href="{{ url_for('pages.analytics_dashboard') }}">View complaint charts &amp; model-year comparison →</a>
+<a id="start-analysis-case" class="text-link" data-case-nav hidden href="{{ url_for('pages.case_new') }}">Open an analyst case for this vehicle →</a>
+<div id="profile-content" hidden>
+  <section class="stat-grid" aria-label="Vehicle record counts">
+    <article class="stat-card"><span class="stat-label">Official recall campaigns</span><strong id="recall-count">—</strong><span>Model-level corrective actions</span></article>
+    <article class="stat-card"><span class="stat-label">Consumer complaints</span><strong id="complaint-count">—</strong><span>Individual consumer reports</span></article>
+    <article class="stat-card"><span class="stat-label">Official investigations</span><strong id="investigation-count">—</strong><span>NHTSA investigation records</span></article>
+  </section>
+  <div class="interpretation-note"><span class="small-icon" aria-hidden="true">i</span><p>Complaints are allegations, not confirmed defects. Records match make, model and year; they do not establish one VIN’s recall status or repair completion.</p></div>
+  <div class="profile-grid">
+    <section class="panel records-panel" aria-labelledby="records-title">
+      <div class="section-heading"><div><p class="eyebrow">LOOK INTO THE DETAILS</p><h2 id="records-title">Safety records</h2></div><a id="explore-complaints" class="text-link" href="{{ url_for('pages.complaint_explorer') }}">Filter complaints →</a></div>
+      <div class="record-switch" role="group" aria-label="Record type">
+        <button type="button" data-record-type="recalls" aria-pressed="true">Recalls</button>
+        <button type="button" data-record-type="complaints" aria-pressed="false">Complaints</button>
+        <button type="button" data-record-type="investigations" aria-pressed="false">Investigations</button>
+      </div>
+      <p id="record-status" class="status-line" role="status" aria-live="polite"></p>
+      <div id="record-list" aria-busy="false"></div>
+      <div id="record-pagination" class="pagination" hidden></div>
+    </section>
+    <aside class="panel component-panel" aria-labelledby="components-title"><p class="eyebrow">REPORTED BY CONSUMERS</p><h2 id="components-title">Most mentioned<br>components</h2><p class="muted">One complaint may mention several components.</p><div id="component-list"></div></aside>
+  </div>
+</div>
+<dialog id="save-dialog" aria-labelledby="save-dialog-title">
+  <form id="save-form"><p class="eyebrow">YOUR PERSONAL VEHICLE LIST</p><h2 id="save-dialog-title">Save this vehicle</h2><p class="muted" id="save-dialog-vehicle"></p><label for="save-nickname">Nickname <span class="optional">(optional)</span></label><input id="save-nickname" name="nickname" maxlength="100" placeholder="e.g. My daily driver"><p id="save-status" class="status-line" role="status"></p><div class="dialog-actions"><button class="button button-quiet" type="button" data-close-dialog="save-dialog">Cancel</button><button class="button button-primary" id="confirm-save" type="submit">Save vehicle</button></div></form>
+</dialog>
+{% endblock %}

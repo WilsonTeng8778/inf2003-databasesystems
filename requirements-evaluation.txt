@@ -1,0 +1,3 @@
+# Optional plotting tools for the performance report. Not needed to run the app.
+-r requirements.txt
+matplotlib==3.11.2

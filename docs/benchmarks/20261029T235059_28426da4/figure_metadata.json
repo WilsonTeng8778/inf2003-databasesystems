@@ -1,0 +1,5 @@
+{
+  "source": "report.json",
+  "matplotlib_version": "3.11.2",
+  "script": "scripts/plot_benchmarks.py"
+}

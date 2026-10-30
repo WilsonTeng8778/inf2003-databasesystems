@@ -1,0 +1,387 @@
+{
+  "reviewed_at_utc": "2026-10-29T16:25:49.224874+00:00",
+  "review_date_local": "2026-10-30",
+  "timezone": "Asia/Kuala_Lumpur",
+  "scope": "Static document/source review and artifact integrity checks only. No database reads/writes, imports, application tests or browser tests were run.",
+  "source_documents": [
+    {
+      "reference": "D1",
+      "filename": "INF2003_project_description.pdf",
+      "sha256": "02cbedf4175c717386af8e16719d73d403eba77c93f6c657188aeb0ba8935067",
+      "bytes": 185661,
+      "pages": 6,
+      "location": "User-provided Downloads file; not copied into repository"
+    },
+    {
+      "reference": "D2",
+      "filename": "Project_QA1.pdf",
+      "sha256": "3b57e2446b2b02b77131333a4a6fee678742f997ecc93bf50aba1e281054867a",
+      "bytes": 58109,
+      "pages": 1,
+      "location": "User-provided Downloads file; not copied into repository"
+    },
+    {
+      "reference": "D3",
+      "filename": "Database Systems Project Proposal.pdf",
+      "sha256": "560bd0054d3f06afd7f6823fda1bcbf2cc6e4950df0a850dee71151eeb31b51f",
+      "bytes": 102082,
+      "pages": 3,
+      "location": "User-provided Downloads file; not copied into repository"
+    },
+    {
+      "reference": "D4",
+      "filename": "Vehicle_Safety_Recall_Defect_Investigation_Blueprint.md",
+      "sha256": "9ff22bf71ea468e9ddc219d197fada3eb7aa777008801cd40b29b510c4c684ac",
+      "bytes": 23576,
+      "location": "User-provided Downloads file; advisory blueprint"
+    },
+    {
+      "reference": "D5",
+      "filename": "IMPLEMENTATION_GREENLIGHT.md",
+      "sha256": "81a9a45d1b77e385997f100766f2fa087e0eaa5565c53c690cb024d5c06d28f1",
+      "bytes": 17046,
+      "repository_path": "docs/IMPLEMENTATION_GREENLIGHT.md"
+    }
+  ],
+  "historical_evidence": [
+    {
+      "path": "docs/verification_report.json",
+      "sha256": "bddd39f4947d6cdeda0c40861c8ee2d9e0378e82c89893d54e68a81238b0e692",
+      "original_timestamp_utc": "2026-10-25T05:14:26.226794+00:00",
+      "original_local_date": "2026-10-25",
+      "idempotent_rerun_verified": true
+    },
+    {
+      "path": "docs/api_verification_report.json",
+      "sha256": "5e300934dbfb7ced55941ed320bcfa87687916692ba056ae722032da00c4d518",
+      "original_timestamp_utc": "2026-10-28T09:08:04.965437+00:00",
+      "original_local_date": "2026-10-28",
+      "recorded_checks_count": 8
+    },
+    {
+      "path": "docs/auth_verification_report.json",
+      "sha256": "d9ad2457e6fad2eea0b92fee999c82e6974df3874c9e2e490f18030be50b0b57",
+      "original_timestamp_utc": "2026-10-28T09:46:32.248756+00:00",
+      "original_local_date": "2026-10-28",
+      "recorded_checks_count": 36
+    },
+    {
+      "path": "docs/saved_vehicles_verification_report.json",
+      "sha256": "c930a9543efbecc7184f9b4a017019c9e1717c991da7000f14696ee678d2e8f6",
+      "original_timestamp_utc": "2026-10-28T13:43:21.910797+00:00",
+      "original_local_date": "2026-10-28",
+      "recorded_checks_count": 37
+    },
+    {
+      "path": "docs/complaints_verification_report.json",
+      "sha256": "931dde205c152e1ad9ab6ad44360bd13700ef8258ecc0055d11c0ae8597c2e9b",
+      "original_timestamp_utc": "2026-10-28T15:06:22.716915+00:00",
+      "original_local_date": "2026-10-28",
+      "recorded_checks_count": 42
+    },
+    {
+      "path": "docs/official_records_verification_report.json",
+      "sha256": "eef2670102e1385e1353b513804614eb105df3bf4cb0573d90468f7ec40bc393",
+      "original_timestamp_utc": "2026-10-28T15:36:42.918259+00:00",
+      "original_local_date": "2026-10-28",
+      "recorded_checks_count": 79
+    },
+    {
+      "path": "docs/cases_verification_report.json",
+      "sha256": "5c9b922a4f57b3cd9673f0872f73b885fdc701c20d6d6e0f99ca88f0e474ace9",
+      "original_timestamp_utc": "2026-10-28T16:59:49.807325+00:00",
+      "original_local_date": "2026-10-29",
+      "recorded_checks_count": 99
+    },
+    {
+      "path": "docs/fleets_verification_report.json",
+      "sha256": "4292c8d9ce8b1ea39de13cdb10bb97199ad6927a70cd2bd5af4e01cdc4391e37",
+      "original_timestamp_utc": "2026-10-28T17:20:31.924529+00:00",
+      "original_local_date": "2026-10-29",
+      "recorded_checks_count": 110
+    },
+    {
+      "path": "docs/frontend_step_1_verification_report.json",
+      "sha256": "cfebf0ef0db6890a0019a22e3ad3f9afd78067ba13a0ccdf231126fed313f9b9",
+      "original_timestamp_utc": "2026-10-28T18:22:38.323884+00:00",
+      "original_local_date": "2026-10-29",
+      "recorded_checks_count": 32
+    },
+    {
+      "path": "docs/frontend_step_2_verification_report.json",
+      "sha256": "ae9e7a3ab848188e89ffe272e5e533336abec6bae9b7c563baaff4c5cfa39d82",
+      "original_timestamp_utc": "2026-10-29T10:44:43.986141+00:00",
+      "original_local_date": "2026-10-29",
+      "recorded_checks_count": 71
+    },
+    {
+      "path": "docs/frontend_step_3_verification_report.json",
+      "sha256": "4ae6c9104668e354c811f45eb57bb2e1f57b876af3ae881900d2d3269aae2458",
+      "original_timestamp_utc": "2026-10-29T11:03:52.934590+00:00",
+      "original_local_date": "2026-10-29",
+      "recorded_checks_count": 115
+    },
+    {
+      "path": "docs/frontend_step_4_verification_report.json",
+      "sha256": "deb7b01ea0a2eb1889a1aec1a83591aaad6ea30ba6251108cca662ae09ed4fe1",
+      "original_timestamp_utc": "2026-10-29T13:01:43.905855+00:00",
+      "original_local_date": "2026-10-29",
+      "recorded_checks_count": 163
+    },
+    {
+      "path": "docs/frontend_step_5_verification_report.json",
+      "sha256": "178d844c5b7ef8a8f7817d4f731177bcbd1133075dc258cf4b3cbc74dbd9fc94",
+      "original_timestamp_utc": "2026-10-29T15:02:09.467730+00:00",
+      "original_local_date": "2026-10-29",
+      "recorded_checks_count": 195
+    },
+    {
+      "path": "docs/frontend_step_6_verification_report.json",
+      "sha256": "f4697481f7b9adb940c0cd2cad3a556e2080aa556c7999937a7058c3ec26d574",
+      "original_timestamp_utc": "2026-10-29T15:23:59.473779+00:00",
+      "original_local_date": "2026-10-29",
+      "recorded_checks_count": 219
+    },
+    {
+      "path": "docs/benchmarks/20261029T235059_28426da4/report.json",
+      "sha256": "f37d0ace9126fc34484d3487a5131b67572533e2d84d5d4d355562f05c6652a5",
+      "original_timestamp_utc": "2026-10-29T15:51:37.494739+00:00",
+      "original_local_date": "2026-10-29",
+      "successful": true,
+      "source_counts_and_indexes_unchanged": true
+    },
+    {
+      "path": "docs/benchmarks/20261029T235059_28426da4/automated_tests.json",
+      "sha256": "895714a190020ff6339351420490953ac4bb85742e9222fbd0700613def19daa",
+      "original_timestamp_utc": "2026-10-29T15:54:09.926381+00:00",
+      "original_local_date": "2026-10-29",
+      "successful": true,
+      "tests_run": 177,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "path": "docs/index_improvements/20261029T235322_731cbce8/report.json",
+      "sha256": "a4cf1e4953323e221ab27f7a3767c91bf0253321ccbc00a464c56a7c5bfbfd18",
+      "original_timestamp_utc": "2026-10-29T15:53:25.087184+00:00",
+      "original_local_date": "2026-10-29",
+      "successful": true,
+      "recorded_checks_count": 5
+    }
+  ],
+  "reviewed_source_files": [
+    {
+      "path": "backend/auth.py",
+      "sha256": "bca27086819093774a77d2b22d4a1eec42091d7f24db2345879eff44033e19c6"
+    },
+    {
+      "path": "backend/administration.py",
+      "sha256": "8d8b58afac6be043ef1a4ba0fd586b07738862b3a0d2d316e4a45e9f4bb23add"
+    },
+    {
+      "path": "backend/services/auth.py",
+      "sha256": "42b4306d9b4554b31686ce938eb907dfdf398e835dc7ec772b52848d14e13267"
+    },
+    {
+      "path": "backend/services/administration.py",
+      "sha256": "3ec702e15a72b697e29a60cc29a4bec01eca94bc277e274323adddf35fe971ce"
+    },
+    {
+      "path": "backend/services/cases.py",
+      "sha256": "6f771275d4f5ca8a5ce1797d3feb0c01b6344c4e66482ea37244b5d80db8e590"
+    },
+    {
+      "path": "backend/services/fleets.py",
+      "sha256": "ac942de04d9ba4456dd03eb5badf8ca3b1f3c1113410d7f325db81a34c11fcdf"
+    },
+    {
+      "path": "backend/services/analytics.py",
+      "sha256": "a5a74d88534263ffb36a28923ac69a250286155f3c45b197cd69fae689d1b917"
+    },
+    {
+      "path": "backend/services/complaints.py",
+      "sha256": "679efc41619a5514e56f9b01b5f0d1ada3e9b5fc48697745ca52b3a8fd97dae8"
+    },
+    {
+      "path": "backend/services/official_records.py",
+      "sha256": "17ac94e6b174d1baf0f46f9c1ddd99406663be81981bfedff974caa9158afe1f"
+    },
+    {
+      "path": "sql/schema.sql",
+      "sha256": "0afb06962059e066b5b53ce3b9aada7897b7eb7ba942280e5cb7901857c14f84"
+    },
+    {
+      "path": "sql/views.sql",
+      "sha256": "816a75b950a67082ab58dd4bd1bd7f69008800ba18d66989b98649968686a7fb"
+    },
+    {
+      "path": "sql/triggers.sql",
+      "sha256": "9f01a9d08c8fc547f3e27c69102d5cd2b4e0eabc15c6b37b41edb73e3972b818"
+    },
+    {
+      "path": "sql/indexes.sql",
+      "sha256": "90c4021aac061ad337f2f55c192ea392a0e66becf833a69150dcca4b0573a21b"
+    },
+    {
+      "path": "sql/admin_views.sql",
+      "sha256": "f3fe36c36feb27ed2070d484ddb1c7c76d9a912cf1c7c142e067dd58165dd0ec"
+    },
+    {
+      "path": "sql/migrations/003_case_operations.sql",
+      "sha256": "8799385d7d81c482d0b45054740ad787332b7a17a947f543f81547de0760bc27"
+    },
+    {
+      "path": "mongodb/schema.py",
+      "sha256": "c7e791909cfdaf81b2979bf4111d3252fdfb34b8e789d5fd782b0c6e398072ba"
+    },
+    {
+      "path": "scripts/import_all.py",
+      "sha256": "1b3a171245197731d4f6f2042fa24ba5dbff80ccc3d1f850b1f1a7dcf1a3b8e2"
+    },
+    {
+      "path": "scripts/setup_auth.py",
+      "sha256": "1e918784ae32be9f62011f7f0b611c1b5abb3d2def1552cf3e5bff92d898eb6b"
+    },
+    {
+      "path": "scripts/setup_databases.py",
+      "sha256": "7fe71be0e39f334d940510f1836941f06359ae9c1a047a839bf2ae05572814f4"
+    },
+    {
+      "path": "scripts/benchmark_databases.py",
+      "sha256": "97513855eb775a41bc9aaf28e05081f4287e4bed9e0bcc75085f138701b6c284"
+    }
+  ],
+  "auth_and_monitoring_routes_observed": [
+    {
+      "source": "backend/auth.py",
+      "method": "GET",
+      "path": "/api/auth/csrf",
+      "handler": "csrf"
+    },
+    {
+      "source": "backend/auth.py",
+      "method": "POST",
+      "path": "/api/auth/register",
+      "handler": "register"
+    },
+    {
+      "source": "backend/auth.py",
+      "method": "POST",
+      "path": "/api/auth/login",
+      "handler": "login"
+    },
+    {
+      "source": "backend/auth.py",
+      "method": "GET",
+      "path": "/api/auth/me",
+      "handler": "me"
+    },
+    {
+      "source": "backend/auth.py",
+      "method": "POST",
+      "path": "/api/auth/logout",
+      "handler": "logout"
+    },
+    {
+      "source": "backend/auth.py",
+      "method": "GET",
+      "path": "/api/admin/users",
+      "handler": "users"
+    },
+    {
+      "source": "backend/auth.py",
+      "method": "PATCH",
+      "path": "/api/admin/users/<int:user_id>/role",
+      "handler": "change_role"
+    },
+    {
+      "source": "backend/administration.py",
+      "method": "GET",
+      "path": "/api/admin/datasets",
+      "handler": "datasets"
+    },
+    {
+      "source": "backend/administration.py",
+      "method": "GET",
+      "path": "/api/admin/import-runs",
+      "handler": "imports"
+    }
+  ],
+  "raw_dataset_files": [
+    {
+      "dataset": "recalls",
+      "repository_path": "data/raw/FLAT_RCL_POST_2010.zip",
+      "present_locally": true,
+      "bytes": 14971029,
+      "expected_sha256_from_profile": "97ce2503ceb614483645e6942cf59b8e634fa575a5738d6d4b46bbb2ee1c5396",
+      "actual_sha256": "97ce2503ceb614483645e6942cf59b8e634fa575a5738d6d4b46bbb2ee1c5396",
+      "matches_inspected_snapshot": true,
+      "included_in_final_submission_package": false
+    },
+    {
+      "dataset": "investigations",
+      "repository_path": "data/raw/FLAT_INV.zip",
+      "present_locally": true,
+      "bytes": 4301580,
+      "expected_sha256_from_profile": "8d9dc5b71bc41748db6beca22df82a97cbfa2e9f2a7c85dfa0e49155314498c2",
+      "actual_sha256": "8d9dc5b71bc41748db6beca22df82a97cbfa2e9f2a7c85dfa0e49155314498c2",
+      "matches_inspected_snapshot": true,
+      "included_in_final_submission_package": false
+    },
+    {
+      "dataset": "complaints_2020_2024",
+      "repository_path": "data/raw/COMPLAINTS_RECEIVED_2020-2024.zip",
+      "present_locally": true,
+      "bytes": 75874092,
+      "expected_sha256_from_profile": "21cacbbc1642fd514bfa17e7b31ae898c35404f0ae50478ffcaf235c3dde5884",
+      "actual_sha256": "21cacbbc1642fd514bfa17e7b31ae898c35404f0ae50478ffcaf235c3dde5884",
+      "matches_inspected_snapshot": true,
+      "included_in_final_submission_package": false
+    },
+    {
+      "dataset": "complaints_2025_2026",
+      "repository_path": "data/raw/COMPLAINTS_RECEIVED_2025-2026.zip",
+      "present_locally": true,
+      "bytes": 42560546,
+      "expected_sha256_from_profile": "726c0c208cb0bda2c7f0375fbe23a941e7481f36adb7ec678e8c2814924b4c03",
+      "actual_sha256": "726c0c208cb0bda2c7f0375fbe23a941e7481f36adb7ec678e8c2814924b4c03",
+      "matches_inspected_snapshot": true,
+      "included_in_final_submission_package": false
+    }
+  ],
+  "submission_files_in_tracked_or_unignored_repo_inventory": {
+    ".docx": [],
+    ".pdf": [],
+    ".pptx": [],
+    ".ppt": [],
+    ".mp4": [],
+    ".zip": []
+  },
+  "gaps": [
+    {
+      "id": "G1",
+      "source": "D3 PDF page 3: SQL CRUD for users",
+      "status": "PARTIAL",
+      "observation": "Account registration/read/role update exist; no account deletion endpoint or browser action. Fixture cleanup is not a product account-deletion flow."
+    },
+    {
+      "id": "G2",
+      "source": "D5 section 6: ADMIN perform or initiate imports",
+      "status": "PARTIAL",
+      "observation": "Admin import monitoring is read-only. Full imports use trusted local CLI credentials, without authenticating the application ADMIN role."
+    }
+  ],
+  "application_functionality_changed": false,
+  "historical_reports_modified": false,
+  "document_checks": {
+    "all_historical_reports_parse": true,
+    "all_four_local_archives_match_inspected_snapshot": true
+  },
+  "limitations": [
+    "This review does not rerun or renew application verification.",
+    "No fresh-machine installation, final full rehearsal, XSite template/format check or final submission package verification performed.",
+    "Submission-file inventory is repository-based; teammates may have additional drafts elsewhere.",
+    "No new test count or performance result was generated by this review."
+  ]
+}

@@ -1,0 +1,546 @@
+{
+  "verified_at_utc": "2026-10-28T16:59:49.807325+00:00",
+  "checks": [
+    {
+      "method": "GET",
+      "path": "/api/analysis-cases",
+      "status": 401
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/csrf",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/register",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/csrf",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/register",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/csrf",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/register",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/csrf",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/register",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/analysis-cases",
+      "status": 403
+    },
+    {
+      "method": "POST",
+      "path": "/api/analysis-cases",
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "path": "/api/vehicles/search?year=2022&make=HONDA&model=CIVIC",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/analysis-cases",
+      "status": 201
+    },
+    {
+      "method": "POST",
+      "path": "/api/analysis-cases",
+      "status": 201
+    },
+    {
+      "method": "POST",
+      "path": "/api/analysis-cases",
+      "status": 409
+    },
+    {
+      "method": "GET",
+      "path": "/api/analysis-cases/7",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/analysis-cases",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/analysis-cases/7",
+      "status": 404
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/analysis-cases/7",
+      "status": 404
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/analysis-cases/7",
+      "status": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/analysis-cases/operations/36695cd7-1a24-466b-9554-9a49c6cfb3bf",
+      "status": 404
+    },
+    {
+      "method": "POST",
+      "path": "/api/analysis-cases/operations/36695cd7-1a24-466b-9554-9a49c6cfb3bf/retry",
+      "status": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/analysis-cases/7",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/analysis-cases/7/history",
+      "status": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/analysis-cases/operations?state=APPLIED",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/analysis-cases",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/analysis-cases/7",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/complaints?modelYearId=17527&pageSize=1",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/analysis-cases/7/complaints",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/analysis-cases/7/complaints",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/analysis-cases/7",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/analysis-cases/7/complaints",
+      "status": 404
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/analysis-cases/7/complaints/11771245",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/analysis-cases/7/notes",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/analysis-cases/7/notes",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/analysis-cases/7",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/analysis-cases/7/notes/25cb52ed-4842-41bc-beac-0645e6ea9a2c",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/analysis-cases/7",
+      "status": 200
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/analysis-cases/7/notes/25cb52ed-4842-41bc-beac-0645e6ea9a2c",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/analysis-cases/7",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/analysis-cases/7/findings",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/analysis-cases/7/findings",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/analysis-cases/7",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/analysis-cases/7/findings/1d46e5f0-0963-47b1-80c0-8685aafe8f36",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/analysis-cases/7",
+      "status": 200
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/analysis-cases/7/findings/1d46e5f0-0963-47b1-80c0-8685aafe8f36",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/analysis-cases/7",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/analysis-cases/7/content",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/analysis-cases/7",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/analysis-cases/7",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/analysis-cases/7",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/analysis-cases/7",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/analysis-cases/7/history",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/analysis-cases/7",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/analysis-cases",
+      "status": 400
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/analysis-cases/7",
+      "status": 400
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/analysis-cases/7",
+      "status": 400
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/analysis-cases/7",
+      "status": 400
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/analysis-cases/7/content",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/analysis-cases/7?ownerId=2",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/analysis-cases?pageSize=101",
+      "status": 400
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/analysis-cases/7",
+      "status": 403
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/analysis-cases/7",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/analysis-cases/7",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/analysis-cases/7",
+      "status": 503
+    },
+    {
+      "method": "GET",
+      "path": "/api/analysis-cases/7",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/analysis-cases/7/history",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/analysis-cases",
+      "status": 202
+    },
+    {
+      "method": "GET",
+      "path": "/api/analysis-cases/8",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/analysis-cases/8",
+      "status": 409
+    },
+    {
+      "method": "POST",
+      "path": "/api/analysis-cases/operations/aa83e2cf-2fad-4a8b-a491-1575b528e332/retry",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/analysis-cases/8",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/analysis-cases/7",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/analysis-cases/7/notes",
+      "status": 202
+    },
+    {
+      "method": "POST",
+      "path": "/api/analysis-cases/operations/635dc124-70b1-44c2-a84d-2a4604722efe/retry",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/analysis-cases/7",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/analysis-cases/operations/635dc124-70b1-44c2-a84d-2a4604722efe/retry",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/analysis-cases/7",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/analysis-cases/7",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/analysis-cases/7/notes",
+      "status": 202
+    },
+    {
+      "method": "POST",
+      "path": "/api/analysis-cases/operations/7f4084b7-d6a3-4fb3-8c38-dd840bb3a7c2/retry",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/analysis-cases/7",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/analysis-cases/operations/7f4084b7-d6a3-4fb3-8c38-dd840bb3a7c2/retry",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/analysis-cases/7",
+      "status": 200
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/analysis-cases/8",
+      "status": 202
+    },
+    {
+      "method": "GET",
+      "path": "/api/analysis-cases/8",
+      "status": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/analysis-cases/operations",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/analysis-cases/operations/e06041b5-45ef-4e59-8bb8-bc78695fdc9f/retry",
+      "status": 403
+    },
+    {
+      "method": "POST",
+      "path": "/api/analysis-cases/operations/e06041b5-45ef-4e59-8bb8-bc78695fdc9f/retry",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/analysis-cases",
+      "status": 201
+    },
+    {
+      "method": "POST",
+      "path": "/api/analysis-cases",
+      "status": 201
+    },
+    {
+      "method": "POST",
+      "path": "/api/analysis-cases/9/notes",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/analysis-cases/9",
+      "status": 200
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/analysis-cases/7",
+      "status": 200
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/analysis-cases/9",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/logout",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/logout",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/logout",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/logout",
+      "status": 200
+    }
+  ],
+  "assertions_passed": [
+    "authenticated analyst ownership, normal-user denial, admin oversight, private headers and create idempotency verified",
+    "real MongoDB link/unlink, nested note/finding CRUD, tags/components and SQL-triggered close/reopen history verified",
+    "SQL failure before commit rolls back metadata/revision/history and makes no MongoDB change",
+    "pending create survives a new server instance and completes from its durable SQL payload",
+    "MongoDB write with lost response and MongoDB-success/SQL-ack failure recover without duplicate notes",
+    "delete recovery remains authorized after SQL parent deletion; demotion blocks the owner and admin can finish cleanup",
+    "concurrent same-key creates produce one case; concurrent note requests serialize or return a retryable 409 without lost edits",
+    "interactive case menu logs in, creates/lists a real case, checks pending operations and logs out",
+    "case SQL account cannot read credentials/sessions, mutate official records, change case ownership/vehicle or delete recovery receipts"
+  ],
+  "interactive_menu_verified": true,
+  "server_recreation_recovery_verified": true,
+  "concurrent_requests_verified": true,
+  "case_sql_role": "vehicle_safety_cases",
+  "synthetic_accounts_cases_content_operations_removed": true,
+  "record_counts_unchanged_after_cleanup": true,
+  "record_counts": {
+    "model_year": 53555,
+    "recall": 13600,
+    "official_investigation": 3626,
+    "app_user": 1,
+    "saved_vehicle": 1,
+    "analysis_case": 0,
+    "fleet": 0,
+    "fleet_vehicle": 0,
+    "work_order": 0,
+    "complaints": 428837,
+    "case_details": 0,
+    "app_session": 0,
+    "recall_vehicle": 93743,
+    "recall_record": 219728,
+    "investigation_vehicle": 28647,
+    "investigation_manufacturer": 3943,
+    "investigation_component": 5361,
+    "investigation_recall": 1671,
+    "case_content_operation": 0,
+    "case_status_history": 0
+  },
+  "limitations": [
+    "Faults are injected in the service boundary while both actual DBMSs stay running.",
+    "Recovery is explicit through authenticated retry; no background worker is installed.",
+    "There is no distributed SQL/MongoDB transaction or database row-level security.",
+    "Sequence counters advance during synthetic CRUD; existing record counts/content are retained.",
+    "Assignment/reassignment UI, fleet workflows, the browser GUI and performance benchmarks remain later work."
+  ]
+}

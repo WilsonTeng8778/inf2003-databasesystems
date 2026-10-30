@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="search-hero">
+  <div>
+    <p class="eyebrow"><span class="tiny-line"></span> INFORMED BY REAL SAFETY RECORDS</p>
+    <h1>A clearer view of<br>vehicle safety.</h1>
+    <p class="intro">Explore recalls, consumer complaints and official investigations.<br class="desktop-break"> Start with a vehicle. See the records behind it.</p>
+    <button class="example-link" id="example-search" type="button">Try 2022 Honda Civic <span aria-hidden="true">↗</span></button>
+  </div>
+  <div class="hero-art" aria-hidden="true">
+    <div class="hero-art-label"><span class="status-dot"></span> LOOK BEYOND THE SPEC SHEET</div>
+    <svg viewBox="0 0 360 176" focusable="false">
+      <path d="M29 145H333M53 151H310" class="road-line"/>
+      <path d="M87 105L104 62Q109 50 122 50H239Q252 50 257 62L275 105M101 102L114 67Q116 62 123 62H237Q245 62 247 69L259 102Z"/>
+      <path d="M79 105Q180 87 282 105L289 123V141H70V123ZM87 107L79 122L119 126L116 111M276 107L283 122L243 126L247 110M130 127H234M139 134H224M70 120L53 116V104H84M274 104H306V116L289 121M76 142V151H104V143M258 143V151H285V142"/>
+      <path d="M166 143H195" class="accent-line"/>
+      <circle cx="180" cy="114" r="3"/>
+    </svg>
+    <div class="hero-art-foot"><span>OFFICIAL RECORDS</span><span>PERSONAL PERSPECTIVE</span></div>
+  </div>
+</section>
+<div class="research-layout">
+  <aside class="filter-panel panel">
+    <div class="panel-label"><span class="eyebrow">FIND A VEHICLE</span><span aria-hidden="true">⌕</span></div>
+    <form id="search-form">
+      <label for="make">Make</label>
+      <input id="make" name="make" maxlength="100" placeholder="e.g. Honda" autocomplete="off">
+      <label for="model">Model</label>
+      <input id="model" name="model" maxlength="256" placeholder="e.g. Civic" autocomplete="off">
+      <label for="year">Model year</label>
+      <input id="year" name="year" type="number" min="1900" max="2100" step="1" placeholder="e.g. 2022">
+      <p class="field-hint">Use exact make and model names. Leave a field blank to explore more vehicles.</p>
+      <button class="button button-primary full-width" id="search-submit" type="submit">Search vehicles <span aria-hidden="true">→</span></button>
+      <button class="button button-text full-width" id="reset-search" type="button">Clear filters</button>
+    </form>
+    <div class="filter-note"><span class="small-icon" aria-hidden="true">i</span><p>These records describe vehicle models. Recall applicability for an individual vehicle requires a VIN check.</p></div>
+  </aside>
+  <section class="results-panel" aria-labelledby="results-heading" aria-busy="false" id="search-results-section">
+    <div class="section-heading"><div><p class="eyebrow">THE VEHICLE CATALOGUE</p><h2 id="results-heading">Find your starting point</h2></div><span class="subtle-chip" id="result-count">Search to explore</span></div>
+    <p id="search-status" class="status-line" role="status" aria-live="polite"></p>
+    <div id="search-results" class="vehicle-grid">
+      <div class="empty-state search-empty"><div class="empty-symbol" aria-hidden="true">⌕</div><h3>Every vehicle has a story.</h3><p>Enter a make, model or year to find a vehicle<br>and explore its safety records.</p><div class="journey"><span><b>01</b> Find a vehicle</span><span><b>02</b> Review its records</span><span><b>03</b> Save for later</span></div></div>
+    </div>
+    <div id="search-pagination" class="pagination" hidden></div>
+  </section>
+</div>
+<section class="record-explainer" aria-label="Understanding the records">
+  <article><span class="record-number">01 / RECALLS</span><h3>Official corrective action</h3><p>Campaigns addressing reported safety defects or compliance issues.</p></article>
+  <article><span class="record-number">02 / COMPLAINTS</span><h3>Experiences from owners</h3><p>Consumer reports that may help identify patterns. Reports are allegations, not confirmed defects.</p></article>
+  <article><span class="record-number">03 / INVESTIGATIONS</span><h3>A closer official look</h3><p>NHTSA investigations into potential vehicle safety concerns.</p></article>
+</section>
+{% endblock %}

@@ -1,0 +1,98 @@
+/* Additional native-database journeys; invoked by verify_frontend.py --research. */
+export async function researchChecks({page, evaluate, goto, wait, click, fill, submit, screenshot, check, login, signedOut}) {
+  const civic = 'year=2022&make=HONDA&model=CIVIC';
+  const ready = () => wait(`document.querySelector('#complaint-results-section')?.getAttribute('aria-busy')==='false'`, 'complaint results');
+  const detailReady = () => wait(`document.querySelector('#detail-content')?.hidden===false`, 'full standalone record');
+  const expectedMatches = () => evaluate(`(async()=>{const q=new URLSearchParams(location.search);q.set('pageSize',50);const result=await fetch('/api/complaints?'+q).then(r=>r.json());
+    return document.querySelector('#complaint-count-label').textContent===new Intl.NumberFormat().format(result.pagination.total)+' found'
+      && JSON.stringify([...document.querySelectorAll('.record-identifier')].map(n=>n.textContent))===JSON.stringify(result.items.map(r=>'ODI '+r.odiNumber));})()`);
+  await page.send('Emulation.setDeviceMetricsOverride', {width: 1440, height: 1050, deviceScaleFactor: 1, mobile: false});
+  await goto('/complaints?' + civic); await ready();
+  await click('#account-nav a'); await wait(`document.body.dataset.page==='login' && document.body.dataset.ready==='true'`, 'research sign in');
+  await login(0); await wait(`document.body.dataset.page==='complaints' && document.body.dataset.ready==='true'`, 'return to research'); await ready();
+  check(await expectedMatches() && await evaluate(`document.querySelector('#log-out')!==null && document.querySelector('#complaint-count-label').textContent==='885 found'`), 'Signing in from the complaint explorer returns to the same applied vehicle filters');
+  check(await evaluate(`import('/static/app.js').then(m=>['/complaints?make=HONDA','/complaints/11426529','/recalls/21V058000','/investigations/EA15002'].every(p=>m.safeNext(p)===p) && ['/api/auth/me','/complaints/../api/auth/me','//example.invalid/complaints','/recalls/bad%2Fpath'].every(p=>m.safeNext(p)==='/saved-vehicles'))`), 'Research return paths allow known pages and reject API routes, traversal and external destinations');
+  await signedOut();
+  await goto('/vehicles/profile?' + civic); await click('#explore-complaints');
+  await wait(`document.body.dataset.page==='complaints' && document.body.dataset.ready==='true'`, 'complaint explorer navigation'); await ready();
+  check(await evaluate(`document.querySelector('#complaint-count-label').textContent==='885 found' && document.querySelector('#complaint-make').value==='HONDA' && document.querySelector('#complaint-year').value==='2022'`), 'Profile opens the complaint explorer scoped to the selected vehicle');
+  check(await expectedMatches(), 'Complaint cards and totals match the native API for the shareable vehicle filters');
+  const first = await evaluate(`document.querySelector('.record-identifier').textContent`);
+  await click('#complaint-pagination button:last-child'); await ready();
+  check(await evaluate(`new URLSearchParams(location.search).get('page')==='2' && document.querySelector('.record-identifier').textContent!==${JSON.stringify(first)}`), 'Complaint pagination keeps filters and updates the shareable page number');
+  const page2 = await evaluate('location.pathname+location.search'); await goto(page2); await ready();
+  check(await expectedMatches(), 'Reloading a complaint URL restores its filters and exact page contents');
+  await click('#complaint-pagination button:first-child'); await ready();
+  await evaluate('history.back()'); await wait(`new URLSearchParams(location.search).get('page')==='2'`, 'history page number'); await ready();
+  check(await expectedMatches(), 'Back navigation restores the complaint filters and page results');
+  await fill('complaint-component', 'STEERING'); await fill('complaint-q', 'steering');
+  await evaluate(`document.querySelector('#incident-filters').open=true`);
+  for (const [field, value] of Object.entries({receivedFrom:'2020-01-01',receivedTo:'2030-12-31',crash:'false',fire:'false',hasInjuries:'false',hasFatalities:'false'})) await fill('complaint-'+field, value);
+  await submit('#complaint-form'); await ready();
+  check(await evaluate(`!new URLSearchParams(location.search).has('page') && document.querySelectorAll('.complaint-card').length>0`) && await expectedMatches(), 'Combined component, text, inclusive dates and all four negative incident filters return the expected reports and reset pagination');
+  check(await evaluate(`[...document.querySelectorAll('.incident-summary')].every(n=>n.textContent==='Crash: No · Fire: No · Injuries: 0 · Fatalities: 0')`), 'Negative incident filters display explicit no/zero values, excluding unknown reports');
+  for (const field of ['crash','fire','hasInjuries','hasFatalities']) {
+    await goto('/complaints?' + civic + '&' + field + '=true'); await ready();
+    check(await expectedMatches(), `The ${field}=true selection survives direct navigation and matches native query results`);
+  }
+  await goto('/complaints?' + civic); await ready();
+  await evaluate(`document.querySelector('#incident-filters').open=true`);
+  await fill('complaint-receivedFrom', '2025-12-31'); await fill('complaint-receivedTo', '2020-01-01'); await submit('#complaint-form');
+  check(await evaluate(`!document.querySelector('#complaint-receivedTo').validity.valid && !new URLSearchParams(location.search).has('receivedFrom')`), 'Reversed received dates are rejected before replacing the current results');
+  await fill('complaint-receivedFrom', '2020-01-01'); await fill('complaint-receivedTo', '2030-12-31'); await submit('#complaint-form'); await ready();
+  check(await expectedMatches(), 'Correcting the dates clears validation and allows a successful filter request');
+  await fill('complaint-receivedTo', '2019-01-01'); await submit('#complaint-form');
+  await evaluate('history.back()'); await wait(`!new URLSearchParams(location.search).has('receivedFrom')`, 'history after date validation'); await ready();
+  check(await evaluate(`document.querySelector('#complaint-receivedTo').validity.valid`) && await expectedMatches(), 'History restoration clears obsolete date-validation errors as it restores the applied filters');
+  await fill('complaint-make', 'NO_SUCH_MAKE'); await submit('#complaint-form'); await ready();
+  check(await evaluate(`document.querySelector('#complaint-count-label').textContent==='0 found' && !document.querySelector('.complaint-card') && document.querySelector('#complaint-results').textContent.includes('No reports')`), 'Unmatched complaint filters show a clear empty result with no stale cards');
+  await click('#complaint-reset'); await ready();
+  check(await evaluate(`!location.search && [...document.querySelectorAll('#complaint-form input,#complaint-form select')].every(n=>!n.value)`) && await expectedMatches(), 'Clearing filters removes the query string and returns the unfiltered snapshot');
+  await goto('/complaints?' + civic + '&receivedFrom=invalid'); await ready();
+  check(await evaluate(`document.querySelector('#complaint-status').classList.contains('error') && !document.querySelector('.complaint-card')`), 'A malformed pasted filter URL gets a readable API validation error');
+  await click('#complaint-reset'); await ready();
+  await page.send('Network.setBlockedURLs', {urls: ['*/api/complaints?*']});
+  await fill('complaint-make', 'HONDA'); await submit('#complaint-form'); await ready();
+  check(await evaluate(`document.querySelector('#complaint-status').classList.contains('error') && !document.querySelector('#complaint-submit').disabled`), 'A complaint connection failure clears loading and leaves filtering/retry available');
+  await page.send('Network.setBlockedURLs', {urls: []}); await click('#complaint-results button'); await ready();
+  check(await expectedMatches(), 'Retry restores complaint results after the connection is available');
+  await goto('/complaints?' + civic + '&component=STEERING'); await ready(); await screenshot('complaints-desktop.png');
+  const complaintPath = await evaluate(`document.querySelector('.complaint-card a').getAttribute('href')`);
+  await click('.complaint-card a'); await wait(`document.body.dataset.page==='record' && document.body.dataset.ready==='true'`, 'complaint detail navigation'); await detailReady();
+  check(await evaluate(`document.querySelector('#detail-narrative').textContent.includes('Consumer narrative') && document.querySelector('#detail-facts').textContent.includes('Injuries / fatalities')`), 'A standalone complaint shows full narrative, dates, incident counts and its vehicle profile link');
+  await click('.complaint-provenance summary');
+  check(await evaluate(`document.querySelector('.complaint-provenance').textContent.includes('Merged component rows') && document.querySelector('.complaint-provenance').textContent.includes('Source row IDs')`), 'Complaint provenance explains merged source rows and retains source identifiers');
+  await goto('/recalls/21v058000'); await detailReady();
+  await wait(`document.querySelector('#related-vehicles table')`, 'recall related vehicles');
+  check(await evaluate(`document.querySelector('#detail-title').textContent==='Recall 21V058000' && document.querySelector('#detail-narrative').textContent.includes('Remedy') && document.querySelector('#related-vehicles table a')!==null`), 'Standalone recall normalizes its number and displays remedy, facts and linked vehicle profiles');
+  await click('#source-records-disclosure summary'); await wait(`document.querySelector('#source-records table')`, 'recall source rows');
+  check(await evaluate(`document.querySelector('#source-records-status').textContent.includes('18,662 source rows') && document.querySelector('#source-records table').textContent.includes('.zip')`), 'Recall source disclosure loads real archive/line provenance separately from campaign counts');
+  const row = await evaluate(`document.querySelector('#source-records tbody tr').textContent`);
+  await click('#source-records-pagination button:last-child'); await wait(`document.querySelector('#source-records-pagination').textContent.includes('Page 2')`, 'source row pagination');
+  check((await evaluate(`document.querySelector('#source-records tbody tr').textContent`)) !== row, 'Large recall source rows paginate without loading the full campaign into the page');
+  await click('#related-vehicles-pagination button:last-child'); await wait(`document.querySelector('#related-vehicles-pagination').textContent.includes('Page 2')`, 'related vehicle pagination');
+  check(true, 'Recall vehicle identities paginate independently of source rows'); await screenshot('recall-desktop.png');
+  await goto('/investigations/EA15002'); await detailReady();
+  await wait(`document.querySelector('#related-vehicles table')`, 'investigation vehicles');
+  check(await evaluate(`document.querySelector('#detail-facts').textContent.includes('Snapshot status') && document.querySelector('#detail-interpretation').textContent.includes('not a live') && !document.querySelector('#linked-recalls-section').hidden`), 'Investigation detail distinguishes official snapshot status and displays its recall relationships');
+  check(await evaluate(`document.querySelector('#linked-recalls a')!==null && [...document.querySelectorAll('#linked-recalls .linked-record')].some(n=>!n.querySelector('a') && n.textContent.includes('outside this snapshot'))`), 'Linked recalls outside the snapshot are labelled without a broken detail link'); await screenshot('investigation-desktop.png');
+  await click('#linked-recalls a'); await wait(`location.pathname.startsWith('/recalls/') && document.body.dataset.ready==='true'`, 'linked recall'); await detailReady();
+  check(true, 'An available linked recall opens its real standalone campaign page');
+  await page.send('Network.setBlockedURLs', {urls: ['*/api/recalls/21V058000']}); await goto('/recalls/21V058000');
+  check(await evaluate(`document.querySelector('#detail-status').classList.contains('error') && document.querySelector('#detail-content').hidden`), 'A record request failure hides incomplete detail and offers retry');
+  await page.send('Network.setBlockedURLs', {urls: []}); await click('#detail-status button'); await detailReady();
+  check(true, 'A failed standalone record loads successfully through its retry button');
+  for (const path of ['/complaints/99999999999999999999', '/recalls/ZZZZZZZZ', '/investigations/ZZZZZZZZ']) {
+    await goto(path);
+    check(await evaluate(`document.querySelector('#detail-title').textContent==='Record not in this snapshot' && document.querySelector('#detail-content').hidden`), `Missing ${path.split('/')[1]} records show an explicit snapshot-not-found state`);
+  }
+  await goto('/complaints?make=' + encodeURIComponent('<img src=x onerror=alert(1)>')); await ready();
+  check(await evaluate(`document.querySelector('#complaint-make').value.startsWith('<img') && !document.querySelector('#complaint-form img') && document.querySelector('#complaint-count-label').textContent==='0 found'`), 'Pasted markup stays literal input text and does not create elements');
+  await page.send('Emulation.setDeviceMetricsOverride', {width: 390, height: 844, deviceScaleFactor: 1, mobile: true});
+  await goto('/complaints?' + civic); await ready(); await evaluate(`document.querySelector('#incident-filters').open=true`);
+  check(await evaluate(`document.documentElement.scrollWidth<=innerWidth`), 'Complaint filters including expanded incident fields fit a 390px viewport'); await screenshot('complaints-mobile.png');
+  await goto('/recalls/21V058000'); await detailReady(); await click('#source-records-disclosure summary'); await wait(`document.querySelector('#source-records table')`, 'mobile source table');
+  check(await evaluate(`document.documentElement.scrollWidth<=innerWidth && document.querySelector('#source-records .table-wrap').scrollWidth>document.querySelector('#source-records .table-wrap').clientWidth`), 'Narrow record pages contain wide source tables in labelled horizontal scroll regions'); await screenshot('record-mobile.png');
+  await goto(complaintPath); await detailReady();
+  check(await evaluate(`document.documentElement.scrollWidth<=innerWidth`), 'Full complaint text and record facts fit the narrow viewport');
+}

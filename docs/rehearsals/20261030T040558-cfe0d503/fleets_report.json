@@ -1,0 +1,640 @@
+{
+  "verified_at_utc": "2026-10-29T20:06:34.037131+00:00",
+  "checks": [
+    {
+      "method": "GET",
+      "path": "/api/fleets",
+      "status": 401
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/csrf",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/register",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/csrf",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/register",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/csrf",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/register",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/vehicles/search?year=2022&make=HONDA&model=CIVIC",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/fleets",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/fleets/132",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/fleets/132",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/fleets",
+      "status": 409
+    },
+    {
+      "method": "POST",
+      "path": "/api/fleets",
+      "status": 201
+    },
+    {
+      "method": "POST",
+      "path": "/api/fleets",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/fleets?pageSize=1",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/fleets?pageSize=1&page=2",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/fleets/132",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/fleets/132/vehicles",
+      "status": 201
+    },
+    {
+      "method": "POST",
+      "path": "/api/fleets/132/vehicles",
+      "status": 201
+    },
+    {
+      "method": "POST",
+      "path": "/api/fleets/132/vehicles",
+      "status": 409
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/fleet-vehicles/109",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/fleet-vehicles/110",
+      "status": 409
+    },
+    {
+      "method": "GET",
+      "path": "/api/fleets/132",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/fleets/132/vehicles",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/fleets/132/recall-matches",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/fleets/132/recall-matches?fleetVehicleId=109",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/recalls/23V704000",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/fleets/132/vehicles",
+      "status": 404
+    },
+    {
+      "method": "POST",
+      "path": "/api/fleets/135/vehicles",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/fleets/135/recall-matches",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/fleets/132/recall-matches?fleetVehicleId=112",
+      "status": 404
+    },
+    {
+      "method": "POST",
+      "path": "/api/work-orders",
+      "status": 404
+    },
+    {
+      "method": "POST",
+      "path": "/api/work-orders",
+      "status": 201
+    },
+    {
+      "method": "POST",
+      "path": "/api/work-orders",
+      "status": 409
+    },
+    {
+      "method": "GET",
+      "path": "/api/work-orders/117",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/fleets/132",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/fleets/132/recall-matches?tracked=true",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/fleets/132/recall-matches?tracked=false",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/work-orders?fleetId=132&fleetVehicleId=109&status=open",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/work-orders/117",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/work-orders/117",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/work-orders/117",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/work-orders/117",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/work-orders/117",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/fleets/132",
+      "status": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/fleets/9223372036854775807",
+      "status": 404
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/fleets/132",
+      "status": 404
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/fleets/132",
+      "status": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/fleets/132/vehicles",
+      "status": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/fleets/132/recall-matches",
+      "status": 404
+    },
+    {
+      "method": "POST",
+      "path": "/api/fleets/132/vehicles",
+      "status": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/fleet-vehicles/109",
+      "status": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/fleet-vehicles/9223372036854775807",
+      "status": 404
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/fleet-vehicles/109",
+      "status": 404
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/fleet-vehicles/109",
+      "status": 404
+    },
+    {
+      "method": "POST",
+      "path": "/api/work-orders",
+      "status": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/work-orders/117",
+      "status": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/work-orders/9223372036854775807",
+      "status": 404
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/work-orders/117",
+      "status": 404
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/work-orders/117",
+      "status": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/work-orders?fleetId=132",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/fleets/132",
+      "status": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/fleets/9223372036854775807",
+      "status": 404
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/fleets/132",
+      "status": 404
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/fleets/132",
+      "status": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/fleets/132/vehicles",
+      "status": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/fleets/132/recall-matches",
+      "status": 404
+    },
+    {
+      "method": "POST",
+      "path": "/api/fleets/132/vehicles",
+      "status": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/fleet-vehicles/109",
+      "status": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/fleet-vehicles/9223372036854775807",
+      "status": 404
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/fleet-vehicles/109",
+      "status": 404
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/fleet-vehicles/109",
+      "status": 404
+    },
+    {
+      "method": "POST",
+      "path": "/api/work-orders",
+      "status": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/work-orders/117",
+      "status": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/work-orders/9223372036854775807",
+      "status": 404
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/work-orders/117",
+      "status": 404
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/work-orders/117",
+      "status": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/work-orders?fleetId=132",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/fleets",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/fleets",
+      "status": 400
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/fleets/132",
+      "status": 400
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/fleet-vehicles/109",
+      "status": 400
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/fleet-vehicles/109",
+      "status": 400
+    },
+    {
+      "method": "POST",
+      "path": "/api/work-orders",
+      "status": 400
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/work-orders/117",
+      "status": 400
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/work-orders/117",
+      "status": 400
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/work-orders/117",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/fleets?pageSize=101",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/work-orders?status=UNKNOWN",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/fleets/132/recall-matches?tracked=0",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/work-orders?ownerId=2",
+      "status": 400
+    },
+    {
+      "method": "GET",
+      "path": "/api/fleets?page=1&page=2",
+      "status": 400
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/work-orders/117",
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "path": "/api/work-orders/117",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/fleets/132/recall-matches?tracked=true",
+      "status": 200
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/work-orders/117",
+      "status": 204
+    },
+    {
+      "method": "GET",
+      "path": "/api/work-orders/117",
+      "status": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/fleets/132/recall-matches?tracked=true",
+      "status": 200
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/fleet-vehicles/110",
+      "status": 204
+    },
+    {
+      "method": "GET",
+      "path": "/api/work-orders/119",
+      "status": 404
+    },
+    {
+      "method": "POST",
+      "path": "/api/fleets/132/vehicles",
+      "status": 201
+    },
+    {
+      "method": "POST",
+      "path": "/api/work-orders",
+      "status": 201
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/fleets/132",
+      "status": 204
+    },
+    {
+      "method": "GET",
+      "path": "/api/fleet-vehicles/113",
+      "status": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/work-orders/121",
+      "status": 404
+    },
+    {
+      "method": "POST",
+      "path": "/api/fleets",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/fleets/136",
+      "status": 404
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/logout",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/logout",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/logout",
+      "status": 200
+    }
+  ],
+  "concurrent_checks": [
+    {
+      "method": "PATCH",
+      "path": "/api/work-orders/117",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/work-orders/117",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/work-orders",
+      "status": 201
+    },
+    {
+      "method": "POST",
+      "path": "/api/work-orders",
+      "status": 409
+    },
+    {
+      "method": "POST",
+      "path": "/api/fleets/136/vehicles",
+      "status": 201
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/fleets/136",
+      "status": 204
+    }
+  ],
+  "assertions_passed": [
+    "normal users can create/read/rename fleets and physical vehicles; owner-local uniqueness, stable pages and two Civic identities produce 8 model-year recall matches",
+    "unmatched/unknown catalogue vehicles and cross-model recall orders are rejected; native composite foreign key rejects an invalid direct INSERT",
+    "work-order CRUD values, per-vehicle/recall uniqueness, tracked filters, status transitions and completion/reopen timestamps agree with SQL rules",
+    "foreign fleet/vehicle/order reads and writes are denied for both another normal user and ADMIN; foreign and missing IDs are indistinguishable",
+    "concurrent partial order edits retain both fields; concurrent duplicate creates produce exactly one order and a 409",
+    "deleting an order restores untracked matching; vehicle and fleet deletions cascade only their dependent personal rows",
+    "concurrent fleet deletion/vehicle creation leaves no orphan vehicle",
+    "interactive menu creates a fleet/vehicle, browses recalls, creates/completes an order, reads it and deletes the fleet before logout",
+    "workflow SQL role has recall-match view access without credentials/case/source-table access or ownership/identity UPDATE privileges"
+  ],
+  "interactive_menu_verified": true,
+  "workflow_sql_role": "vehicle_safety_workflow",
+  "native_composite_foreign_key_verified": true,
+  "owned_synthetic_accounts_fleets_vehicles_orders_sessions_removed": true,
+  "record_counts_unchanged_after_cleanup": true,
+  "record_counts": {
+    "model_year": 53555,
+    "recall": 13600,
+    "official_investigation": 3626,
+    "app_user": 2,
+    "saved_vehicle": 1,
+    "analysis_case": 0,
+    "fleet": 0,
+    "fleet_vehicle": 0,
+    "work_order": 0,
+    "complaints": 428837,
+    "case_details": 0,
+    "app_session": 1,
+    "recall_vehicle": 93743,
+    "recall_record": 219728,
+    "investigation_vehicle": 28647,
+    "investigation_manufacturer": 3943,
+    "investigation_component": 5361,
+    "investigation_recall": 1671,
+    "case_content_operation": 0,
+    "case_status_history": 0
+  },
+  "example": {
+    "modelYearId": 17527,
+    "make": "HONDA",
+    "model": "CIVIC",
+    "year": 2022,
+    "recallsPerVehicle": 4,
+    "matchesForTwoPhysicalVehicles": 8
+  },
+  "limitations": [
+    "Ownership is enforced by API/SQL predicates; PostgreSQL row-level security is not configured.",
+    "Model-year matches and user-entered work-order status do not verify VIN applicability or repair completion.",
+    "Concurrent operations were tested over real threaded HTTP; count/page reads do not share a snapshot.",
+    "Verification retains existing record counts/content; generated identity sequences advance normally.",
+    "This native/API/menu run has separate browser/analytics evidence and does not establish final package readiness."
+  ]
+}

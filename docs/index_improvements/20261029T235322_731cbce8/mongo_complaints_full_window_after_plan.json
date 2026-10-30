@@ -1,0 +1,322 @@
+{
+  "explainVersion": "1",
+  "queryPlanner": {
+    "namespace": "vehicle_safety.complaints",
+    "parsedQuery": {
+      "$and": [
+        {
+          "modelYearId": {
+            "$eq": 17527
+          }
+        },
+        {
+          "receivedDate": {
+            "$lte": "2026-10-22T23:59:59.999000"
+          }
+        },
+        {
+          "receivedDate": {
+            "$gte": "2020-01-01T00:00:00"
+          }
+        }
+      ]
+    },
+    "indexFilterSet": false,
+    "queryHash": "DAC1DA40",
+    "planCacheShapeHash": "DAC1DA40",
+    "planCacheKey": "54810CBA",
+    "optimizationTimeMillis": 0,
+    "optimizationTimeMicros": 369,
+    "maxIndexedOrSolutionsReached": false,
+    "maxIndexedAndSolutionsReached": false,
+    "maxScansToExplodeReached": false,
+    "prunedSimilarIndexes": false,
+    "winningPlan": {
+      "isCached": true,
+      "stage": "LIMIT",
+      "limitAmount": 20,
+      "inputStage": {
+        "stage": "PROJECTION_SIMPLE",
+        "transformBy": {
+          "odiNumber": 1,
+          "modelYearId": 1,
+          "vehicle": 1,
+          "components": 1,
+          "incident": 1,
+          "receivedDate": 1,
+          "incidentDate": 1,
+          "narrative": 1
+        },
+        "inputStage": {
+          "stage": "FETCH",
+          "nss": "vehicle_safety.complaints",
+          "inputStage": {
+            "stage": "IXSCAN",
+            "nss": "vehicle_safety.complaints",
+            "keyPattern": {
+              "modelYearId": 1,
+              "receivedDate": -1,
+              "_id": -1
+            },
+            "indexName": "vehicle_received_ordered",
+            "isMultiKey": false,
+            "multiKeyPaths": {
+              "modelYearId": [],
+              "receivedDate": [],
+              "_id": []
+            },
+            "isUnique": false,
+            "isSparse": false,
+            "isPartial": false,
+            "indexVersion": 2,
+            "direction": "forward",
+            "indexBounds": {
+              "modelYearId": [
+                "[17527, 17527]"
+              ],
+              "receivedDate": [
+                "[new Date(1792713599999), new Date(1577836800000)]"
+              ],
+              "_id": [
+                "[MaxKey, MinKey]"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "rejectedPlans": [
+      {
+        "isCached": false,
+        "stage": "PROJECTION_SIMPLE",
+        "transformBy": {
+          "odiNumber": 1,
+          "modelYearId": 1,
+          "vehicle": 1,
+          "components": 1,
+          "incident": 1,
+          "receivedDate": 1,
+          "incidentDate": 1,
+          "narrative": 1
+        },
+        "inputStage": {
+          "stage": "SORT",
+          "sortPattern": {
+            "receivedDate": -1,
+            "_id": -1
+          },
+          "memLimit": 104857600,
+          "limitAmount": 20,
+          "type": "simple",
+          "inputStage": {
+            "stage": "FETCH",
+            "filter": {
+              "$and": [
+                {
+                  "receivedDate": {
+                    "$lte": "2026-10-22T23:59:59.999000"
+                  }
+                },
+                {
+                  "receivedDate": {
+                    "$gte": "2020-01-01T00:00:00"
+                  }
+                }
+              ]
+            },
+            "nss": "vehicle_safety.complaints",
+            "inputStage": {
+              "stage": "IXSCAN",
+              "nss": "vehicle_safety.complaints",
+              "keyPattern": {
+                "modelYearId": 1,
+                "components": 1
+              },
+              "indexName": "vehicle_components",
+              "isMultiKey": true,
+              "multiKeyPaths": {
+                "modelYearId": [],
+                "components": [
+                  "components"
+                ]
+              },
+              "isUnique": false,
+              "isSparse": false,
+              "isPartial": false,
+              "indexVersion": 2,
+              "direction": "forward",
+              "indexBounds": {
+                "modelYearId": [
+                  "[17527, 17527]"
+                ],
+                "components": [
+                  "[MinKey, MaxKey]"
+                ]
+              }
+            }
+          }
+        }
+      },
+      {
+        "isCached": false,
+        "stage": "PROJECTION_SIMPLE",
+        "transformBy": {
+          "odiNumber": 1,
+          "modelYearId": 1,
+          "vehicle": 1,
+          "components": 1,
+          "incident": 1,
+          "receivedDate": 1,
+          "incidentDate": 1,
+          "narrative": 1
+        },
+        "inputStage": {
+          "stage": "SORT",
+          "sortPattern": {
+            "receivedDate": -1,
+            "_id": -1
+          },
+          "memLimit": 104857600,
+          "limitAmount": 20,
+          "type": "simple",
+          "inputStage": {
+            "stage": "FETCH",
+            "nss": "vehicle_safety.complaints",
+            "inputStage": {
+              "stage": "IXSCAN",
+              "nss": "vehicle_safety.complaints",
+              "keyPattern": {
+                "modelYearId": 1,
+                "receivedDate": -1
+              },
+              "indexName": "vehicle_received",
+              "isMultiKey": false,
+              "multiKeyPaths": {
+                "modelYearId": [],
+                "receivedDate": []
+              },
+              "isUnique": false,
+              "isSparse": false,
+              "isPartial": false,
+              "indexVersion": 2,
+              "direction": "forward",
+              "indexBounds": {
+                "modelYearId": [
+                  "[17527, 17527]"
+                ],
+                "receivedDate": [
+                  "[new Date(1792713599999), new Date(1577836800000)]"
+                ]
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "executionStats": {
+    "executionSuccess": true,
+    "nReturned": 20,
+    "executionTimeMillis": 0,
+    "executionTimeMicros": 409,
+    "totalKeysExamined": 20,
+    "totalDocsExamined": 20,
+    "executionStages": {
+      "isCached": true,
+      "stage": "LIMIT",
+      "nReturned": 20,
+      "executionTimeMillisEstimate": 0,
+      "works": 21,
+      "advanced": 20,
+      "needTime": 0,
+      "needYield": 0,
+      "saveState": 1,
+      "restoreState": 1,
+      "isEOF": 1,
+      "limitAmount": 20,
+      "inputStage": {
+        "stage": "PROJECTION_SIMPLE",
+        "nReturned": 20,
+        "executionTimeMillisEstimate": 0,
+        "works": 20,
+        "advanced": 20,
+        "needTime": 0,
+        "needYield": 0,
+        "saveState": 1,
+        "restoreState": 1,
+        "isEOF": 0,
+        "transformBy": {
+          "odiNumber": 1,
+          "modelYearId": 1,
+          "vehicle": 1,
+          "components": 1,
+          "incident": 1,
+          "receivedDate": 1,
+          "incidentDate": 1,
+          "narrative": 1
+        },
+        "inputStage": {
+          "stage": "FETCH",
+          "nReturned": 20,
+          "executionTimeMillisEstimate": 0,
+          "works": 20,
+          "advanced": 20,
+          "needTime": 0,
+          "needYield": 0,
+          "saveState": 1,
+          "restoreState": 1,
+          "isEOF": 0,
+          "nss": "vehicle_safety.complaints",
+          "docsExamined": 20,
+          "alreadyHasObj": 0,
+          "inputStage": {
+            "stage": "IXSCAN",
+            "nReturned": 20,
+            "executionTimeMillisEstimate": 0,
+            "works": 20,
+            "advanced": 20,
+            "needTime": 0,
+            "needYield": 0,
+            "saveState": 1,
+            "restoreState": 1,
+            "isEOF": 0,
+            "nss": "vehicle_safety.complaints",
+            "keyPattern": {
+              "modelYearId": 1,
+              "receivedDate": -1,
+              "_id": -1
+            },
+            "indexName": "vehicle_received_ordered",
+            "isMultiKey": false,
+            "multiKeyPaths": {
+              "modelYearId": [],
+              "receivedDate": [],
+              "_id": []
+            },
+            "isUnique": false,
+            "isSparse": false,
+            "isPartial": false,
+            "indexVersion": 2,
+            "direction": "forward",
+            "indexBounds": {
+              "modelYearId": [
+                "[17527, 17527]"
+              ],
+              "receivedDate": [
+                "[new Date(1792713599999), new Date(1577836800000)]"
+              ],
+              "_id": [
+                "[MaxKey, MinKey]"
+              ]
+            },
+            "keysExamined": 20,
+            "seeks": 1,
+            "dupsTested": 0,
+            "dupsDropped": 0,
+            "peakTrackedMemBytes": 0
+          }
+        }
+      }
+    }
+  }
+}

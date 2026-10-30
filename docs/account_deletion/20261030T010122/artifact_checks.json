@@ -1,0 +1,12 @@
+{
+  "checked_at_utc": "2026-10-29T17:16:17.623277+00:00",
+  "local_links_checked": 247,
+  "broken_links": [],
+  "implementation_source_changes_since_verification": [],
+  "historical_reports_modified": [],
+  "generated_credential_matches_in_tracked_or_unignored_files": [],
+  "personal_env_ignored": true,
+  "git_diff_check_exit_code": 0,
+  "browser_verification_executed": false,
+  "successful": true
+}

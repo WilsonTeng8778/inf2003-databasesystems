@@ -1,0 +1,86 @@
+{
+  "recorded_at_utc": "2026-10-29T18:36:55.025907+00:00",
+  "verification_date_local": "2026-10-30",
+  "timezone": "Asia/Kuala_Lumpur",
+  "status": "PASSED",
+  "g1_account_deletion_acceptance": "COMPLETE",
+  "browser_report": "frontend_report.json",
+  "browser_checks_passed": 238,
+  "application_code_changed_in_followup": false,
+  "automated_unit_tests_rerun_in_followup": false,
+  "previous_unit_native_api_evidence": "../20261030T010122/verification_summary.json",
+  "previous_automated_tests": 183,
+  "previous_native_assertions": 29,
+  "previous_http_checks": 23,
+  "verifier_changes": [
+    "Wait for enabled controls as well as list status, so identity refresh completes before inspecting an uncertain deletion.",
+    "Explicitly select desktop viewport after the preceding mobile analytics journey and require an open, nonzero-width mobile dialog."
+  ],
+  "changed_sources_since_previous_verification": [
+    "scripts/browser_account_checks.mjs"
+  ],
+  "current_source_sha256": {
+    "sql/migrations/004_account_deletion.sql": "a4cc197328f3f3d928744c5e5dddb85f2f56f549aed20bcab84588f652ed0290",
+    "scripts/setup_account_deletion.py": "0555809c69bc17cbd8158d968822e3f38dc9122ec4948dd33036113817b1d524",
+    "scripts/setup_auth.py": "060ec0de22780ccc28b1cd39d6f271aad82b7772cca495d7796851da6fbb357a",
+    "backend/auth.py": "7c0543194307b1949ad2919319970bd56e317d613255f4edb25052d101d100a9",
+    "backend/services/auth.py": "4d423d59f47cca39ba5f1f37b3304ece0b760b0f484a07d2ff8dd11a68e0f7d1",
+    "backend/static/admin.js": "63befa6f40bba8be4639db43afa0000d6ae16b03f21c9d36b6878067c2f7106a",
+    "backend/templates/admin_base.html": "bc20fcd49938d3c25a8a5f36256a2bf63477e62c520057f4bf05c7a7338c2e3f",
+    "backend/templates/admin_users.html": "775004d4967081b7a62237dc1296d74077e0b35d98a9d1e5d5e2015e79264951",
+    "scripts/verify_account_deletion.py": "f4a69f4c56fa74607513b1da0e4657922840cfbf98874a4c6c35a92085632553",
+    "scripts/verify_account_api.py": "869f3854886321fbc4836e1937aa4b1e74e9c781347cfc7bfb73610ef1fb63b5",
+    "scripts/browser_account_checks.mjs": "fee5431d12930c2f71b0de6b9aec627f8bea6fc43ab789104ef6721e41fbe8a4",
+    "scripts/verify_frontend.py": "32e46763dfee4559d5e123e14e7652c0afb433812f56ded3db3065e849f54611",
+    "tests/test_auth.py": "1c7bf4834eeb07ccba119c5551f46dfe957809ff5a7625a771f02c75a5aa5c6d"
+  },
+  "reviewed_screenshots": [
+    {
+      "path": "screenshots/account-delete-dialog.png",
+      "width": 440,
+      "height": 409,
+      "visually_reviewed": true,
+      "sha256": "2b22d33805af4f644d93b8d6b6ceec96406ad8e567230eec3ff6a786a0a0b715"
+    },
+    {
+      "path": "screenshots/account-delete-mobile.png",
+      "width": 358,
+      "height": 427,
+      "visually_reviewed": true,
+      "sha256": "62910cfb8fb4528ed1e659f0da76326991c3b6805d3346981629b6e6a6981cd9"
+    },
+    {
+      "path": "screenshots/account-delete-uncertain.png",
+      "width": 1425,
+      "height": 2133,
+      "visually_reviewed": true,
+      "sha256": "269b6e0106af83229832a87e95a23e82e59ff994acba537587b9bdd69e448f1f"
+    },
+    {
+      "path": "screenshots/account-delete-result.png",
+      "width": 1425,
+      "height": 1686,
+      "visually_reviewed": true,
+      "sha256": "fd6ff3c820481504274e1818b91bb6b722092fbb0085d4ecf9d3ff29a9c23a42"
+    }
+  ],
+  "owned_fixtures_removed": true,
+  "original_counts_retained": true,
+  "import_history_retained": true,
+  "account_session_verification": [
+    "Three independently signed-in target sessions are revoked after browser deletion; protected owner session remains valid."
+  ],
+  "earlier_failed_run_note": "../browser-20261030T022808-035fc56b/failure_note.json",
+  "intermediate_capture_note": "../browser-20261030T023110-62a4a84c/capture_note.json",
+  "remaining_work": [
+    "G2 ADMIN import initiation",
+    "Final integrated rehearsal, teammate reproduction and deliverables"
+  ],
+  "limitations": [
+    "Browser journeys were checked in the installed Chromium browser at desktop and 390px mobile sizes.",
+    "These checks do not establish compatibility with every browser or a complete accessibility audit.",
+    "Admin import initiation and broader final whole-application evaluation remain.",
+    "Controlled case projection/deletion faults leave the real database services running; they are enabled only for the case verifier.",
+    "The JSON discovery endpoint moved from / to /api; / now serves the browser interface."
+  ]
+}
