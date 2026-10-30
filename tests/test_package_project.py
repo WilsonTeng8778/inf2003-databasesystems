@@ -24,7 +24,8 @@ class PackageTests(unittest.TestCase):
         profile = {'sources': {str(index): {'filename': name, 'sha256': package.file_digest(self.root / 'data/raw' / name)}
                                for index, name in enumerate(sorted(package.RAW_FILES))}}
         (self.root / 'docs/data_profile.json').write_text(json.dumps(profile))
-        self.evidence = self.root / package.REFERENCE
+        self.evidence_name = 'docs/rehearsals/20260101-fixture/report.json'
+        self.evidence = self.root / self.evidence_name
         self.evidence.parent.mkdir(parents=True)
         self.evidence.write_text(json.dumps({'successful': True, 'tested_source_unchanged': True,
             'source_before': {'files_sha256': {'backend/__init__.py': package.file_digest(self.root / 'backend/__init__.py')}}}))
@@ -78,7 +79,21 @@ class PackageTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'approved snapshot'): self.build()
         raw.write_bytes(original)
         (self.root / 'backend/__init__.py').write_text('changed application')
-        with self.assertRaisesRegex(ValueError, 'Previously tested implementation changed'): self.build()
+        with self.assertRaisesRegex(ValueError, 'No successful rehearsal matches'): self.build()
+
+    def test_automatic_selection_uses_matching_evidence_and_skips_failed_or_stale_runs(self):
+        original = json.loads(self.evidence.read_text())
+        for name, report in [('20990101-failed', {**original, 'successful': False}),
+                             ('20990102-stale', {**original, 'source_before': {'files_sha256': {'backend/__init__.py': '0'*64}}})]:
+            path = self.root / 'docs/rehearsals' / name / 'report.json'
+            path.parent.mkdir(parents=True); path.write_text(json.dumps(report))
+        result = self.build()
+        self.assertEqual(result['technical_rehearsal']['evidence'], self.evidence_name)
+
+    def test_explicit_stale_evidence_is_rejected_without_fallback(self):
+        (self.root / 'backend/__init__.py').write_text('changed application')
+        with self.assertRaisesRegex(ValueError, 'Previously tested implementation changed'):
+            package.build_package(root=self.root, rehearsal=self.evidence_name)
 
     def test_missing_dictionary_blocks_export(self):
         (self.root / 'data/dictionaries/CMPL.txt').unlink()

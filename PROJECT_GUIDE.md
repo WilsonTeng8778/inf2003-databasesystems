@@ -1,16 +1,18 @@
 # Project guide and progress tracker
 
 **Project:** INF2003 Group 19 — Vehicle Safety Recall & Defect Investigation System  
-**Guide updated:** 30 October 2026\
+**Guide updated:** 31 October 2026\
 **Last full database verification:** 25 October 2026  
-**Latest backend verification:** 30 October 2026 — integrated run: 202 automated tests and fresh native case/fleet/account/import checks\
-**Latest automated suite:** 30 October 2026 — 210 tests, including eight new package-integrity tests; native/browser checks were not rerun for packaging\
-**Latest browser verification:** 30 October 2026 — fresh 238-check cumulative run during the integrated rehearsal\
+**Latest backend verification:** 30 October 2026 — post-organization integrated run: 212 automated tests and fresh native case/fleet/account/import checks\
+**Latest automated suite:** 30 October 2026 — 212 tests, including two new matching-evidence selection cases\
+**Latest browser verification:** 30 October 2026 — fresh 238-check cumulative run after moving browser verification modules\
 **Latest performance verification:** 29 October 2026 — four controlled query workloads and live complaint index checks\
 **Latest requirements review:** 30 October 2026 — G1 account deletion and G2 admin import initiation closed with implementation/evidence\
 **Current overall position:** Stage 9 of 9 — Document and deliver (**in progress**)\
 **Latest delivery milestone:** User manual and checked local source/data review ZIP prepared on 30 October; teammate fresh installation remains pending\
-**Source-sharing checkpoint:** 30 October 2026 — `milestone/recallscope-core-complete-2026-10-30`; GitHub `main` contains a separate implementation awaiting deliberate integration\
+**Primary working branch:** `milestone/recallscope-core-complete-2026-10-30`; use this version for our continuing project work\
+**Source-sharing checkpoint:** 31 October 2026 — organized layout and dated verification evidence published on our milestone branch; GitHub `main` remains separate\
+**Latest organization milestone:** 30 October 2026 — shorter README, code/documentation indexes, grouped helpers and historical milestones; full technical rehearsal passed\
 **Latest technical milestone:** Integrated acceptance rehearsal passed on 30 October; team presentation/fresh installation remain pending\
 **Latest completed frontend substep:** 7 — Confirmed unused-account deletion and uncertain-response review\
 **Latest completed backend substep:** 11 — Role-checked local import orchestration using the shared ETL pipeline\
@@ -42,9 +44,18 @@ records the dated history.
 
 The [GitHub checkpoint note](docs/GITHUB_CHECKPOINT_2026-10-30.md) explains the named
 milestone branch. GitHub `main` already contains a different implementation from
-another line of work. Select the milestone branch to review this verified version;
-combining the two versions requires integration and fresh checks. Our current
-Stage 9 position and earlier test results are unchanged by sharing the source.
+another line of work. Following the user's 30 October decision, we will use
+`milestone/recallscope-core-complete-2026-10-30` as our primary working version,
+as we would normally use a main branch. GitHub's default `main` branch remains
+separate; merging or replacing it is outside the current plan. The local comparison
+work was reverted. Our implementation and earlier test results remain unchanged.
+
+The [documentation index](docs/README.md) and [code map](docs/CODE_MAP.md) now make
+the files easier to navigate. Historical narrative milestones are grouped under
+`docs/milestones/`; helper code is under `scripts/support/` and browser check
+modules under `scripts/browser/`. The usual setup/run command names still work.
+The [organization verification](docs/organization/20261030T112848Z-e139090e/README.md)
+records a fresh full technical run after these moves.
 
 **We now have a real browser interface named RecallScope. You can search vehicles,
 view safety profiles, filter complaints, follow official-record relationships,
@@ -191,8 +202,8 @@ an earlier step. Testing and documentation happen throughout.
 | 3. Design the data model | Decide what to store, how records relate, what belongs in each database, and which rules protect correctness. | **Done for the initial version:** SQL model, ERD and MongoDB models documented. |
 | 4. Construct and populate databases | Turn the design into real tables/collections and load cleaned data through repeatable imports. | **Done:** both project databases populated. |
 | 5. Verify the database layer | Check queries, CRUD, relationships, invalid inputs and repeat imports before putting a website on top. | **Done for this milestone:** database checks passed on 25 October. |
-| 6. Build the backend | Make database operations available through application code, with login, validation and permissions. | **Initial agreed implementation verified:** fresh native case/fleet/account/import checks and 202 automated tests passed in the 30 October integrated run. |
-| 7. Build the frontend | Connect screens and forms to the backend so users can perform the workflows. | **Current journeys verified on 30 October:** a fresh 238-check cumulative browser run, including the import instructions, plus representative screenshot review. Import initiation itself runs in a local terminal. |
+| 6. Build the backend | Make database operations available through application code, with login, validation and permissions. | **Initial agreed implementation verified:** 212 automated tests and fresh native case/fleet/account/import checks passed after file organization on 30 October. Core application/database file contents were retained. |
+| 7. Build the frontend | Connect screens and forms to the backend so users can perform the workflows. | **Current journeys verified on 30 October:** a fresh 238-check cumulative browser run after moving verification modules. Earlier representative screenshots retain their original review dates. Import initiation itself runs in a local terminal. |
 | 8. Analyse, improve and test the whole application | Build analytics, measure query performance, and test complete workflows and failures. | **Defined technical milestone passed on 30 October:** integrated acceptance, failure/concurrency checks and cleanup. The 29 October benchmark evidence was validated and four current result sets matched; timings were not rerun. Wider guarantees beyond the recorded scope are not claimed. |
 | 9. Document and deliver | Make the project reproducible and prepare the report, demonstration and submission package. | **Current stage, in progress:** manual and locally verified source/data review candidate prepared on 30 October; teammate reproduction, final freeze, report/slides/video, timed team rehearsal and final submission checks remain. |
 
@@ -274,7 +285,7 @@ That is evidence that importing the same files again does not create duplicates.
 
 The verification scripts used temporary application records and removed or rolled
 them back afterward. No login accounts were seeded. See
-[MILESTONE_1.md](docs/MILESTONE_1.md) for the summary and
+[MILESTONE_1.md](docs/milestones/MILESTONE_1.md) for the summary and
 [verification_report.json](docs/verification_report.json) for recorded results.
 
 ### We connected the first queries to a web backend
@@ -287,7 +298,7 @@ That database identity is not a website user account.
 
 The 17 automated tests (12 API tests plus the original 5 ETL tests) passed, along
 with 8 real HTTP checks. Checked record counts were unchanged. The details and
-dated evidence are in [Backend step 1](docs/BACKEND_STEP_1.md) and
+dated evidence are in [Backend step 1](docs/milestones/BACKEND_STEP_1.md) and
 [api_verification_report.json](docs/api_verification_report.json). Full database
 CRUD/import verification remains the earlier, separate 25 October result.
 
@@ -302,7 +313,7 @@ users and assign roles; self-registration cannot choose analyst/admin access.
 On 28 October, 34 automated tests and 36 recorded real HTTP checks passed, plus
 interactive registration/login and first-admin helper checks. Synthetic accounts
 were cleaned up; reference data and checked record counts were preserved. See
-[Backend step 2](docs/BACKEND_STEP_2_AUTH.md) and
+[Backend step 2](docs/milestones/BACKEND_STEP_2_AUTH.md) and
 [auth_verification_report.json](docs/auth_verification_report.json).
 
 At that milestone these were API features; browser auth forms were added on
@@ -324,7 +335,7 @@ save the same vehicle, but one user cannot save it twice.
 On 28 October, 53 automated tests and 37 recorded live HTTP checks passed, plus a
 real interactive menu flow. Owned fixtures were removed, and checked reference
 and existing account counts matched the baseline. See
-[Backend step 3](docs/BACKEND_STEP_3_SAVED_VEHICLES.md) and
+[Backend step 3](docs/milestones/BACKEND_STEP_3_SAVED_VEHICLES.md) and
 [saved_vehicles_verification_report.json](docs/saved_vehicles_verification_report.json).
 
 ### We added complaint browsing and narrative search
@@ -342,7 +353,7 @@ complaint at once. This is read-only MongoDB access through Flask.
 
 On 28 October, 71 automated tests and 42 live HTTP checks passed. The Civic list
 agreed with the existing profile, and checked stored record counts were unchanged.
-See [Backend step 4](docs/BACKEND_STEP_4_COMPLAINTS.md) and
+See [Backend step 4](docs/milestones/BACKEND_STEP_4_COMPLAINTS.md) and
 [complaints_verification_report.json](docs/complaints_verification_report.json).
 The first complaint milestone returned JSON; the profile now presents paginated
 complaints/full narratives. The dedicated full-filter explorer remains planned.
@@ -363,7 +374,7 @@ the restricted SQL reader answer these requests without access to account data.
 
 On 28 October, 92 automated tests and 79 live HTTP checks passed. Lists agreed
 with direct SQL and the earlier safety-profile counts. Checked stored counts
-remained unchanged. See [Backend step 5](docs/BACKEND_STEP_5_OFFICIAL_RECORDS.md)
+remained unchanged. See [Backend step 5](docs/milestones/BACKEND_STEP_5_OFFICIAL_RECORDS.md)
 and [official_records_verification_report.json](docs/official_records_verification_report.json).
 This completed the planned core research endpoints at that milestone. Analyst
 cases and fleets were added afterward. Analytics, browser pages and broader
@@ -399,7 +410,7 @@ server instance recovered a saved task. Temporary accounts/cases/content/operati
 were cleaned up and checked record counts matched the starting counts. Earlier
 full database/import verification remains dated 25 October.
 
-See [Backend step 6](docs/BACKEND_STEP_6_ANALYST_CASES.md) and
+See [Backend step 6](docs/milestones/BACKEND_STEP_6_ANALYST_CASES.md) and
 [cases_verification_report.json](docs/cases_verification_report.json). This
 completed the case substep within Stage 6; the fleet backend followed it.
 
@@ -427,7 +438,7 @@ On **29 October**, 145 automated tests, 110 recorded live HTTP checks, six concu
 requests and the real terminal flow passed. Foreign/admin access, timestamps,
 duplicates, SQL constraints, concurrent writes and cascades were checked. Owned
 fixtures were removed and checked existing/reference counts matched the baseline.
-See [Backend step 7](docs/BACKEND_STEP_7_FLEETS.md) and
+See [Backend step 7](docs/milestones/BACKEND_STEP_7_FLEETS.md) and
 [fleets_verification_report.json](docs/fleets_verification_report.json).
 
 This verified the planned core workflow APIs. Browser workflows, admin monitoring
@@ -456,7 +467,7 @@ of nickname markup, unsafe return links, history after logout and error recovery
 Synthetic accounts/saves/sessions were removed and checked stored counts matched
 the baseline. The pages were also inspected in desktop/mobile screenshots.
 
-See [Frontend step 1](docs/FRONTEND_STEP_1.md), its
+See [Frontend step 1](docs/milestones/FRONTEND_STEP_1.md), its
 [verification report](docs/frontend_step_1_verification_report.json) and
 [search screenshot](docs/screenshots/frontend-step-1/search-desktop.png).
 This first milestone began Stage 7. The subsequent research extension is below;
@@ -484,7 +495,7 @@ journeys. Chrome desktop and 390px mobile output were inspected. Owned test
 accounts/saves/sessions were removed and checked database counts were preserved.
 No migration or reimport was needed: these pages use our existing read-only APIs.
 
-See [Frontend step 2](docs/FRONTEND_STEP_2.md) and its
+See [Frontend step 2](docs/milestones/FRONTEND_STEP_2.md) and its
 [verification report](docs/frontend_step_2_verification_report.json).
 The next browser milestone after that research extension is recorded below.
 
@@ -517,7 +528,7 @@ Role-management screens were added in the later admin milestone below; ordinary
 registration cannot grant itself analyst access. `scripts/create_admin.py` is only for the first admin
 on a setup that has none.
 
-See [Frontend step 3](docs/FRONTEND_STEP_3.md) and its
+See [Frontend step 3](docs/milestones/FRONTEND_STEP_3.md) and its
 [verification report](docs/frontend_step_3_verification_report.json).
 The fleet/work-order browser milestone that followed is recorded below.
 
@@ -554,7 +565,7 @@ logout/session-expiry cleanup and uncertain-write review. Desktop and 390px mobi
 output were reviewed. Owned fixtures were removed and checked stored counts matched
 the baseline. No import, migration or new runtime dependency was needed.
 
-See [Frontend step 4](docs/FRONTEND_STEP_4.md) and its
+See [Frontend step 4](docs/milestones/FRONTEND_STEP_4.md) and its
 [verification report](docs/frontend_step_4_verification_report.json).
 The report's separate read-only account-role check on 29 October records one
 ADMIN and one NORMAL_USER. Existing accounts/roles and their records were retained;
@@ -593,7 +604,7 @@ Restricted-reader permissions and sanitized audit projections passed native chec
 Owned fixtures were removed, original import history retained, and checked counts
 matched the baseline. Desktop/mobile output was reviewed.
 
-See [Frontend step 5](docs/FRONTEND_STEP_5.md) and its
+See [Frontend step 5](docs/milestones/FRONTEND_STEP_5.md) and its
 [verification report](docs/frontend_step_5_verification_report.json).
 The analytics milestone that completed the first planned browser implementation
 is recorded below.
@@ -626,7 +637,7 @@ Native queries and an owned temporary collection checked UTC boundaries, unknown
 overlapping components, missing dates and empty results. Desktop/mobile output was
 reviewed, owned fixtures removed, and checked original counts/import history retained.
 
-See [Frontend step 6](docs/FRONTEND_STEP_6.md) and its
+See [Frontend step 6](docs/milestones/FRONTEND_STEP_6.md) and its
 [verification report](docs/frontend_step_6_verification_report.json).
 This milestone established the first working interface for Stage 8 evaluation.
 
@@ -795,12 +806,45 @@ sibling `package_report.json`. See [package preparation](docs/SUBMISSION_PACKAGE
 are done for this review candidate; teammate reproduction, any resulting fixes,
 final package freeze, report/slides/video and human rehearsal remain open.
 
+### We organized the files before writing the report
+
+The root README now gives a short starting point. Detailed commands and API notes
+are consolidated in [TECHNICAL_REFERENCE.md](docs/TECHNICAL_REFERENCE.md), while the
+[code map](docs/CODE_MAP.md) shows which route, service and browser files implement
+each feature. The [documentation index](docs/README.md) separates current references
+from older milestones. Fourteen dated narrative reports moved to
+`docs/milestones/`; dates/results were kept and their relative links updated.
+
+Five shared Python helpers moved to `scripts/support/`, and seven browser test
+modules moved to `scripts/browser/`. A helper is code another command calls; it
+does not need to be a standalone command. The 34 public Python command names stay
+at the top of `scripts/`, so the manual's normal commands are retained. We kept
+routes/services/templates separate because they perform different jobs, and kept
+the original machine evidence for the report.
+
+After the moves, [212 automated tests and the full technical rehearsal passed](docs/organization/20261030T112848Z-e139090e/README.md)
+on **30 October**: 238 browser checks plus fresh native case/fleet/account/import
+flows, recovery/concurrency and cleanup. The new source manifest covers 138
+implementation/test/configuration files. All original application/database files
+kept their contents; original counts, configuration, archives and prior evidence
+were retained. Performance timings were not rerun.
+
+The package builder now chooses successful evidence matching the current source
+instead of assuming an old fixed run still applies. Two added tests check that
+failed/stale evidence is not accepted. Refresh the review ZIP for this layout;
+old exports retain their original manifests. Stage 9 still requires teammate
+reproduction, the report/slides/video, human rehearsal and final checks.
+
 ## 6. What is in this repository, and where is the actual data?
 
 | File or folder | Its purpose |
 | --- | --- |
 | `PROJECT_GUIDE.md` | This explanation and our ongoing progress tracker. |
-| `README.md` | Technical setup instructions and commands. |
+| `README.md` | Concise starting point, quick startup and links to the detailed references. |
+| `docs/README.md` | Current references, historical milestones and machine evidence grouped by task. |
+| `docs/CODE_MAP.md` | Which application/script/database file does what. |
+| `docs/TECHNICAL_REFERENCE.md` | Detailed command effects, setup upgrades, API contracts and verification options. |
+| `docs/milestones/` | Fourteen original foundation/backend/browser narratives, retaining their original dates/results. |
 | `USER_MANUAL.md` | One walkthrough for new installation, everyday use, role-specific tasks and troubleshooting. |
 | `docs/FRESH_SETUP_CHECKLIST.md` | Blank teammate reproduction plan; actual installation results remain pending. |
 | `docs/SUBMISSION_PACKAGE.md` | Build/verify the source-data-manual ZIP and understand what still needs final delivery checks. |
@@ -820,6 +864,7 @@ final package freeze, report/slides/video and human rehearsal remain open.
 | `sql/` | Construction/migrations/views; migration 002 adds sessions, 003 adds durable case operations/revisions. |
 | `mongodb/schema.py` | MongoDB document validation and index definitions. |
 | `scripts/` | Setup/import/verification commands and terminal clients for research, saves, cases and fleets. |
+| `scripts/support/` / `scripts/browser/` | Shared Python helper/fixture modules and the Node/Chromium verification modules. |
 | `tests/` | Automated API tests with fake connections and data transformation tests. |
 | `docs/` | Detailed design, inspection, scope and milestone evidence. |
 | `.env` | Private reader/auth/personal-workflow/case SQL credentials and Flask signing key; excluded from Git. |
@@ -914,6 +959,9 @@ against each other.
 
 **Next planned Stage 9 work:**
 
+Continue on `milestone/recallscope-core-complete-2026-10-30`. We can complete the
+following delivery tasks on this branch without integrating GitHub `main`.
+
 1. Give a teammate the checked source/data/manual review ZIP and have them follow
    the [fresh-setup checklist](docs/FRESH_SETUP_CHECKLIST.md). Record actual results;
    ZIP integrity and the existing-machine rehearsal do not establish fresh installation.
@@ -963,39 +1011,39 @@ stored bookmark. Creating a new account is optional if you already registered.
 
 The old [JSON profile API](http://127.0.0.1:5000/api/vehicles/safety-profile?year=2022&make=HONDA&model=CIVIC)
 still works for inspecting the response behind the page. The
-[browser walkthrough](docs/FRONTEND_STEP_1.md) describes page behavior and verification.
+[browser walkthrough](docs/milestones/FRONTEND_STEP_1.md) describes page behavior and verification.
 
 For the newest pages, click **Filter complaints** in the Civic profile. Enter
 **STEERING** as the component and apply the filter: our snapshot has 732 matches.
 Expand **Dates & incident details** for the remaining filters, then open a full
 complaint. From a profile's recall/investigation cards, follow **Related vehicles &
 record details** to explore linked vehicles, source rows and recall relationships.
-The [research walkthrough](docs/FRONTEND_STEP_2.md) explains these pages and terms.
+The [research walkthrough](docs/milestones/FRONTEND_STEP_2.md) explains these pages and terms.
 
 For analyst cases, sign in as ANALYST/ADMIN and choose **Analyst cases**. Normal
 users cannot enter this workspace. If no admin exists yet, run
 `.\.venv\Scripts\python.exe scripts/create_admin.py` locally, choose a new email and
 password at its hidden prompts, then sign in with that new admin account. The
-[case browser walkthrough](docs/FRONTEND_STEP_3.md) covers setup, the first case and
+[case browser walkthrough](docs/milestones/FRONTEND_STEP_3.md) covers setup, the first case and
 both recovery controls. This does not require rebuilding or reimporting databases.
 
 For fleets, use your existing account and select **My fleets**. Create **Family
 cars**, add **2022 HONDA CIVIC** as **Car 1**, and create a work order from one of
 its recall matches. Normal users can do this too. The
-[fleet browser walkthrough](docs/FRONTEND_STEP_4.md) explains the forms, filters,
+[fleet browser walkthrough](docs/milestones/FRONTEND_STEP_4.md) explains the forms, filters,
 statuses and deletion behavior.
 
 For administration, sign in with your existing admin account and choose **Admin**.
 Use **Datasets** for current inventory, **Import history** for recorded attempts,
 and **User roles** to review/confirm a teammate's access change. To give your normal
 account analyst access, change that account to **Analyst** using the admin page,
-then sign in with it. The [admin walkthrough](docs/FRONTEND_STEP_5.md) explains the
+then sign in with it. The [admin walkthrough](docs/milestones/FRONTEND_STEP_5.md) explains the
 permissions and the difference between inventory and import counters.
 
 For analytics, choose **Analytics → Try 2022 Honda Civic**. Click a component bar
 or a monthly point to open matching complaints, and leave model year blank for a
 comparison across the selected make/model's years. The
-[analytics walkthrough](docs/FRONTEND_STEP_6.md) explains the units, missing data
+[analytics walkthrough](docs/milestones/FRONTEND_STEP_6.md) explains the units, missing data
 and date coverage. No account, reimport or package installation is required.
 
 Press **Ctrl+C** in the terminal to stop the web server. This does not reset or
@@ -1020,7 +1068,7 @@ browser window. No default login account was seeded during verification.
 The first administrator can be created with the interactive local command
 `scripts/create_admin.py`, using an unused email. After that, administrators assign
 analyst/admin roles through protected requests. Normal registration always stays
-NORMAL_USER. The [auth walkthrough](docs/BACKEND_STEP_2_AUTH.md) explains the full
+NORMAL_USER. The [auth walkthrough](docs/milestones/BACKEND_STEP_2_AUTH.md) explains the full
 flow. A 401 from `/api/auth/me` is expected when that client is not signed in.
 
 ### Try your first saved-vehicle workflow
@@ -1038,7 +1086,7 @@ your records and use the displayed saved-record ID to rename/remove it. Exiting
 logs out but keeps saves you did not remove. You can see those rows in pgAdmin's
 `saved_vehicle` table. This is real application CRUD, not a fixture test or reimport.
 
-The [saved-vehicle walkthrough](docs/BACKEND_STEP_3_SAVED_VEHICLES.md) explains the
+The [saved-vehicle walkthrough](docs/milestones/BACKEND_STEP_3_SAVED_VEHICLES.md) explains the
 API, the two different vehicle IDs, and how ownership is enforced.
 
 ### Browse individual complaints
@@ -1053,7 +1101,7 @@ the component list. Add `&q=steering` to search narrative words instead.
 Copy an item's `odiNumber` into the end of
 `http://127.0.0.1:5000/api/complaints/ODI_NUMBER` to open its full narrative and
 source metadata. These requests do not need login and only read existing data.
-The [complaint walkthrough](docs/BACKEND_STEP_4_COMPLAINTS.md) explains all filters,
+The [complaint walkthrough](docs/milestones/BACKEND_STEP_4_COMPLAINTS.md) explains all filters,
 including date ranges and the difference between zero and unknown injuries.
 
 ### Open recalls and official investigations
@@ -1068,7 +1116,7 @@ year identities. Recalls also have `links.records` for their original source row
 These counts answer different questions. `affectedVehicleCount` counts distinct
 vehicle identities such as a 2022 Civic, while `potentiallyAffected` is the source's
 reported number of units. Source rows can repeat a vehicle for different components.
-The [official-record walkthrough](docs/BACKEND_STEP_5_OFFICIAL_RECORDS.md) explains
+The [official-record walkthrough](docs/milestones/BACKEND_STEP_5_OFFICIAL_RECORDS.md) explains
 the filters, pagination and SQL permissions. The required views/grants are already
 applied here; you only need the updated Flask process to try the feature.
 
@@ -1095,9 +1143,9 @@ demonstration accounts/cases for you to log into.
 
 If an operation says PENDING, the helper can list/retry it. If a write's response
 was uncertain, option 12 repeats the last command using its original request ID.
-The [case walkthrough](docs/BACKEND_STEP_6_ANALYST_CASES.md) explains permissions,
+The [case walkthrough](docs/milestones/BACKEND_STEP_6_ANALYST_CASES.md) explains permissions,
 recovery, limits and every menu/API action. The
-[browser workspace](docs/FRONTEND_STEP_3.md) now provides those case workflows too.
+[browser workspace](docs/milestones/FRONTEND_STEP_3.md) now provides those case workflows too.
 The fleet terminal workflow is also available below.
 
 ### Try fleet recall tracking with your existing account
@@ -1115,7 +1163,7 @@ one displayed recall ID. Update its status/notes, then read it again. You can se
 the rows in pgAdmin's `fleet`, `fleet_vehicle` and `work_order` tables.
 
 Signing out keeps your records. Deleting a fleet removes its vehicles/orders too;
-the menu labels this behavior. The [fleet walkthrough](docs/BACKEND_STEP_7_FLEETS.md)
+the menu labels this behavior. The [fleet walkthrough](docs/milestones/BACKEND_STEP_7_FLEETS.md)
 explains the IDs, ownership rules, matching limitations and available operations.
 No reimport, new software or additional password entry in `.env` is needed here.
 
@@ -1124,7 +1172,7 @@ still have an older version of the code loaded. On 29 October, this was confirme
 on the server listening at port 5000. Stop that server with Ctrl+C and restart it
 using the Flask command at the start of this section; rerun the helper in a second
 terminal. The helper now checks for missing fleet routes before sign-in and gives
-these instructions. See [generic 404 troubleshooting](docs/BACKEND_STEP_7_FLEETS.md#troubleshooting-a-generic-404).
+these instructions. See [generic 404 troubleshooting](docs/milestones/BACKEND_STEP_7_FLEETS.md#troubleshooting-a-generic-404).
 The restart reloads application code and retains stored database records.
 
 ### Optional terminal query
@@ -1220,26 +1268,26 @@ Documentation and ZIP validation alone do not complete those gates.
 | --- | --- | --- |
 | 4 October 2026 (proposal date) | Team proposal describes the application and initial plan. | Proposal submission confirmed by the team; topic and initial scope established. |
 | 24 October 2026 | Reviewed project materials and resolved fleet scope through the subsequent greenlight. | Shared core plus a small fleet/work-order module agreed. |
-| 25 October 2026 | Constructed/imported both databases and verified the first milestone. | [Milestone 1](docs/MILESTONE_1.md); ready for backend development. |
+| 25 October 2026 | Constructed/imported both databases and verified the first milestone. | [Milestone 1](docs/milestones/MILESTONE_1.md); ready for backend development. |
 | 27 October 2026 | Added this beginner guide and progress tracker. | Documentation update only; backend remains the next implementation stage. |
 | 28 October 2026 | Clarified first-time setup, imports, queries and test commands, including their effects on stored data. | Documentation clarification; full database verification remains dated 25 October. |
-| 28 October 2026 | Implemented read-only Flask research routes, a restricted SQL reader, automated API tests and real HTTP verification. | [Backend step 1](docs/BACKEND_STEP_1.md) verified; registration/login and editable workflows are next. |
-| 28 October 2026 | Added registration/login/logout, expiring SQL sessions, CSRF protection, role guards, admin role changes and interactive helpers. | [Backend step 2](docs/BACKEND_STEP_2_AUTH.md) verified; saved-vehicle ownership/CRUD is next. |
+| 28 October 2026 | Implemented read-only Flask research routes, a restricted SQL reader, automated API tests and real HTTP verification. | [Backend step 1](docs/milestones/BACKEND_STEP_1.md) verified; registration/login and editable workflows are next. |
+| 28 October 2026 | Added registration/login/logout, expiring SQL sessions, CSRF protection, role guards, admin role changes and interactive helpers. | [Backend step 2](docs/milestones/BACKEND_STEP_2_AUTH.md) verified; saved-vehicle ownership/CRUD is next. |
 | 28 October 2026 | Checked live database connections/counts and added pgAdmin/Compass browsing instructions. | [Inspection walkthrough](docs/INSPECTING_DATABASES.md); read-only inspection, no implementation-stage change. |
-| 28 October 2026 | Added personal saved-vehicle CRUD, ownership checks, limited workflow SQL access and an interactive menu. | [Backend step 3](docs/BACKEND_STEP_3_SAVED_VEHICLES.md) verified; complaint browsing and analyst cases are next. |
+| 28 October 2026 | Added personal saved-vehicle CRUD, ownership checks, limited workflow SQL access and an interactive menu. | [Backend step 3](docs/milestones/BACKEND_STEP_3_SAVED_VEHICLES.md) verified; complaint browsing and analyst cases are next. |
 | 28 October 2026 | Added an explicit overall-stage and backend-substep indicator at the top of this guide. | Tracking clarification only; overall Stage 6 remains in progress. |
 | 28 October 2026 | Pushed a GitHub checkpoint of the database foundation and backend through saved vehicles, excluding credentials, raw archives and local environments. | [Commit 10adb9e](https://github.com/WilsonTeng8778/inf2003-databasesystems/commit/10adb9e5ec642bbe943227a8553bb666a6d3289e); source sharing, not application deployment. |
-| 28 October 2026 | Added public complaint lists/details, vehicle/component/date/incident filters and indexed narrative search. | [Backend step 4](docs/BACKEND_STEP_4_COMPLAINTS.md): 71 automated tests and 42 live HTTP checks passed; Stage 6 continues with remaining official-record APIs and case/fleet workflows. |
-| 28 October 2026 | Added recall/official-investigation lists/details, affected-vehicle/source pages and public SQL research views; applied reader grants locally. | [Backend step 5](docs/BACKEND_STEP_5_OFFICIAL_RECORDS.md): 92 automated tests and 79 live HTTP checks passed; Stage 6 continues with analyst cases, then fleets. |
-| 29 October 2026 | Added analyst-case CRUD, role/owner/admin rules, complaint links, nested notes/findings, tags, status history and durable SQL/MongoDB recovery; applied schema 3 and case SQL access. | [Backend step 6](docs/BACKEND_STEP_6_ANALYST_CASES.md): 121 automated tests, 99 recorded HTTP checks and concurrent/interactive flows passed; owned fixtures removed. Stage 6 continues with small fleets/work orders. |
-| 29 October 2026 | Added owner-scoped fleet/vehicle/work-order CRUD, model-year recall matching and the terminal menu; updated workflow SQL grants without a schema rebuild/import. | [Backend step 7](docs/BACKEND_STEP_7_FLEETS.md): 145 automated tests, 110 recorded HTTP checks, six concurrent requests and the menu passed; fixtures removed. Core workflow backend verified; browser screens are next, with admin data/analytics integration planned. |
-| 29 October 2026 | Diagnosed generic fleet-route 404s from an older running Flask server and added a pre-login route check with restart instructions to the fleet helper. | [Troubleshooting](docs/BACKEND_STEP_7_FLEETS.md#troubleshooting-a-generic-404): anonymous checks against older/fresh servers passed; no database writes or full CRUD rerun. The browser interface remains the next stage. |
-| 29 October 2026 | Added the RecallScope browser interface for search/profile/record details, registration/login/logout and personal saved-vehicle CRUD; JSON discovery moved to `/api`. | [Frontend step 1](docs/FRONTEND_STEP_1.md): 151 automated tests and 32 real-browser checks passed; screenshots reviewed and owned fixtures removed. Overall Stage 7 is in progress, with full complaint filters and case/fleet/admin screens next. |
-| 29 October 2026 | Added the full complaint explorer, shareable filter/page URLs and standalone complaint/recall/investigation pages with vehicle/source/recall relationships. | [Frontend step 2](docs/FRONTEND_STEP_2.md): 151 automated tests and 71 real-browser checks passed; screenshots reviewed and owned fixtures removed. Stage 7 continues with the analyst case workspace; fleet/admin/analytics work remains. |
-| 29 October 2026 | Added browser analyst case files/forms, vehicle-scoped complaint selection, notes/findings, status/history and explicit save/deletion recovery; retained the existing account's normal-user role. | [Frontend step 3](docs/FRONTEND_STEP_3.md): 151 automated tests and 115 real-browser checks passed; controlled failures, permissions, desktop/mobile output and cleanup verified. Stage 7 continues with fleet/work-order screens. First-admin setup is needed locally to try cases. |
-| 29 October 2026 | Added personal fleet/vehicle forms, recall matching and work-order browser screens; added read-before-resubmit handling for uncertain fleet writes and hardened case retries for unreadable responses. | [Frontend step 4](docs/FRONTEND_STEP_4.md): 151 automated tests and 163 real-browser checks passed; desktop/mobile output reviewed, ownership/cascades checked and owned fixtures removed. Stage 7 continues with admin user/role/data/import-log views. |
-| 29 October 2026 | Added admin user-role confirmations, dataset inventory and filtered import history; implemented protected monitoring read APIs and two narrow SQL views/reader grants. | [Frontend step 5](docs/FRONTEND_STEP_5.md): 159 automated tests and 195 real-browser checks passed, including native permission/projection and isolated last-admin SQL checks. Owned fixtures removed and existing import history/records retained. Stage 7 continues with analytics/dashboard integration. |
-| 29 October 2026 | Added bounded public analytics, monthly/component chart drill-throughs, incident-attribute tables and model-year comparisons with distinct official totals. | [Frontend step 6](docs/FRONTEND_STEP_6.md): 170 automated tests and 219 browser checks plus native counting edge cases passed; screenshots reviewed and owned fixtures removed. First planned frontend verified; overall Stage 8 begins with controlled performance evaluation next. |
+| 28 October 2026 | Added public complaint lists/details, vehicle/component/date/incident filters and indexed narrative search. | [Backend step 4](docs/milestones/BACKEND_STEP_4_COMPLAINTS.md): 71 automated tests and 42 live HTTP checks passed; Stage 6 continues with remaining official-record APIs and case/fleet workflows. |
+| 28 October 2026 | Added recall/official-investigation lists/details, affected-vehicle/source pages and public SQL research views; applied reader grants locally. | [Backend step 5](docs/milestones/BACKEND_STEP_5_OFFICIAL_RECORDS.md): 92 automated tests and 79 live HTTP checks passed; Stage 6 continues with analyst cases, then fleets. |
+| 29 October 2026 | Added analyst-case CRUD, role/owner/admin rules, complaint links, nested notes/findings, tags, status history and durable SQL/MongoDB recovery; applied schema 3 and case SQL access. | [Backend step 6](docs/milestones/BACKEND_STEP_6_ANALYST_CASES.md): 121 automated tests, 99 recorded HTTP checks and concurrent/interactive flows passed; owned fixtures removed. Stage 6 continues with small fleets/work orders. |
+| 29 October 2026 | Added owner-scoped fleet/vehicle/work-order CRUD, model-year recall matching and the terminal menu; updated workflow SQL grants without a schema rebuild/import. | [Backend step 7](docs/milestones/BACKEND_STEP_7_FLEETS.md): 145 automated tests, 110 recorded HTTP checks, six concurrent requests and the menu passed; fixtures removed. Core workflow backend verified; browser screens are next, with admin data/analytics integration planned. |
+| 29 October 2026 | Diagnosed generic fleet-route 404s from an older running Flask server and added a pre-login route check with restart instructions to the fleet helper. | [Troubleshooting](docs/milestones/BACKEND_STEP_7_FLEETS.md#troubleshooting-a-generic-404): anonymous checks against older/fresh servers passed; no database writes or full CRUD rerun. The browser interface remains the next stage. |
+| 29 October 2026 | Added the RecallScope browser interface for search/profile/record details, registration/login/logout and personal saved-vehicle CRUD; JSON discovery moved to `/api`. | [Frontend step 1](docs/milestones/FRONTEND_STEP_1.md): 151 automated tests and 32 real-browser checks passed; screenshots reviewed and owned fixtures removed. Overall Stage 7 is in progress, with full complaint filters and case/fleet/admin screens next. |
+| 29 October 2026 | Added the full complaint explorer, shareable filter/page URLs and standalone complaint/recall/investigation pages with vehicle/source/recall relationships. | [Frontend step 2](docs/milestones/FRONTEND_STEP_2.md): 151 automated tests and 71 real-browser checks passed; screenshots reviewed and owned fixtures removed. Stage 7 continues with the analyst case workspace; fleet/admin/analytics work remains. |
+| 29 October 2026 | Added browser analyst case files/forms, vehicle-scoped complaint selection, notes/findings, status/history and explicit save/deletion recovery; retained the existing account's normal-user role. | [Frontend step 3](docs/milestones/FRONTEND_STEP_3.md): 151 automated tests and 115 real-browser checks passed; controlled failures, permissions, desktop/mobile output and cleanup verified. Stage 7 continues with fleet/work-order screens. First-admin setup is needed locally to try cases. |
+| 29 October 2026 | Added personal fleet/vehicle forms, recall matching and work-order browser screens; added read-before-resubmit handling for uncertain fleet writes and hardened case retries for unreadable responses. | [Frontend step 4](docs/milestones/FRONTEND_STEP_4.md): 151 automated tests and 163 real-browser checks passed; desktop/mobile output reviewed, ownership/cascades checked and owned fixtures removed. Stage 7 continues with admin user/role/data/import-log views. |
+| 29 October 2026 | Added admin user-role confirmations, dataset inventory and filtered import history; implemented protected monitoring read APIs and two narrow SQL views/reader grants. | [Frontend step 5](docs/milestones/FRONTEND_STEP_5.md): 159 automated tests and 195 real-browser checks passed, including native permission/projection and isolated last-admin SQL checks. Owned fixtures removed and existing import history/records retained. Stage 7 continues with analytics/dashboard integration. |
+| 29 October 2026 | Added bounded public analytics, monthly/component chart drill-throughs, incident-attribute tables and model-year comparisons with distinct official totals. | [Frontend step 6](docs/milestones/FRONTEND_STEP_6.md): 170 automated tests and 219 browser checks plus native counting edge cases passed; screenshots reviewed and owned fixtures removed. First planned frontend verified; overall Stage 8 begins with controlled performance evaluation next. |
 | 29 October 2026 | Measured four SQL/MongoDB workloads on full-sized disposable copies, saved plans/raw samples/CSV/figures, then added the measured stable-order complaint index to the real collection. | [Performance evaluation](docs/PERFORMANCE_EVALUATION.md): 30 measured samples per controlled phase, ordered results matched, copies removed and source counts/indexes retained. Separate live follow-up passed five checks covering eight service pages; 177 automated tests passed. Browser evidence remains the earlier run. Stage 8 continues with final requirements/evidence review and demonstration/reproducibility checks. |
 | 30 October 2026 | Reread the course brief/FAQ/proposal, mapped requirements to implementation and 17 dated evidence reports, checked four local archive hashes and prepared a draft final demo checklist. | [Readiness review](docs/FINAL_READINESS_REVIEW.md) / [review record](docs/readiness/20261030_review.json). G1 account deletion and G2 ADMIN import initiation are partial; final deliverables/reproduction remain pending. Documentation/source review only: no new features, DB operations or application tests. Stage 8 continues with G1, then G2 and final rehearsal. |
 | 30 October 2026 | Added confirmed, unused-account deletion, a guarded SQL function/EXECUTE grant and migration 004; added admin controls and verification helpers. | [Account deletion](docs/ACCOUNT_DELETION.md): 183 automated tests, 29 native assertions and 23 live-database HTTP checks passed; owned fixtures removed and original counts retained. Browser launch was not executed because automatic approval review was at capacity. G1 browser acceptance remains pending; next G2 and final rehearsal. |
@@ -1248,6 +1296,9 @@ Documentation and ZIP validation alone do not complete those gates.
 | 30 October 2026 | Ran the integrated technical acceptance set against a fingerprinted working tree; made case/fleet verifier outputs history-preserving and added six integrity tests. | [Technical rehearsal](docs/TECHNICAL_REHEARSAL.md): 202 automated tests, 238 browser checks and all selected native case/fleet/account/import checks passed. Four current benchmark result sets matched and 20 saved plans were validated without new timings. Code/config/archive/count checks passed; fixtures removed and representative screenshots reviewed. Stage 8 technical milestone complete; current Stage 9 is manual/package/fresh setup/report/slides/video and human rehearsal. |
 | 30 October 2026 | Wrote the user manual/fresh-install checklist and added a source/data export tool with manifest and private-file/integrity checks. | [Package review](docs/packaging/20261030T043036Z-manual-package/review.json): 210 automated tests passed, including eight package tests; initial 450-file ZIP/four source hashes verified; earlier 135 implementation files unchanged. Refreshed export follows documentation updates. No app/native/browser rerun or database import; teammate installation, final freeze/report/slides/video/human rehearsal remain Stage 9 work. |
 | 30 October 2026 | Prepared the completed local core implementation, delivery documentation and saved evidence as a named GitHub milestone checkpoint. | [Checkpoint scope](docs/GITHUB_CHECKPOINT_2026-10-30.md): `milestone/recallscope-core-complete-2026-10-30` preserves the verified version alongside six newer remote commits implementing overlapping workflows. Credentials/raw/package ZIPs remain excluded; no integration or application-test rerun. Stage 9 delivery and deliberate future integration remain open. |
+| 30 October 2026 | Reverted the local implementation-comparison work at the user's request and selected the milestone branch as our primary working version. | Comparison documents/evidence and temporary exports removed; README/readiness review restored to checkpoint `05c920b`. Application files, private configuration and Git history retained. GitHub `main` stays separate; integration/replacement is outside the current plan. Stage 9 continues with teammate reproduction and report/slides/video/final package checks. |
+| 30 October 2026 | Simplified the README, added code/documentation indexes, grouped 14 narrative milestones and moved helper/browser verification files into clear folders. | [Organization record](docs/organization/20261030T112848Z-e139090e/README.md): 26 file moves, public command names retained, 212 automated tests and fresh 238-check browser/native rehearsal passed. Package evidence selection updated/tested; original runtime/database contents and machine evidence retained. No main-branch integration; Stage 9 reproduction/report/slides/video remains. |
+| 31 October 2026 | Published the organized layout, updated references and original 30 October verification evidence to our primary milestone branch. | [Milestone branch](https://github.com/WilsonTeng8778/inf2003-databasesystems/tree/milestone/recallscope-core-complete-2026-10-30), commit title `refactor: organize project layout and documentation`. Upload checks confirm the 138 implementation files still match the 30 October rehearsal; credentials/raw/package ZIPs excluded. Application tests were not rerun or redated. Stage 9 continues with final-report preparation and teammate fresh installation in parallel, then slides/video and final package checks. |
 
 At each meaningful milestone, we will update the date, current-position summary,
 stage statuses, next actions and this log. New counts/test claims will include

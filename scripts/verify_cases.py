@@ -22,11 +22,11 @@ from werkzeug.serving import make_server
 from backend import create_app
 from backend.services.cases import CaseService, PostgresCaseRepository
 from project_config import ROOT, case_postgres, mongo_client, mongo_database, postgres
-from scripts.local_api import ApiError, LocalApi
+from scripts.support.local_api import ApiError, LocalApi
 from scripts.verify_api import QuietHandler
 from scripts.verify_official_records import counts as reference_counts
 from scripts import try_cases
-from scripts.verification_reports import select_report_path
+from scripts.support.verification_reports import select_report_path
 
 
 def snapshot():

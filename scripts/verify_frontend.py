@@ -64,16 +64,16 @@ def main():
         import_rows_before=connection.execute('SELECT count(*) FROM data_import_log').fetchone()[0]
     try:
         if include_cases:
-            from scripts.frontend_case_fixtures import prepare_case_fixtures
+            from scripts.support.frontend_case_fixtures import prepare_case_fixtures
             config['caseFixtures'] = prepare_case_fixtures(app, config['baseUrl'], emails, password, 'Pending browser-test note ' + run_id)
         if include_admin:
-            from scripts.frontend_admin_fixtures import prepare_admin_fixtures
+            from scripts.support.frontend_admin_fixtures import prepare_admin_fixtures
             admin_assertions=prepare_admin_fixtures(config['baseUrl'],emails,password,config['caseFixtures']['adminId'])
         if include_analytics:
-            from scripts.analytics_checks import native_analytics_checks
+            from scripts.support.analytics_checks import native_analytics_checks
             analytics_assertions=native_analytics_checks()
         if args.accounts:
-            from scripts.local_api import ApiError, LocalApi
+            from scripts.support.local_api import ApiError, LocalApi
             account_clients=[];config['accountFixtures']=[]
             for email in emails[-4:]:
                 client=LocalApi(config['baseUrl']);client.request('/api/auth/csrf')
@@ -82,7 +82,7 @@ def main():
             with postgres() as connection:
                 vehicle_id=connection.execute("SELECT model_year_id FROM vehicle_catalogue WHERE make='HONDA' AND model='CIVIC' AND year=2022").fetchone()[0]
             account_clients[-1].request('/api/saved-vehicles',{'modelYearId':vehicle_id,'nickname':'Account deletion guard fixture'},method='POST')
-        result = subprocess.run([node, str(ROOT / 'scripts/browser_frontend_checks.mjs')], input=json.dumps(config),
+        result = subprocess.run([node, str(ROOT / 'scripts/browser/browser_frontend_checks.mjs')], input=json.dumps(config),
                                 text=True, encoding='utf-8', capture_output=True, cwd=ROOT, timeout=600)
         if result.returncode:
             print(result.stderr.replace(password, '[redacted]'), file=sys.stderr)

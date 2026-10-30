@@ -17,7 +17,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from etl.runner import ImportBusy, import_lock, run_imports
 from etl.source import RAW, SOURCES
 from project_config import ROOT, mongo_client, mongo_database, postgres
-from scripts.local_api import ApiError, LocalApi
+from scripts.support.local_api import ApiError, LocalApi
 
 
 class AdminImportDenied(ValueError):

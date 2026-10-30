@@ -238,7 +238,7 @@ Complaints can mention several components, so component totals overlap. Unknown
 incident/date values are not the same as false/zero. Complaint receipt-date filters
 do not restrict the displayed all-stored-date recall/investigation totals. Vehicle
 comparisons count distinct official campaigns/actions. These are descriptions of
-the stored snapshot, not a safety ranking. See [analytics rules](docs/FRONTEND_STEP_6.md).
+the stored snapshot, not a safety ranking. See [analytics rules](docs/milestones/FRONTEND_STEP_6.md).
 
 ## 5. Accounts, saved vehicles and fleets
 
@@ -256,7 +256,7 @@ Change order status/notes and complete it. Labels distinguish entries; they are 
 VIN validation. A model-level recall match is not proof a particular car needs or
 has received a repair. Confirmed fleet/vehicle removal also removes dependent orders;
 use disposable demo records when rehearsing deletion. Admin roles do not grant
-access to another person's fleet. See [fleet walkthrough](docs/FRONTEND_STEP_4.md).
+access to another person's fleet. See [fleet walkthrough](docs/milestones/FRONTEND_STEP_4.md).
 
 ## 6. Analyst cases and saved-update recovery
 
@@ -274,7 +274,7 @@ another attempt. Use the displayed retry/recovery action for the same operation;
 avoid submitting a new duplicate case/note after an uncertain response. A deleted
 case can still have cleanup pending until its content projection is applied.
 This is recoverable coordination, not a distributed atomic transaction.
-See [case workflow and recovery](docs/FRONTEND_STEP_3.md).
+See [case workflow and recovery](docs/milestones/FRONTEND_STEP_3.md).
 
 ## 7. Administrator tasks
 
@@ -339,10 +339,11 @@ From a prepared checkout, without starting Flask or changing database contents:
 The builder reads current working files, including source not yet committed, and
 writes a new dated directory below `data/processed/packages/`. It includes this
 manual, source/SQL/ETL/tests, dictionaries, all four approved raw ZIPs and saved
-documentation/evidence. It checks that the 135 files from the referenced technical
-rehearsal still match, and records additional packaging-tool/test files separately.
-If previously tested implementation changes, supply a successful matching new run
-through `--rehearsal docs/rehearsals/<run>/report.json` after retesting.
+documentation/evidence. It selects the newest successful rehearsal whose recorded
+implementation files still match the current source. Additional source files are
+listed separately. If no successful evidence matches, run the technical rehearsal
+after the changes before exporting; `--rehearsal docs/rehearsals/<run>/report.json`
+can select a specific matching run. A newer date alone does not establish a match.
 
 The ZIP contains `PACKAGE_MANIFEST.json` with each included file's size/hash. The
 builder reopens it and verifies all members before publishing the `.zip` filename.

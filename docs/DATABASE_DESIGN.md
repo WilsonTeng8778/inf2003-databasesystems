@@ -221,7 +221,7 @@ SELECT-only access to these views, without direct source-table or private
 account/workflow access. `EXISTS` filters keep one parent campaign/investigation
 per list item; recall component+vehicle filters share one source-row predicate.
 Large affected-vehicle/source lists are paginated. See
-[Backend step 5](BACKEND_STEP_5_OFFICIAL_RECORDS.md) for verified grants and behavior.
+[Backend step 5](milestones/BACKEND_STEP_5_OFFICIAL_RECORDS.md) for verified grants and behavior.
 
 ## MongoDB model
 
@@ -280,7 +280,7 @@ The initial verification script exercises direct database operations. Read-only
 research uses a SQL reader restricted to research views. Authentication now uses
 a separate account with limited user-column/session permissions, signed cookies,
 hashed server-side session tokens, role guards and guarded administrator changes;
-see [Backend step 2](BACKEND_STEP_2_AUTH.md).
+see [Backend step 2](milestones/BACKEND_STEP_2_AUTH.md).
 
 `app_session` references users with delete cascade. Its opaque token's SHA-256
 hash is the primary key; raw tokens are not stored in SQL. Expiration is checked
@@ -289,7 +289,7 @@ record rather than trusting a role cached in a cookie. Schema migration 002 adds
 this table without replacing reference data.
 
 Saved-vehicle CRUD now uses owner-scoped SQL predicates and a limited workflow
-account; see [Backend step 3](BACKEND_STEP_3_SAVED_VEHICLES.md). The owner comes
+account; see [Backend step 3](milestones/BACKEND_STEP_3_SAVED_VEHICLES.md). The owner comes
 from the authenticated session and cannot be changed by a request payload.
 Only nickname updates are granted for saved records. Database row-level security
 is not configured; the API supplies the ownership conditions.
@@ -298,9 +298,9 @@ Analysts manage cases they created; admins have explicit case oversight/recovery
 access. The case SQL role cannot change creator/assignee/vehicle columns, read
 account/session tables, write official records or delete recovery receipts. API
 predicates supply owner checks; no row-level security is claimed. See
-[Backend step 6](BACKEND_STEP_6_ANALYST_CASES.md) for the 29 October verification.
+[Backend step 6](milestones/BACKEND_STEP_6_ANALYST_CASES.md) for the 29 October verification.
 Fleet/vehicle/work-order APIs were verified on 29 October; see
-[Backend step 7](BACKEND_STEP_7_FLEETS.md). Every role, including ADMIN, uses the
+[Backend step 7](milestones/BACKEND_STEP_7_FLEETS.md). Every role, including ADMIN, uses the
 same personal owner predicate. The existing workflow SQL role now has narrow
 fleet-table/recall-match-view grants, while owner/vehicle/recall identity updates
 remain ungranted. Composite work-order foreign keys enforce both the vehicle's
@@ -308,22 +308,22 @@ model-year and the recall's affected model-year; uniqueness prevents duplicate
 vehicle–recall orders. Parent-first fleet locks serialize mutations, and SQL
 cascades remove dependent personal rows. No additional table migration was needed.
 The first browser research/auth/personal-saves screens now call these established
-API services; see [Frontend step 1](FRONTEND_STEP_1.md), verified on 29 October.
+API services; see [Frontend step 1](milestones/FRONTEND_STEP_1.md), verified on 29 October.
 Performance/final evaluation remains. The analyst case browser workspace was added
 in the subsequent step below.
 No database migration was required for the first browser interface. A role column
 alone does not enforce application permissions.
 The complaint explorer and standalone record relationships also use the established
 read-only APIs and grants; no schema/import changes were required. See
-[Frontend step 2](FRONTEND_STEP_2.md), verified on 29 October with filter/history,
+[Frontend step 2](milestones/FRONTEND_STEP_2.md), verified on 29 October with filter/history,
 provenance, related-vehicle/source pagination and linked-recall browser checks.
 The analyst workspace also uses the existing case APIs and outbox without a new
-schema migration. [Frontend step 3](FRONTEND_STEP_3.md), verified on 29 October,
+schema migration. [Frontend step 3](milestones/FRONTEND_STEP_3.md), verified on 29 October,
 exposes applied/pending receipts, hides unsynchronized content and retries uncertain
 commands with their original idempotency keys. Browser checks covered a lost
 post-commit response, durable pending saves and recovery after SQL case deletion.
 Fleet/order browser forms reuse the existing PostgreSQL transactions, constraints,
-owner-scoped APIs and workflow role. [Frontend step 4](FRONTEND_STEP_4.md), verified
+owner-scoped APIs and workflow role. [Frontend step 4](milestones/FRONTEND_STEP_4.md), verified
 on 29 October, adds personal fleet/vehicle forms, matched recall orders, tracking
 statuses and confirmed SQL cascades. Admins retain the same personal fleet boundary.
 Uncertain fleet writes require reading current records before resubmission; they
@@ -334,7 +334,7 @@ The existing reader receives SELECT on `admin_reference_counts` and
 The import projection exposes validated source fingerprints and an allowed failure
 category rather than arbitrary diagnostics. Counts, filters and pagination are
 read-only; import filters bind values. ADMIN HTTP guards precede monitoring queries.
-See [Frontend step 5](FRONTEND_STEP_5.md), verified on 29 October, including native
+See [Frontend step 5](milestones/FRONTEND_STEP_5.md), verified on 29 October, including native
 reader-permission/projection checks and a temporary-table last-admin guard test.
 No table migration was required; SQL schema version remains 3. Existing auth SQL
 connections retain their separate account/session and role-mutation permissions.
@@ -345,7 +345,7 @@ projected MongoDB `$facet` aggregates complaint totals/components/months/vehicle
 and overall date coverage. Only complaints use the selected inclusive UTC window;
 official records use all stored dates. Missing dates, unknown incident attributes,
 zero/partial months and overlapping component labels remain explicit.
-See [Frontend step 6](FRONTEND_STEP_6.md), verified on 29 October, including real
+See [Frontend step 6](milestones/FRONTEND_STEP_6.md), verified on 29 October, including real
 data comparisons and validator-backed temporary-collection edge cases. These are
 functional/counting checks. Subsequent [performance evaluation](PERFORMANCE_EVALUATION.md)
 on 29 October compared two SQL recall queries and two complaint windows with 30

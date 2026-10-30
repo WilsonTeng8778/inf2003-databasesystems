@@ -1,0 +1,149 @@
+{
+  "verified_at_utc": "2026-10-30T11:35:07.571542+00:00",
+  "checks": [
+    {
+      "method": "POST",
+      "path": "/api/auth/register",
+      "status": 201
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/register",
+      "status": 201
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/register",
+      "status": 201
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/register",
+      "status": 201
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/admin/users/208",
+      "status": 401
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/admin/users/208",
+      "status": 403
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/admin/users/208",
+      "status": 403
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/admin/users/208",
+      "status": 403
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/admin/users/208",
+      "status": 409
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/admin/users/208",
+      "status": 400
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/admin/users/207",
+      "status": 409
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/me",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/saved-vehicles",
+      "status": 201
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/admin/users/209",
+      "status": 409
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/admin/users/208",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/me",
+      "status": 401
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "status": 401
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/admin/users/208",
+      "status": 404
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/admin/users/210",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/me",
+      "status": 401
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "status": 401
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/admin/users/210",
+      "status": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/me",
+      "status": 200
+    }
+  ],
+  "successful": true,
+  "scope": "Flask test clients with real PostgreSQL auth/deletion SQL; only synthetic accounts targeted. No browser/server process or source imports.",
+  "saved_vehicle_retained_after_conflict": true,
+  "deleted_user_sessions_revoked": true,
+  "api_checks_passed": true,
+  "synthetic_accounts_and_owned_saves_sessions_removed": true,
+  "record_counts": {
+    "model_year": 53555,
+    "recall": 13600,
+    "official_investigation": 3626,
+    "app_user": 2,
+    "saved_vehicle": 1,
+    "analysis_case": 0,
+    "fleet": 0,
+    "fleet_vehicle": 0,
+    "work_order": 0,
+    "complaints": 428837,
+    "case_details": 0,
+    "app_session": 1,
+    "recall_vehicle": 93743,
+    "recall_record": 219728,
+    "investigation_vehicle": 28647,
+    "investigation_manufacturer": 3943,
+    "investigation_component": 5361,
+    "investigation_recall": 1671,
+    "case_content_operation": 0,
+    "case_status_history": 0
+  },
+  "finished_at_utc": "2026-10-30T11:35:09.367655+00:00"
+}

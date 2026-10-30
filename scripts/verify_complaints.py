@@ -11,7 +11,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from werkzeug.serving import make_server
 from backend import create_app
 from project_config import ROOT, mongo_database
-from scripts.local_api import ApiError, LocalApi
+from scripts.support.local_api import ApiError, LocalApi
 from scripts.verify_api import QuietHandler
 from scripts.verify_auth import snapshot
 

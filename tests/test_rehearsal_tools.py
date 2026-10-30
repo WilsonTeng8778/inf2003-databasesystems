@@ -8,7 +8,7 @@ from uuid import uuid4
 
 from project_config import ROOT
 from scripts.rehearse_project import source_snapshot
-from scripts.verification_reports import select_report_path, validate_report_path
+from scripts.support.verification_reports import select_report_path, validate_report_path
 
 
 class RehearsalToolsTests(unittest.TestCase):
@@ -35,7 +35,7 @@ class RehearsalToolsTests(unittest.TestCase):
 
     def test_default_output_paths_are_distinct_and_do_not_replace_legacy(self):
         legacy = self.root / 'docs/cases_verification_report.json';legacy.write_text('legacy')
-        with patch('scripts.verification_reports.ROOT', self.root):
+        with patch('scripts.support.verification_reports.ROOT', self.root):
             first = select_report_path('cases', []);second = select_report_path('cases', [])
         self.assertNotEqual(first, second)
         self.assertTrue(first.parent.is_dir());self.assertEqual(legacy.read_text(), 'legacy')

@@ -32,11 +32,13 @@ Installed libraries, `.env`, Git internals, staging/log/browser profiles and liv
 database dumps/storage are excluded. Uncommitted source is included: the export
 does not assume GitHub already contains all working files.
 
-The builder compares every previously tested implementation file against the
-[30 October technical report](TECHNICAL_REHEARSAL.md). New package tools/tests are
-listed separately; this does not redetermine that report's 202-test/238-browser
-results. Later application changes require a matching new successful rehearsal
-report via `--rehearsal`. Documentation is allowed to evolve after that milestone.
+The builder selects the newest successful rehearsal whose recorded implementation
+files match the current source, including legitimate file moves/refactors. It
+checks file hashes, rather than trusting the newest date. An explicit matching
+report can be selected with `--rehearsal`. New source files are listed separately.
+If no evidence matches, it refuses the export until the changed version has a
+successful rehearsal. Earlier [technical results](TECHNICAL_REHEARSAL.md) retain
+their original counts/dates; documentation may evolve after those milestones.
 
 Reopen/read verification checks every member hash, exact membership, required
 files, blank credential fields in `.env.example`, approved raw archive hashes

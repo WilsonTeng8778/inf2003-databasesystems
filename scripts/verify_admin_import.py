@@ -26,7 +26,7 @@ from mongodb.schema import initialize
 from project_config import ROOT, mongo_client, mongo_database, postgres
 from scripts import admin_import
 from scripts.benchmark_databases import owned_namespace
-from scripts.local_api import ApiError, LocalApi
+from scripts.support.local_api import ApiError, LocalApi
 from scripts.verify_api import QuietHandler
 from scripts.verify_cases import snapshot
 

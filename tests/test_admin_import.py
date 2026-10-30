@@ -17,7 +17,7 @@ from etl.source import SOURCES
 from project_config import ROOT
 from scripts.admin_import import (AdminImportDenied, ImportCancelled, SourceSnapshotMismatch,
                                   approved_sources, main, run_authorized_import)
-from scripts.local_api import ApiError
+from scripts.support.local_api import ApiError
 
 
 class AdminImportTests(unittest.TestCase):

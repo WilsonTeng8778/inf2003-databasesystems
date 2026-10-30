@@ -8,7 +8,7 @@ from pathlib import Path
 from uuid import uuid4
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from scripts.local_api import ApiError, LocalApi
+from scripts.support.local_api import ApiError, LocalApi
 
 
 def main():

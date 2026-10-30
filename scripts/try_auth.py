@@ -7,7 +7,7 @@ from pathlib import Path
 from urllib.error import URLError
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from scripts.local_api import LocalApi
+from scripts.support.local_api import LocalApi
 
 
 def main():

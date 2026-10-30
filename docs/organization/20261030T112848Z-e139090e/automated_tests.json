@@ -1,0 +1,9 @@
+{
+  "checked_at_utc": "2026-10-30T11:34:03.985904+00:00",
+  "local_date": "2026-10-30",
+  "timezone": "Asia/Kuala_Lumpur",
+  "exit_code": 0,
+  "tests_run": 212,
+  "successful": true,
+  "scope": "Automated suite after helper moves/import rewiring and matching-evidence package selection. No native/browser acceptance claim from this runner."
+}

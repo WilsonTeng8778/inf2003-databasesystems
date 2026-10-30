@@ -1,0 +1,47 @@
+{
+  "checked_at_utc": "2026-10-30T11:44:38.351696+00:00",
+  "local_date": "2026-10-30",
+  "timezone": "Asia/Kuala_Lumpur",
+  "scope": "Post-organization package verification, all archived Markdown links/anchors, current-source consistency and preserved core/history. No extra native/browser rerun after the successful integrated run.",
+  "rehearsal": "docs/rehearsals/20261030T193432-6d737593/report.json",
+  "rehearsal_successful": true,
+  "source_snapshot_still_matches_rehearsal": true,
+  "implementation_files_checked": 138,
+  "package_report": {
+    "successful": true,
+    "files_verified": 502,
+    "raw_archives_verified": 4,
+    "uncompressed_bytes": 165700489,
+    "sha256": "f040230487b4e76bb8ac3b323b7cbf39388d50ae993a6eda4a93b1550a11202f",
+    "bytes": 161472668,
+    "technical_rehearsal": {
+      "evidence": "docs/rehearsals/20261030T193432-6d737593/report.json",
+      "previously_tested_files_checked": 138,
+      "previously_tested_files_unchanged": true,
+      "additional_source_files": [],
+      "qualification": "Additional packaging tools/tests are checked separately; this does not renew the earlier application/browser run."
+    },
+    "qualification": "ZIP content/hash validation only; no fresh installation, import or browser run.",
+    "created_at_utc": "2026-10-30T11:43:10.636674+00:00",
+    "archive": "data/processed/packages/20261030T114309Z-de248fe8/INF2003_Group19_Source_Data.zip",
+    "configured_long_secret_scan": {
+      "minimum_characters": 12,
+      "values_checked": 5,
+      "matches": 0
+    },
+    "fresh_installation_verified": false,
+    "final_submission_complete": false
+  },
+  "standard_library_only_verification_successful": true,
+  "archived_markdown_documents": 37,
+  "archived_local_links_checked": 426,
+  "archived_markdown_anchors_checked": 9,
+  "missing_archived_links": [],
+  "archived_file_content_differences_from_workspace": [],
+  "core_and_history_preservation_successful": true,
+  "current_branch": "milestone/recallscope-core-complete-2026-10-30",
+  "local_head": "05c920b33f0ea76e4cd6d59d52bd7f3f4191c6ac",
+  "committed_or_pushed": false,
+  "fresh_installation_verified": false,
+  "successful": true
+}

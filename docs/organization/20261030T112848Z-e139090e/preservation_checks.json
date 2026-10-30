@@ -1,0 +1,15 @@
+{
+  "checked_at_utc": "2026-10-30T11:41:55.561838+00:00",
+  "local_date": "2026-10-30",
+  "scope": "Core content, historical evidence, milestone narrative preservation and empty owned-directory cleanup.",
+  "core_files_checked": 71,
+  "core_changes": [],
+  "historical_evidence_files_checked": 278,
+  "historical_evidence_changes": [],
+  "historical_milestone_bodies_changed_beyond_navigation": [],
+  "public_python_commands": 34,
+  "public_commands_missing_from_code_map": [],
+  "empty_browser_run_directories_removed": 22,
+  "nonempty_browser_run_directories_retained": 0,
+  "successful": true
+}

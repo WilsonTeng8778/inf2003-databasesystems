@@ -12,7 +12,7 @@ from werkzeug.serving import make_server
 from backend import create_app
 from backend.services.official_records import conditions_for
 from project_config import ROOT, app_postgres, postgres
-from scripts.local_api import ApiError, LocalApi
+from scripts.support.local_api import ApiError, LocalApi
 from scripts.verify_api import QuietHandler
 from scripts.verify_auth import snapshot
 

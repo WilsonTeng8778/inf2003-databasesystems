@@ -18,11 +18,11 @@ from psycopg.errors import ForeignKeyViolation
 from werkzeug.serving import make_server
 from backend import create_app
 from project_config import ROOT, postgres, workflow_postgres
-from scripts.local_api import ApiError, LocalApi
+from scripts.support.local_api import ApiError, LocalApi
 from scripts.verify_api import QuietHandler
 from scripts.verify_cases import snapshot
 from scripts import try_fleets
-from scripts.verification_reports import select_report_path
+from scripts.support.verification_reports import select_report_path
 
 
 def main(argv=None):

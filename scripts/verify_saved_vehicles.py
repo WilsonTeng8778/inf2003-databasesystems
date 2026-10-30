@@ -16,7 +16,7 @@ from werkzeug.serving import make_server
 from backend import create_app
 from project_config import ROOT, postgres, workflow_postgres
 from scripts import try_saved_vehicles
-from scripts.local_api import ApiError, LocalApi
+from scripts.support.local_api import ApiError, LocalApi
 from scripts.verify_api import QuietHandler
 from scripts.verify_auth import snapshot
 

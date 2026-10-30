@@ -16,7 +16,6 @@ from uuid import uuid4
 
 ROOT = Path(__file__).resolve().parents[1]
 PACKAGE_ROOT = 'INF2003_Group19'
-REFERENCE = 'docs/rehearsals/20261030T040558-cfe0d503/report.json'
 ROOT_FILES = {'.env.example', '.gitignore', 'AGENTS.md', 'README.md',
               'PROJECT_GUIDE.md', 'PROJECT_UNDERSTANDING_AND_PLAN.md', 'USER_MANUAL.md',
               'project_config.py', 'requirements.txt', 'requirements-evaluation.txt'}
@@ -134,6 +133,32 @@ def validate_rehearsal(files, rehearsal, evidence_name):
             'qualification': 'Additional packaging tools/tests are checked separately; this does not renew the earlier application/browser run.'}
 
 
+def select_rehearsal(root, files, requested=None):
+    """Use explicit evidence or the newest successful run matching current source.
+
+    Keeping a timestamp in the command's default would break packaging after a
+    legitimate refactor, even once that new layout has passed its own rehearsal.
+    No candidate is accepted by date alone: its recorded source must still match.
+    """
+    if requested is not None:
+        candidates = [requested]
+    else:
+        candidates = sorted((path.relative_to(root).as_posix()
+                             for path in (root / 'docs/rehearsals').glob('*/report.json')), reverse=True)
+    for name in candidates:
+        if not allowed(name) or not name.startswith('docs/rehearsals/') or name not in files:
+            if requested is not None:
+                raise ValueError('Choose an included rehearsal report under docs/rehearsals')
+            continue
+        try:
+            report = json.loads((root / name).read_text(encoding='utf-8'))
+            return validate_rehearsal(files, report, name)
+        except (ValueError, KeyError, TypeError):
+            if requested is not None:
+                raise
+    raise ValueError('No successful rehearsal matches the current source; run scripts/rehearse_project.py before exporting')
+
+
 def verify_archive(path, *, secrets=()):
     with zipfile.ZipFile(path) as archive:
         entries = archive.infolist()
@@ -177,15 +202,14 @@ def verify_archive(path, *, secrets=()):
             'qualification': 'ZIP content/hash validation only; no fresh installation, import or browser run.'}
 
 
-def build_package(*, root=ROOT, rehearsal=REFERENCE, run_id=None):
+def build_package(*, root=ROOT, rehearsal=None, run_id=None):
     root = root.resolve()
-    if not allowed(rehearsal) or not rehearsal.startswith('docs/rehearsals/'):
+    if rehearsal is not None and (not allowed(rehearsal) or not rehearsal.startswith('docs/rehearsals/')):
         raise ValueError('Choose a rehearsal report under docs/rehearsals')
     files = collect_files(root)
     profile = json.loads((root / 'docs/data_profile.json').read_text(encoding='utf-8'))
     validate_sources(files, profile)
-    previous = json.loads((root / rehearsal).read_text(encoding='utf-8'))
-    comparison = validate_rehearsal(files, previous, rehearsal)
+    comparison = select_rehearsal(root, files, rehearsal)
     blank_template((root / '.env.example').read_bytes())
     secrets = private_values(root)
     for name in files:
@@ -222,7 +246,7 @@ def build_package(*, root=ROOT, rehearsal=REFERENCE, run_id=None):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--verify', type=Path, help='Read/verify an existing ZIP without extracting or using databases')
-    parser.add_argument('--rehearsal', default=REFERENCE, help='Successful source-matching report to include when building')
+    parser.add_argument('--rehearsal', help='Explicit source-matching report; default selects the newest successful matching run')
     args = parser.parse_args(argv)
     try:
         result = verify_archive(args.verify) if args.verify else build_package(rehearsal=args.rehearsal)
