@@ -27,7 +27,13 @@ export function profileURL(vehicle) {
 }
 export function emptyState(title, message, actionLabel, actionURL) {
   const box = element('div', 'empty-state panel');
-  box.append(element('div', 'empty-symbol', '⌕'), element('h3', '', title), element('p', '', message));
+  const symbol = element('div', 'empty-symbol'); symbol.setAttribute('aria-hidden', 'true');
+  const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); icon.setAttribute('viewBox', '0 0 24 24');
+  const lens = document.createElementNS(icon.namespaceURI, 'circle');
+  for (const [name, value] of Object.entries({cx: 10.5, cy: 10.5, r: 6.5})) lens.setAttribute(name, value);
+  const handle = document.createElementNS(icon.namespaceURI, 'path'); handle.setAttribute('d', 'm15.5 15.5 4.5 4.5');
+  icon.append(lens, handle); symbol.append(icon);
+  box.append(symbol, element('h3', '', title), element('p', '', message));
   if (actionURL) box.append(link(actionLabel, actionURL, 'button button-primary'));
   return box;
 }
