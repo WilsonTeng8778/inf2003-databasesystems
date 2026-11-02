@@ -187,7 +187,8 @@ def main():
               "first_admin_bootstrap_verified_live": initial_admins == 0,
               "limitations": ["Analyst case and fleet ownership enforcement awaits those workflow APIs.",
                                "Browser login forms are not implemented; authentication is through JSON APIs."]}
-    (ROOT / "docs/auth_verification_report.json").write_text(json.dumps(report, indent=2)+"\n", encoding="utf-8")
+    (ROOT / 'local/docs').mkdir(parents=True, exist_ok=True)
+    (ROOT / "local/docs/auth_verification_report.json").write_text(json.dumps(report, indent=2)+"\n", encoding="utf-8")
     print(json.dumps(report, indent=2))
 
 

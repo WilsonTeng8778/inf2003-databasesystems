@@ -21,7 +21,7 @@ def setup():
             print(f"Created PostgreSQL database {name}")
     with postgres() as connection:
         files = [ROOT / "sql" / "schema.sql", *sorted((ROOT / "sql" / "migrations").glob("*.sql")),
-                 *[ROOT / "sql" / name for name in ["indexes.sql", "views.sql", "triggers.sql"]]]
+                 *[ROOT / "sql" / name for name in ["indexes.sql", "views.sql", "research_views.sql", "admin_views.sql", "triggers.sql"]]]
         for path in files:
             connection.execute(path.read_text(encoding="utf-8"), prepare=False)
             print(f"Applied {path.relative_to(ROOT).as_posix()}")

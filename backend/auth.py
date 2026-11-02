@@ -11,7 +11,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from backend.routes import number, query_fields
 from backend.services.auth import (EmailTaken, LastAdministrator, PostgresAuthStore, ROLES,
-                                   RoleChangeDenied, token_hash, validate_email, validate_password)
+                                   AccountDeletionConflict, RoleChangeDenied, token_hash, validate_email, validate_password)
 
 auth = Blueprint("auth", __name__, url_prefix="/api/auth")
 admin = Blueprint("admin", __name__, url_prefix="/api/admin")
@@ -184,3 +184,25 @@ def change_role(user_id):
         abort(404, description="User not found")
     store().commit()
     return jsonify({"user": user})
+
+
+@admin.delete('/users/<int:user_id>')
+@requires_roles('ADMIN')
+def delete_user(user_id):
+    if not 1 <= user_id <= 9223372036854775807:
+        abort(400, description='Invalid user identifier')
+    body = json_fields({'confirmEmail'})
+    try:
+        email = validate_email(body['confirmEmail'])
+    except ValueError as error:
+        abort(400, description=str(error))
+    try:
+        removed = store().delete_user(current_user()['userId'], user_id, email)
+    except RoleChangeDenied as error:
+        abort(403, description=str(error))
+    except (AccountDeletionConflict, LastAdministrator) as error:
+        abort(409, description=str(error))
+    if removed is None:
+        abort(404, description='User not found')
+    store().commit()
+    return jsonify({'deletedUserId': removed})

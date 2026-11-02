@@ -58,6 +58,15 @@ def mongo_client():
                        serverSelectionTimeoutMS=5000, tz_aware=True)
 
 
+def case_postgres():
+    user, password = os.getenv("CASE_POSTGRES_USER", ""), os.getenv("CASE_POSTGRES_PASSWORD", "")
+    if not user or not password:
+        raise AppDatabaseNotConfigured("Run scripts/setup_cases.py before using analyst cases")
+    # Each service mutation opens an explicit transaction, including row locks.
+    return postgres(user=user, password=password, autocommit=True,
+                    options="-c default_transaction_read_only=off -c statement_timeout=5000")
+
+
 def mongo_database(client):
     return client[os.getenv("MONGODB_DB", "vehicle_safety")]
 

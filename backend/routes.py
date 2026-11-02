@@ -1,12 +1,13 @@
 """Read-only research endpoints, validation, and request-scoped SQL connections."""
 
+import re
+from datetime import date
+
 from flask import Blueprint, abort, current_app, g, jsonify, request
-from datetime import date, datetime, time, timedelta, timezone
 from psycopg import Error as PostgresError
 from pymongo.errors import PyMongoError
 
 from backend.services.research import safety_profile, search_vehicles
-from backend.services.evidence import list_complaints, list_reference_records, complaint_insights
 from etl.source import normalized
 from project_config import AppDatabaseNotConfigured, mongo_database
 
@@ -42,7 +43,7 @@ def number(field, *, required=False, default=None, minimum=1, maximum=2147483647
             abort(400, description=f"{field} is required")
         return default
     value = value.strip()
-    if not value.isascii() or not value.isdecimal() or len(value) > 10:
+    if not value.isascii() or not value.isdecimal() or len(value) > max(10, len(str(maximum))):
         abort(400, description=f"{field} must be an integer")
     parsed = int(value)
     if not minimum <= parsed <= maximum:
@@ -62,6 +63,28 @@ def text(field, *, required=False, maximum=256):
     return value
 
 
+def boolean(field):
+    value = request.args.get(field)
+    if value is None:
+        return None
+    value = value.strip().lower()
+    if value not in {"true", "false"}:
+        abort(400, description=f"{field} must be true or false")
+    return value == "true"
+
+
+def calendar_date(field):
+    value = request.args.get(field)
+    if value is None:
+        return None
+    if re.fullmatch(r"[0-9]{4}-[0-9]{2}-[0-9]{2}", value):
+        try:
+            return date.fromisoformat(value)
+        except ValueError:
+            pass
+    abort(400, description=f"{field} must be a valid YYYY-MM-DD date")
+
+
 @api.get("/health")
 def health():
     states = {"postgresql": "ok", "mongodb": "ok"}
@@ -75,14 +98,6 @@ def health():
         states["mongodb"] = "unavailable"
     okay = all(value == "ok" for value in states.values())
     return jsonify({"status": "ok" if okay else "unavailable", "databases": states}), 200 if okay else 503
-
-
-@api.get("/datasets")
-def datasets():
-    query_fields(set())
-    rows = pg().execute("SELECT dataset_name,completed_at,records_read FROM dataset_snapshot ORDER BY dataset_name").fetchall()
-    return jsonify({"source": "NHTSA", "datasets": [{"name": name, "importedAt": when.isoformat(), "recordsRead": count}
-                                                        for name, when, count in rows]})
 
 
 @api.get("/vehicles/search")
@@ -106,56 +121,3 @@ def profile():
     if result is None:
         abort(404, description="No matching vehicle in the imported catalogue")
     return jsonify(result)
-
-
-def existing_vehicle(model_year_id):
-    if not 1 <= model_year_id <= 9223372036854775807:
-        abort(400, description="Invalid vehicle identifier")
-    row = pg().execute("SELECT model_year_id FROM vehicle_catalogue WHERE model_year_id=%s",
-                       (model_year_id,)).fetchone()
-    if row is None:
-        abort(404, description="No matching vehicle in the imported catalogue")
-
-
-def date_filter(field):
-    value = request.args.get(field)
-    if value is None:
-        return None
-    try:
-        parsed = date.fromisoformat(value)
-        if parsed.isoformat() != value:
-            raise ValueError
-        return datetime.combine(parsed, time.min, tzinfo=timezone.utc)
-    except (ValueError, TypeError):
-        abort(400, description=f"{field} must be a date in YYYY-MM-DD format")
-
-
-@api.get("/vehicles/<int:model_year_id>/recalls")
-@api.get("/vehicles/<int:model_year_id>/investigations")
-def reference_records(model_year_id):
-    query_fields({"page", "pageSize"})
-    page, size = number("page", default=1), number("pageSize", default=20, maximum=100)
-    existing_vehicle(model_year_id)
-    kind = "recalls" if request.path.endswith("/recalls") else "investigations"
-    return jsonify(list_reference_records(pg(), model_year_id, kind, page, size))
-
-
-@api.get("/vehicles/<int:model_year_id>/complaints")
-def complaints(model_year_id):
-    query_fields({"page", "pageSize", "component", "q", "fromDate", "toDate"})
-    page, size = number("page", default=1), number("pageSize", default=20, maximum=100)
-    component, search = text("component", maximum=200), text("q", maximum=120)
-    start, end = date_filter("fromDate"), date_filter("toDate")
-    if start and end and start > end:
-        abort(400, description="fromDate must not be later than toDate")
-    existing_vehicle(model_year_id)
-    exclusive_end = None if end and end.date() == date.max else (end + timedelta(days=1) if end else None)
-    return jsonify(list_complaints(mongo_database(current_app.extensions["mongo_client"]),
-                                  model_year_id, page, size, component, search, start, exclusive_end))
-
-
-@api.get("/vehicles/<int:model_year_id>/insights")
-def insights(model_year_id):
-    query_fields(set())
-    existing_vehicle(model_year_id)
-    return jsonify(complaint_insights(mongo_database(current_app.extensions["mongo_client"]), model_year_id))

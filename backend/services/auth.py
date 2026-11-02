@@ -4,6 +4,7 @@ import re
 from hashlib import sha256
 
 from psycopg.errors import UniqueViolation
+from psycopg import Error as PostgresError
 
 ROLES = {"NORMAL_USER", "ANALYST", "ADMIN"}
 PUBLIC_COLUMNS = "user_id,email,role,created_at"
@@ -18,6 +19,10 @@ class RoleChangeDenied(ValueError):
 
 
 class LastAdministrator(ValueError):
+    pass
+
+
+class AccountDeletionConflict(ValueError):
     pass
 
 
@@ -107,6 +112,24 @@ class PostgresAuthStore:
         row = self.connection.execute(f"UPDATE app_user SET role=%s WHERE user_id=%s RETURNING {PUBLIC_COLUMNS}",
                                        (role, target_id)).fetchone()
         return public_user(row)
+
+    def delete_user(self, actor_id, target_id, confirmation_email):
+        try:
+            return self.connection.execute('SELECT public.delete_unused_account(%s,%s,%s)',
+                (actor_id, target_id, confirmation_email)).fetchone()[0]
+        except PostgresError as error:
+            errors = {
+                'P2001': (RoleChangeDenied, 'Administrator access is required'),
+                'P2002': (AccountDeletionConflict, 'You cannot delete your signed-in account from administration'),
+                'P2003': (LastAdministrator, 'At least one administrator must remain'),
+                'P2004': (AccountDeletionConflict, 'This account has saved vehicles, fleets, cases or case history and cannot be deleted'),
+                'P2005': (AccountDeletionConflict, 'The confirmation email does not match the current account; refresh and review it'),
+            }
+            if error.sqlstate not in errors:
+                raise
+            self.connection.rollback()
+            kind, message = errors[error.sqlstate]
+            raise kind(message) from None
 
     def commit(self):
         self.connection.commit()

@@ -3,12 +3,13 @@
 import unittest
 from datetime import datetime, timedelta, timezone
 from unittest.mock import Mock
+from psycopg import Error as PostgresError
 
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from backend import create_app
 from backend.auth import requires_roles
-from backend.services.auth import EmailTaken, LastAdministrator, RoleChangeDenied, token_hash
+from backend.services.auth import AccountDeletionConflict, EmailTaken, LastAdministrator, PostgresAuthStore, RoleChangeDenied, token_hash
 
 PASSWORD = "Local Test Password 2026!"
 
@@ -250,6 +251,67 @@ class AuthTests(unittest.TestCase):
         self.assertEqual(self.client.post("/api/auth/register", data="not JSON", headers={"X-CSRF-Token": token}).status_code, 415)
         self.assertEqual(self.client.post("/api/auth/register", json={"email": "x"*17000, "password": PASSWORD},
             headers={"X-CSRF-Token": token}).status_code, 413)
+
+    def test_account_delete_requires_admin_before_store_access(self):
+        self.store.delete_user = Mock()
+        headers = {'X-CSRF-Token': self.csrf()}
+        self.assertEqual(self.client.delete('/api/admin/users/99', json={'confirmEmail':'unused@example.test'}, headers=headers).status_code, 401)
+        for role in ('NORMAL_USER', 'ANALYST'):
+            user = self.seed(role.lower()+'@example.test', role)
+            token = self.login(user['email']).json['csrfToken']
+            self.assertEqual(self.client.delete('/api/admin/users/99', json={'confirmEmail':'unused@example.test'}, headers={'X-CSRF-Token':token}).status_code, 403)
+        self.store.delete_user.assert_not_called()
+
+    def test_admin_delete_binds_current_actor_target_and_normalized_confirmation(self):
+        admin = self.seed('admin@example.test','ADMIN')
+        token = self.login(admin['email']).json['csrfToken']
+        self.store.delete_user=Mock(return_value=42)
+        result=self.client.delete('/api/admin/users/42',json={'confirmEmail':' Unused@Example.Test '},headers={'X-CSRF-Token':token})
+        self.assertEqual(result.status_code,200)
+        self.assertEqual(result.json,{'deletedUserId':42})
+        self.store.delete_user.assert_called_once_with(admin['userId'],42,'unused@example.test')
+        self.assertEqual(result.headers['Cache-Control'],'no-store')
+
+    def test_delete_rejects_csrf_extra_fields_invalid_ids_and_bad_email(self):
+        admin=self.seed('admin@example.test','ADMIN');token=self.login(admin['email']).json['csrfToken']
+        self.store.delete_user=Mock()
+        path='/api/admin/users/42';valid={'confirmEmail':'unused@example.test'};headers={'X-CSRF-Token':token}
+        self.assertEqual(self.client.delete(path,json=valid).status_code,403)
+        for body in ({},{**valid,'actorId':admin['userId']},{**valid,'force':True},{'confirmEmail':[]},{'confirmEmail':'invalid'}):
+            self.assertEqual(self.client.delete(path,json=body,headers=headers).status_code,400)
+        for user_id in (0,9223372036854775808):
+            self.assertEqual(self.client.delete(f'/api/admin/users/{user_id}',json=valid,headers=headers).status_code,400)
+        self.assertEqual(self.client.delete(path+'?force=1',json=valid,headers=headers).status_code,400)
+        self.store.delete_user.assert_not_called()
+
+    def test_delete_conflicts_and_missing_account_are_explicit(self):
+        admin=self.seed('admin@example.test','ADMIN');token=self.login(admin['email']).json['csrfToken']
+        for error,status in ((AccountDeletionConflict('Account has work'),409),(LastAdministrator('At least one administrator must remain'),409),(RoleChangeDenied('Administrator access is required'),403)):
+            self.store.delete_user=Mock(side_effect=error)
+            result=self.client.delete('/api/admin/users/42',json={'confirmEmail':'unused@example.test'},headers={'X-CSRF-Token':token})
+            self.assertEqual(result.status_code,status)
+        self.store.delete_user=Mock(return_value=None)
+        self.assertEqual(self.client.delete('/api/admin/users/42',json={'confirmEmail':'unused@example.test'},headers={'X-CSRF-Token':token}).status_code,404)
+
+    def test_delete_repository_uses_guarded_function_and_bound_parameters(self):
+        connection=Mock();connection.execute.return_value.fetchone.return_value=(42,)
+        store=PostgresAuthStore(connection)
+        value="unused' OR 1=1@example.test"
+        self.assertEqual(store.delete_user(7,42,value),42)
+        query,parameters=connection.execute.call_args.args
+        self.assertEqual(query,'SELECT public.delete_unused_account(%s,%s,%s)')
+        self.assertEqual(parameters,(7,42,value));self.assertNotIn(value,query)
+
+    def test_delete_repository_maps_only_known_sqlstates_and_rolls_back(self):
+        connection=Mock();store=PostgresAuthStore(connection)
+        for code,kind in [('P2001',RoleChangeDenied),('P2002',AccountDeletionConflict),('P2003',LastAdministrator),('P2004',AccountDeletionConflict),('P2005',AccountDeletionConflict)]:
+            error_type=type('NativeFixtureError',(PostgresError,),{'sqlstate':code})
+            connection.execute.side_effect=error_type('PRIVATE_NATIVE_DIAGNOSTIC')
+            with self.assertRaises(kind) as caught:store.delete_user(7,42,'unused@example.test')
+            self.assertNotIn('PRIVATE_NATIVE_DIAGNOSTIC',str(caught.exception))
+        self.assertEqual(connection.rollback.call_count,5)
+        connection.execute.side_effect=PostgresError('OTHER_FIXTURE_FAILURE')
+        with self.assertRaises(PostgresError):store.delete_user(7,42,'unused@example.test')
 
 
 if __name__ == "__main__":

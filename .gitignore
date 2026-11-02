@@ -1,21 +1,19 @@
 # Local configuration and Python environment
 .env
-.env.*
-!.env.example
 .venv/
 __pycache__/
 *.py[cod]
 .pytest_cache/
+
+# Local development notes, plans, reports and generated evidence
+/local/
+/AGENTS.md
 
 # Source archives, extracted/staged data and generated local evidence
 data/raw/
 data/processed/
 data/staging/
 data/logs/
-data/runtime/
-benchmarks/results/
-submission/
-verification/results/
 
 # Editor and operating-system files
 .DS_Store

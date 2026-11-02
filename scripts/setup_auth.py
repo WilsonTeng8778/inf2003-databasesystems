@@ -9,6 +9,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from dotenv import dotenv_values, set_key
 from psycopg import sql
 from project_config import ROOT, postgres
+from scripts.setup_account_deletion import apply as apply_account_deletion
 
 
 def main():
@@ -40,6 +41,7 @@ def main():
         connection.execute(sql.SQL("GRANT INSERT(email,password_hash),UPDATE(role) ON app_user TO {}").format(sql.Identifier(role)))
         connection.execute(sql.SQL("GRANT USAGE ON SEQUENCE public.app_user_user_id_seq TO {}").format(sql.Identifier(role)))
         connection.execute(sql.SQL("GRANT SELECT,INSERT,DELETE ON app_session TO {}").format(sql.Identifier(role)))
+        apply_account_deletion(connection, role)
         connection.execute(sql.SQL("ALTER ROLE {} SET statement_timeout='5s'").format(sql.Identifier(role)))
         set_key(str(path), "AUTH_POSTGRES_USER", role)
         set_key(str(path), "AUTH_POSTGRES_PASSWORD", password)

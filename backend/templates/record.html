@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<div id="record-page" data-kind="{{ kind }}">
+  <a class="back-link" href="{{ url_for('pages.complaint_explorer') if kind == 'complaints' else url_for('pages.search') }}">← {{ 'Complaint explorer' if kind == 'complaints' else 'Vehicle search' }}</a>
+  <section class="profile-heading"><div><p class="eyebrow">{{ 'CONSUMER COMPLAINT' if kind == 'complaints' else 'OFFICIAL RECALL' if kind == 'recalls' else 'OFFICIAL NHTSA INVESTIGATION' }}</p><h1 id="detail-title">Loading record…</h1><p class="intro" id="detail-subtitle"></p></div><span class="subtle-chip">IMPORTED SNAPSHOT</span></section>
+  <p id="detail-status" class="status-line" role="status" aria-live="polite"></p>
+  <div id="detail-content" hidden>
+    <div class="interpretation-note"><span class="small-icon" aria-hidden="true">i</span><p id="detail-interpretation"></p></div>
+    <div class="detail-grid"><article class="panel detail-narrative" id="detail-narrative" aria-label="Full record text"></article><aside class="panel detail-facts" id="detail-facts" aria-label="Record facts"></aside></div>
+    <section id="linked-recalls-section" class="panel related-panel" aria-labelledby="linked-recalls-title" hidden><div class="section-heading"><div><p class="eyebrow">OFFICIAL RECORD RELATIONSHIPS</p><h2 id="linked-recalls-title">Linked recall campaigns</h2></div></div><div id="linked-recalls"></div></section>
+    <section id="related-vehicles-section" class="panel related-panel" aria-labelledby="related-vehicles-title" hidden><div class="section-heading"><div><p class="eyebrow">MODEL-YEAR RELATIONSHIPS</p><h2 id="related-vehicles-title">Related vehicles</h2></div><span class="subtle-chip" id="related-vehicle-count"></span></div><p class="field-hint">These identities are make/model/year combinations. They are not individual vehicles or confirmed VIN matches.</p><p id="related-vehicles-status" class="status-line" role="status"></p><div id="related-vehicles"></div><div id="related-vehicles-pagination" class="pagination" hidden></div></section>
+    <section id="source-records-section" class="panel related-panel" aria-labelledby="source-records-title" hidden><details id="source-records-disclosure"><summary><span class="eyebrow">TRACE THE IMPORT</span><span id="source-records-title">Original recall source rows</span></summary><p class="field-hint">One campaign can have many rows for different vehicles, components or production dates. A row is not another recall campaign.</p><p id="source-records-status" class="status-line" role="status"></p><div id="source-records"></div><div id="source-records-pagination" class="pagination" hidden></div></details></section>
+  </div>
+</div>
+{% endblock %}

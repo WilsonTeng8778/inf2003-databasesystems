@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="explorer-heading"><div><p class="eyebrow"><span class="tiny-line"></span>CONSUMER REPORTS</p><h1>Follow the reports.<br>Find the details.</h1><p class="intro">Explore complaints by vehicle, component and reported incident.<br class="desktop-break"> Open a report to read the consumer’s full account.</p></div><div class="research-note"><span class="small-icon" aria-hidden="true">i</span><p>Complaints are allegations, not confirmed defects. These are imported records, not a live feed or a vehicle safety rating.</p></div></section>
+<div class="research-layout complaint-layout">
+  <aside class="panel filter-panel complaint-filters" aria-labelledby="filters-title">
+    <div class="panel-label"><h2 id="filters-title" class="eyebrow">REFINE THE REPORTS</h2><span aria-hidden="true">≡</span></div>
+    <form id="complaint-form" action="{{ url_for('pages.complaint_explorer') }}" method="get">
+      <fieldset><legend>Vehicle</legend><div class="filter-field"><label for="complaint-make">Make</label><input id="complaint-make" name="make" maxlength="100" placeholder="e.g. HONDA"></div><div class="filter-field"><label for="complaint-model">Model</label><input id="complaint-model" name="model" maxlength="200" placeholder="e.g. CIVIC"></div><div class="filter-field"><label for="complaint-year">Model year</label><input id="complaint-year" name="year" type="number" min="1900" max="2100" placeholder="e.g. 2022"></div><p class="field-hint">Make, model and component use exact names. Leave a field blank to include all values.</p></fieldset>
+      <fieldset><legend>What was reported?</legend><div class="filter-field"><label for="complaint-component">Component</label><input id="complaint-component" name="component" maxlength="200" placeholder="e.g. STEERING"></div><div class="filter-field"><label for="complaint-q">Words in the narrative</label><input id="complaint-q" name="q" type="search" maxlength="200" placeholder="e.g. steering vibration" aria-describedby="text-search-hint"></div><p id="text-search-hint" class="field-hint">Search English words, or put a phrase in quotation marks. Word forms may match; results are ordered by received date.</p></fieldset>
+      <details class="advanced-filters" id="incident-filters"><summary>Dates &amp; incident details</summary>
+        <fieldset><legend>Received date <span class="optional">(inclusive)</span></legend><div class="filter-field"><label for="complaint-receivedFrom">From</label><input id="complaint-receivedFrom" name="receivedFrom" type="date"></div><div class="filter-field"><label for="complaint-receivedTo">To</label><input id="complaint-receivedTo" name="receivedTo" type="date"></div><p class="field-hint">When the report was received, which may differ from the incident date.</p></fieldset>
+        <fieldset><legend>Reported incident</legend>
+          <div class="filter-field"><label for="complaint-crash">Crash</label><select id="complaint-crash" name="crash"><option value="">Any / unknown included</option><option value="true">Yes</option><option value="false">No</option></select></div>
+          <div class="filter-field"><label for="complaint-fire">Fire</label><select id="complaint-fire" name="fire"><option value="">Any / unknown included</option><option value="true">Yes</option><option value="false">No</option></select></div>
+          <div class="filter-field"><label for="complaint-hasInjuries">Injuries</label><select id="complaint-hasInjuries" name="hasInjuries"><option value="">Any / unknown included</option><option value="true">One or more reported</option><option value="false">Zero reported</option></select></div>
+          <div class="filter-field"><label for="complaint-hasFatalities">Fatalities</label><select id="complaint-hasFatalities" name="hasFatalities"><option value="">Any / unknown included</option><option value="true">One or more reported</option><option value="false">Zero reported</option></select></div><p class="field-hint">“No” and “Zero reported” exclude unknown values. An incident flag is a report, not a verified outcome.</p>
+        </fieldset>
+      </details>
+      <button class="button button-primary full-width" id="complaint-submit" type="submit">Apply filters <span aria-hidden="true">→</span></button><button class="button button-text full-width" id="complaint-reset" type="button">Clear all filters</button>
+    </form>
+  </aside>
+  <section class="results-panel" id="complaint-results-section" aria-labelledby="complaint-results-title" aria-busy="false">
+    <div class="section-heading"><div><p class="eyebrow">THE IMPORTED SNAPSHOT</p><h2 id="complaint-results-title">Complaint reports</h2></div><span class="subtle-chip" id="complaint-count-label">Loading…</span></div>
+    <p id="complaint-status" class="status-line" role="status" aria-live="polite"></p>
+    <div id="complaint-results" class="complaint-results"></div><div id="complaint-pagination" class="pagination" hidden></div>
+  </section>
+</div>
+{% endblock %}

@@ -16,7 +16,7 @@ from werkzeug.serving import make_server
 from backend import create_app
 from project_config import ROOT, postgres, workflow_postgres
 from scripts import try_saved_vehicles
-from scripts.local_api import ApiError, LocalApi
+from scripts.support.local_api import ApiError, LocalApi
 from scripts.verify_api import QuietHandler
 from scripts.verify_auth import snapshot
 
@@ -158,7 +158,8 @@ def main():
               "record_counts_unchanged_after_cleanup": True, "record_counts": after,
               "limitations": ["Ownership enforcement is in the API/SQL predicates; database row-level security is not configured.",
                                "Analyst cases, fleets and the visual GUI are subsequent work."]}
-    (ROOT / "docs/saved_vehicles_verification_report.json").write_text(json.dumps(report, indent=2)+"\n", encoding="utf-8")
+    (ROOT / 'local/docs').mkdir(parents=True, exist_ok=True)
+    (ROOT / "local/docs/saved_vehicles_verification_report.json").write_text(json.dumps(report, indent=2)+"\n", encoding="utf-8")
     print(json.dumps(report, indent=2))
 
 

@@ -95,7 +95,7 @@ def inspect():
     complaints = vehicles_by_source["complaints_2020_2024"] | vehicles_by_source["complaints_2025_2026"]
     report["catalogue"] = {"distinct_vehicles": len(all_vehicles),
                            "complaint_vehicles_without_recall": len(complaints - recalls)}
-    target = ROOT / "docs" / "data_profile.json"
+    target = ROOT / "data" / "source_profile.json"
     target.parent.mkdir(exist_ok=True)
     target.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     print(f"Profile written to {target.relative_to(ROOT)}")

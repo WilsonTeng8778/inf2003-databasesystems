@@ -5,6 +5,14 @@ NUMBER = {"bsonType": ["int", "long", "null"], "minimum": 0}
 FLAG = {"bsonType": ["bool", "null"]}
 TEXT_ARRAY = {"bsonType": "array", "items": {"bsonType": "string"}, "uniqueItems": True}
 
+# Match complaint pagination's date order and deterministic ODI tie-breaker.
+COMPLAINT_ORDER_INDEX = [("modelYearId", 1), ("receivedDate", -1), ("_id", -1)]
+
+
+def ensure_complaint_order_index(database):
+    """Add the measured paging index; retain existing data and indexes."""
+    return database.complaints.create_index(COMPLAINT_ORDER_INDEX, name="vehicle_received_ordered")
+
 SCHEMAS = {
     "complaints": {
         "bsonType": "object",
@@ -30,6 +38,7 @@ SCHEMAS = {
         "required": ["caseId", "linkedComplaints", "suspectedComponents", "findings", "notes", "tags"],
         "properties": {
             "caseId": {"bsonType": ["int", "long"], "minimum": 1},
+            "revision": {"bsonType": ["int", "long"], "minimum": 0},
             "linkedComplaints": TEXT_ARRAY, "suspectedComponents": TEXT_ARRAY, "tags": TEXT_ARRAY,
             "findings": {"bsonType": "array", "items": {"bsonType": "object",
                 "required": ["findingId", "authorId", "createdAt", "observation"], "properties": {
@@ -54,6 +63,7 @@ def initialize(database):
             database.create_collection(name, **options)
     database.case_details.create_index("caseId", unique=True, name="case_id_unique")
     database.complaints.create_index([("modelYearId", 1), ("receivedDate", -1)], name="vehicle_received")
+    ensure_complaint_order_index(database)
     database.complaints.create_index([("modelYearId", 1), ("components", 1)], name="vehicle_components")
     database.complaints.create_index([("narrative", "text")], name="narrative_text", default_language="english")
 
