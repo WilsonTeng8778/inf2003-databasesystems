@@ -1,7 +1,7 @@
 # RecallScope user manual
 
 **Project:** INF2003 Group 19, Vehicle Safety Recall & Defect Investigation System.  
-**Prepared:** 30 October 2026. **Scope:** native Windows/local classroom demonstration.  
+**Scope:** native Windows/local deployment.
 **Installation status:** instructions checked against the scripts; a teammate's
 fresh installation from the exported package is still pending.
 
@@ -14,7 +14,7 @@ VIN-specific applicability or repair completion.
 Use the path that matches your situation:
 
 - **Already working on this computer:** use section 1. No repeat import is needed.
-- **New teammate/marker installation:** follow section 2, in order, then section 3.
+- **New installation:** follow section 2, in order, then section 3.
 - **Using the application:** sections 4–7. Troubleshooting is in section 8.
 - **Preparing a source/data ZIP:** section 9. The report/video submission is separate.
 
@@ -45,9 +45,19 @@ or Node installation needed for ordinary use. Docker is not required.
 Do this once on a dedicated project setup. Existing users should use section 1;
 setup/import commands perform real writes and are not a daily startup checklist.
 
+**Switching from the former GitHub main implementation:** its case tables,
+MongoDB case documents and SQL permissions differ from RecallScope. The two
+versions both used migration number 3 for different changes, so that number alone
+does not identify a compatible installation. Updating source code does not
+convert existing workflow records. Keep the old databases and configuration;
+use a separate installation for this version or plan and verify a data migration
+before reusing them. On a shared server, separate database names and restricted
+SQL role names are needed to keep the two installations independent. This does
+not require changes to an installation already running this RecallScope version.
+
 ### 2.1 Prepare servers, Python and the extracted project
 
-The verified existing-machine environment on 30 October was Windows 11, Python
+The tested environment used Windows 11, Python
 3.13.7, PostgreSQL 18.6 and MongoDB Community 9.0.4. These are the tested versions,
 not proof of compatibility with every other version. Python packages are pinned
 in `requirements.txt`; record your actual versions during reproduction.
@@ -61,7 +71,7 @@ local machine; the provided Flask server/configuration is for the class demo.
 
 Extract `INF2003_Group19_Source_Data.zip` into a new folder. Open the included
 `INF2003_Group19` folder as the project root. The package contains source, manual,
-four raw archives, three dictionaries and saved evidence; installed libraries and
+four raw archives, three dictionaries and the source profile; installed libraries and
 private configuration are deliberately generated separately on each machine.
 The public raw ZIPs are unmodified sources and can contain fields that the app's
 ETL does not retain/display. The ZIP is not a dump of the original developer's
@@ -122,7 +132,7 @@ The package should contain these exact files:
 | --- | --- |
 | `data/raw/` | `FLAT_RCL_POST_2010.zip`, `FLAT_INV.zip`, `COMPLAINTS_RECEIVED_2020-2024.zip`, `COMPLAINTS_RECEIVED_2025-2026.zip` |
 | `data/dictionaries/` | `RCL.txt`, `INV.txt`, `CMPL.txt` field definitions |
-| `docs/data_profile.json` | Inspected source hashes, layouts and counts |
+| `data/source_profile.json` | Approved source hashes, layouts and counts needed for import validation |
 
 Leave the ZIPs compressed; the importer reads them directly. Together they are
 137,707,247 bytes, about 131.3 MiB. Allow additional disk space for Python,
@@ -160,7 +170,7 @@ upserts. Automatic removal of records absent from a different snapshot is not
 implemented.
 
 The supplied profile is already inspected. `scripts/inspect_data.py` is optional
-source-analysis work and rewrites `docs/data_profile.json`; it is not required for
+source-analysis work and rewrites `data/source_profile.json`; it is not required for
 daily use or for importing this unchanged approved package.
 
 ### 2.6 Prepare application access and the first administrator
@@ -201,27 +211,29 @@ In another terminal at the project root:
 The profile reads both databases. For the supplied snapshot, 2022 HONDA CIVIC has
 **4 recalls, 2 official investigations and 885 complaints**. The automated tests
 check transformations/contracts and verification/package tools using made-up inputs;
-they do not replace a real database or browser check. Use the package's own dated
-test evidence rather than treating an old test count as a new result.
+they do not replace a real database or browser check. Record actual results on
+the new installation rather than treating earlier results as a fresh check.
 
 Visit [database readiness](http://127.0.0.1:5000/api/health) and the home page.
 Check research, sign-in, a saved vehicle, an analyst case and a fleet/work order
-as described below. Record the actual result in
-[FRESH_SETUP_CHECKLIST.md](docs/FRESH_SETUP_CHECKLIST.md), including failures and
-cleanup. A check performed on the already configured developer computer does not
-complete that teammate checklist.
+as described below. Record the versions, source-package hash, successful tasks,
+failures and test-record cleanup in your installation notes. Verification on an
+already configured computer does not establish a fresh installation.
 
 Optional full technical acceptance is `scripts/rehearse_project.py`. It needs the
 existing native servers, current setup credentials, Node.js 22+ on PATH and an
 installed Chrome/Edge in the verifier's supported Windows locations. It creates
 and removes owned synthetic fixtures, starts its own servers/browser and records
-new dated evidence. Run it without concurrent code/data edits. It does not perform
-a full real-source import. See [technical rehearsal](docs/TECHNICAL_REHEARSAL.md).
+new evidence under ignored `local/docs/`. Run it without concurrent code/data
+edits. It does not perform a full real-source import. If no saved performance
+benchmark is present, that comparison is explicitly skipped; run
+`scripts/benchmark_databases.py` separately to measure performance.
 
 Some older individual verification scripts replace their legacy report files;
-preserve packaged evidence before using them. Case/fleet and the selected account/
+preserve local evidence before using them. Case/fleet and the selected account/
 import/browser verifiers use new dated paths. The combined rehearsal retains its
-own index. See the [README command table](README.md#what-each-command-does).
+own index. Verification output is local development material and is not bundled
+in the source/data/manual ZIP.
 
 ## 4. Public research and analytics
 
@@ -238,7 +250,7 @@ Complaints can mention several components, so component totals overlap. Unknown
 incident/date values are not the same as false/zero. Complaint receipt-date filters
 do not restrict the displayed all-stored-date recall/investigation totals. Vehicle
 comparisons count distinct official campaigns/actions. These are descriptions of
-the stored snapshot, not a safety ranking. See [analytics rules](docs/milestones/FRONTEND_STEP_6.md).
+the stored snapshot, not a safety ranking.
 
 ## 5. Accounts, saved vehicles and fleets
 
@@ -256,7 +268,7 @@ Change order status/notes and complete it. Labels distinguish entries; they are 
 VIN validation. A model-level recall match is not proof a particular car needs or
 has received a repair. Confirmed fleet/vehicle removal also removes dependent orders;
 use disposable demo records when rehearsing deletion. Admin roles do not grant
-access to another person's fleet. See [fleet walkthrough](docs/milestones/FRONTEND_STEP_4.md).
+access to another person's fleet.
 
 ## 6. Analyst cases and saved-update recovery
 
@@ -274,7 +286,6 @@ another attempt. Use the displayed retry/recovery action for the same operation;
 avoid submitting a new duplicate case/note after an uncertain response. A deleted
 case can still have cleanup pending until its content projection is applied.
 This is recoverable coordination, not a distributed atomic transaction.
-See [case workflow and recovery](docs/milestones/FRONTEND_STEP_3.md).
 
 ## 7. Administrator tasks
 
@@ -290,7 +301,7 @@ and confirm. Self-deletion, last-admin removal and accounts with saves, fleets,
 cases or operation history are blocked. Successful deletion revokes target sessions.
 If the response is uncertain, inspect/reload the list before another action.
 This is a guarded unused-account deletion policy; retained work/history is not
-silently removed. See [account deletion](docs/ACCOUNT_DELETION.md).
+silently removed.
 
 **Intentional data refresh:** with Flask running, open a second terminal:
 
@@ -305,7 +316,7 @@ in `.env`. It rechecks authorization/source files before the shared locked pipel
 Concurrent runs are refused; normal/analyst roles are refused. Stage commits and
 MongoDB batches can remain after failure; abrupt interruption may leave a RUNNING
 audit row. The helper checks permission at the start boundary, not continuously
-per row. See [operator contract](docs/ADMIN_IMPORT.md).
+per row.
 
 ## 8. Troubleshooting and inspection
 
@@ -323,7 +334,21 @@ per row. See [operator contract](docs/ADMIN_IMPORT.md).
 | A case reports pending/uncertain synchronization | Follow its operation retry/recovery controls after connections recover; do not manufacture a new duplicate request. |
 | Import failed or looks interrupted | Review stage outcomes; earlier commits can remain. Resolve the cause before an intentional repeat; retain failure evidence. |
 
-For direct read inspection, follow [pgAdmin and MongoDB Compass instructions](docs/INSPECTING_DATABASES.md).
+For direct read inspection in pgAdmin, connect to the PostgreSQL server configured
+in `.env` (default localhost port 5432) and open `vehicle_safety`. In Query Tool:
+
+```sql
+SELECT * FROM vehicle_catalogue
+WHERE make = 'HONDA' AND model = 'CIVIC' AND year = 2022;
+```
+
+In MongoDB Compass, use the local connection configured in `.env` (default
+`mongodb://127.0.0.1:27017/`), open `vehicle_safety`, then `complaints`. Filter with:
+
+```json
+{"vehicle.make":"HONDA","vehicle.model":"CIVIC","vehicle.year":2022}
+```
+
 Credentials stay local. `postgres` construction access, restricted SQL app accounts
 and browser app roles serve different purposes. Database resets, deleting storage
 folders and editing reference records are not ordinary troubleshooting steps.
@@ -338,14 +363,16 @@ From a prepared checkout, without starting Flask or changing database contents:
 
 The builder reads current working files, including source not yet committed, and
 writes a new dated directory below `data/processed/packages/`. It includes this
-manual, source/SQL/ETL/tests, dictionaries, all four approved raw ZIPs and saved
-documentation/evidence. It selects the newest successful rehearsal whose recorded
+manual, source/SQL/ETL/tests, dictionaries, the approved source profile and all four
+raw ZIPs. It excludes development notes, report drafts, checklists, generated test
+reports and screenshots. It selects the newest successful local rehearsal whose recorded
 implementation files still match the current source. Additional source files are
 listed separately. If no successful evidence matches, run the technical rehearsal
-after the changes before exporting; `--rehearsal docs/rehearsals/<run>/report.json`
+after the changes before exporting; `--rehearsal local/docs/rehearsals/<run>/report.json`
 can select a specific matching run. A newer date alone does not establish a match.
 
-The ZIP contains `PACKAGE_MANIFEST.json` with each included file's size/hash. The
+The ZIP contains `PACKAGE_MANIFEST.json` with each included file's size/hash and
+a compact tested-source summary. Full development evidence remains local. The
 builder reopens it and verifies all members before publishing the `.zip` filename.
 The sibling `package_report.json` records its SHA-256/size and qualification that
 fresh installation remains pending. Repeated builds get new directories and keep
@@ -354,7 +381,8 @@ a completed ZIP with a successful report. Builds are repeatable procedures; thei
 timestamps/manifests mean the ZIP bytes need not be identical between runs.
 
 `.env`, installed environments, Git internals, database dumps/storage, browser
-profiles and staging/log directories are excluded. Configured private passwords/
+profiles, `local/`, agent instructions and planning/progress notes are excluded.
+Configured private passwords/
 keys of at least 12 characters are also checked for accidental exact matches;
 short ordinary-word passwords cannot reliably be detected by substring scanning.
 This is not a general secret-detection audit. Verify the empty `.env.example`,
@@ -362,7 +390,4 @@ the included file manifest and package contents before sharing.
 
 This is the **source/data/manual review candidate**, not the complete submission.
 The report PDF, accepted slide format and normal-speed video must still be added
-to the outer submission package after the course/XSite checks. See
-[package preparation](docs/SUBMISSION_PACKAGE.md),
-[final-readiness review](docs/FINAL_READINESS_REVIEW.md) and
-[presentation checklist](docs/FINAL_DEMO_CHECKLIST.md).
+to the outer submission package after checking the current course/XSite rules.

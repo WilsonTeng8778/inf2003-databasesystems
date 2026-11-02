@@ -144,7 +144,8 @@ def main():
                         "Index existence and working queries do not establish a before/after performance benchmark.",
                         "The visual complaint explorer and analyst-case editing are later work."],
     }
-    (ROOT / "docs/complaints_verification_report.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+    (ROOT / 'local/docs').mkdir(parents=True, exist_ok=True)
+    (ROOT / "local/docs/complaints_verification_report.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     print(f"Passed {len(checks)} live HTTP checks; record counts unchanged.")
     print("Evidence: docs/complaints_verification_report.json")
 

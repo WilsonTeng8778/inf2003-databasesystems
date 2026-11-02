@@ -5,6 +5,10 @@ __pycache__/
 *.py[cod]
 .pytest_cache/
 
+# Local development notes, plans, reports and generated evidence
+/local/
+/AGENTS.md
+
 # Source archives, extracted/staged data and generated local evidence
 data/raw/
 data/processed/

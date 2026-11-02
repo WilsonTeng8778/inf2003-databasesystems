@@ -199,7 +199,7 @@ def run(samples, warmups):
     namespace = 'bench_' + uuid4().hex
     started = datetime.now(timezone.utc)
     run_id = started.astimezone(LOCAL).strftime('%Y%m%dT%H%M%S') + '_' + namespace[-8:]
-    directory = ROOT / 'docs' / 'benchmarks' / run_id
+    directory = ROOT / 'local/docs' / 'benchmarks' / run_id
     directory.mkdir(parents=True, exist_ok=False)
     report = {'run_id': run_id, 'started_at_utc': started, 'local_timezone': str(LOCAL),
               'namespace': namespace, 'method': {

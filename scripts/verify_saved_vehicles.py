@@ -158,7 +158,8 @@ def main():
               "record_counts_unchanged_after_cleanup": True, "record_counts": after,
               "limitations": ["Ownership enforcement is in the API/SQL predicates; database row-level security is not configured.",
                                "Analyst cases, fleets and the visual GUI are subsequent work."]}
-    (ROOT / "docs/saved_vehicles_verification_report.json").write_text(json.dumps(report, indent=2)+"\n", encoding="utf-8")
+    (ROOT / 'local/docs').mkdir(parents=True, exist_ok=True)
+    (ROOT / "local/docs/saved_vehicles_verification_report.json").write_text(json.dumps(report, indent=2)+"\n", encoding="utf-8")
     print(json.dumps(report, indent=2))
 
 

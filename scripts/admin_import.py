@@ -34,7 +34,7 @@ class SourceSnapshotMismatch(ValueError):
 
 def approved_sources(*, raw=None, profile_path=None):
     raw = Path(raw) if raw is not None else RAW
-    profile_path = Path(profile_path) if profile_path is not None else ROOT / 'docs/data_profile.json'
+    profile_path = Path(profile_path) if profile_path is not None else ROOT / 'data/source_profile.json'
     try:
         profile = json.loads(profile_path.read_text(encoding='utf-8'))['sources']
         result = []

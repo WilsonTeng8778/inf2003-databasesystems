@@ -1,103 +1,64 @@
-# RecallScope - INF2003 Group 19
+# RecallScope — Vehicle Safety Research and Recall Tracking
 
-Vehicle Safety Recall & Defect Investigation System using PostgreSQL, MongoDB and
-Flask. It combines NHTSA research with analyst cases and small personal fleet/recall
-work orders. Development uses native Windows services; Docker is not required.
+RecallScope combines NHTSA recalls and investigations in PostgreSQL with consumer
+complaints and analyst case content in MongoDB. Flask provides vehicle research,
+saved vehicles, analyst cases, fleets and recall work orders.
 
-**Primary working branch:** `milestone/recallscope-core-complete-2026-10-30`.
-Continue this version independently of GitHub `main`.
+`main` contains the submission implementation. Start with the user manual below.
 
-## Start here
+## Install and run
 
-| What you need | Document |
-| --- | --- |
-| Current stage and beginner explanation | [PROJECT_GUIDE.md](PROJECT_GUIDE.md) |
-| First installation, daily use and troubleshooting | [USER_MANUAL.md](USER_MANUAL.md) |
-| Where a feature/file is implemented | [Code map](docs/CODE_MAP.md) |
-| Detailed commands, API contracts and verification | [Technical reference](docs/TECHNICAL_REFERENCE.md) |
-| Design, report preparation, milestones and evidence | [Documentation index](docs/README.md) |
+Follow [USER_MANUAL.md](USER_MANUAL.md) for first installation, configuration,
+database imports, account setup, normal use and troubleshooting. The application
+uses native PostgreSQL/MongoDB services, Python and local browser assets; Docker
+and a frontend build are not required.
 
-## What should I run now?
-
-On the already configured computer, ensure both database services are running,
-then start Flask from the repository root:
+On an existing configured installation, start both database services, then run:
 
 ```powershell
 .\.venv\Scripts\python.exe -m flask --app backend:create_app run --host 127.0.0.1 --port 5000
 ```
 
-Open [RecallScope](http://127.0.0.1:5000/). Keep the terminal running; Ctrl+C stops
-Flask while database records persist. Restart your older Flask process after code
-updates. Ordinary startup does not require a repeat setup/import.
+Open http://127.0.0.1:5000/. Stopping Flask retains database records. Normal startup
+does not require another setup or import.
 
-For a new computer, follow [the complete first-install sequence](USER_MANUAL.md#2-first-installation-on-another-windows-computer).
-A GitHub checkout excludes the four raw ZIPs; the source/data/manual package
-includes the approved snapshot and dictionaries. Each PowerShell line is a separate
-command. Use your application email/password to sign in; database credentials are
-configured locally in ignored `.env`.
+## Source layout
 
-## What each command does
+| Location | Purpose |
+| --- | --- |
+| `backend/` | Flask routes, services, HTML templates and local browser assets. |
+| `etl/` | Source reading, cleanup and repeatable imports. |
+| `sql/` | Tables, migrations, views, indexes, triggers and guarded operations. |
+| `mongodb/` | Document validation and indexes. |
+| `scripts/` | Setup, imports, command-line clients, verification and packaging. |
+| `tests/` | Automated checks for transformations, permissions and workflows. |
+| `data/source_profile.json` | Approved source fingerprints, file layouts and counts; required by imports. |
+| `data/dictionaries/` | NHTSA field guides. |
+| `project_config.py` | Shared configuration loaded from local `.env`. |
 
-Use the [command table](docs/TECHNICAL_REFERENCE.md#what-each-command-does) to check
-whether a command reads data, performs writes or creates verification fixtures.
-The [code map](docs/CODE_MAP.md#runnable-python-commands) groups the commands by task.
-Top-level setup, import, demo, verification and packaging command names are retained.
-Shared Python helpers now live under `scripts/support/`; browser checks live under
-`scripts/browser/` and run through `scripts/verify_frontend.py`.
+Git excludes the four raw source ZIPs. The source/data/manual distribution includes
+them under `data/raw/`; use that package for the approved dataset version.
 
-Common optional read/test commands:
+The former workspace implementation is preserved in branch
+`backup/main-before-recallscope-2026-11-02-afcaaaf`. Its case schema and MongoDB
+documents differ from this version. Switching Git branches does not migrate
+databases; see the manual before reusing an installation from that version.
+
+## Optional verification and package checks
 
 ```powershell
-.\.venv\Scripts\python.exe scripts/check_environment.py
-.\.venv\Scripts\python.exe scripts/safety_profile.py --make HONDA --model CIVIC --year 2022
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
+.\.venv\Scripts\python.exe scripts/safety_profile.py --make HONDA --model CIVIC --year 2022
 ```
 
-The profile reads both databases. The automated suite uses fake/synthetic inputs;
-real native/API/browser verification has separate commands and dated evidence.
+The automated suite uses synthetic inputs. Native/API/browser verifiers use real
+local services and temporary test records; see the manual before running them.
+Generated reports and screenshots go under ignored `local/docs/`.
 
-## Project layout
+`scripts/package_project.py` builds a source/data/manual ZIP after a matching
+technical verification run. Its `--verify` option checks an existing ZIP using
+Python's standard library. Package contents exclude `local/`, planning/progress
+notes, report drafts, screenshots, credentials and installed libraries.
 
-```text
-backend/              Flask routes, services, HTML templates and local assets
-etl/                  Source parsing, transformations and import orchestration
-sql/                  PostgreSQL definitions and ordered migrations
-mongodb/              MongoDB validators/indexes
-tests/                Automated feature and integrity checks
-scripts/              Runnable local commands
-  support/            Shared command clients and verification fixtures
-  browser/            Node/Chromium verification modules
-docs/                 Current references and original machine evidence
-  milestones/         Historical foundation/backend/browser narratives
-  organization/       File-move map and reorganization checks
-data/dictionaries/    Official column dictionaries
-data/raw/             Approved raw ZIPs (local, Git-ignored)
-project_config.py     Shared database configuration
-```
-
-The [code map](docs/CODE_MAP.md) explains the responsibilities of the individual
-files. Related routes/services/templates remain separate because they perform
-different jobs; their feature mapping is documented in one place.
-
-## Status and delivery
-
-The agreed core functionality has dated technical acceptance evidence. We remain
-in **Stage 9: document and deliver**. See the [living guide](PROJECT_GUIDE.md),
-[requirements review](docs/FINAL_READINESS_REVIEW.md),
-[technical acceptance](docs/TECHNICAL_REHEARSAL.md),
-[performance evaluation](docs/PERFORMANCE_EVALUATION.md) and
-[original milestone index](docs/milestones/README.md).
-
-The manual and checked source/data review package are prepared. Teammate fresh
-installation, report/slides/video, timed team rehearsal and final submission checks
-remain pending. The file-organization checks are recorded separately under
-`docs/organization/`; old results keep their original dates.
-
-To build a fresh review package after source changes have passed the technical
-rehearsal, run `scripts/package_project.py`. It selects successful evidence whose
-recorded implementation matches the current source; `--rehearsal` can select an
-explicit matching report. See [package preparation](docs/SUBMISSION_PACKAGE.md).
-
-Keep `.env`, installed environments, raw/package ZIPs and live database storage
-out of Git. Complaint counts are allegations, and recall matches are model-level,
-not VIN-specific applicability or proof of repair.
+Complaint counts describe reports rather than confirmed defects. Recall matches
+are by make/model/year and do not establish VIN-specific applicability or repair.

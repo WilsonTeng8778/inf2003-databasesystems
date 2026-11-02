@@ -19,7 +19,7 @@ def main():
     prefix = 'account-api-' + run_id
     emails = [prefix + '-' + suffix + '@example.invalid' for suffix in ('admin', 'unused', 'owner', 'analyst')]
     password = secrets.token_urlsafe(24)
-    directory = ROOT / 'docs/account_deletion' / ('api-' + datetime.now().strftime('%Y%m%dT%H%M%S') + '-' + run_id[:8])
+    directory = ROOT / 'local/docs/account_deletion' / ('api-' + datetime.now().strftime('%Y%m%dT%H%M%S') + '-' + run_id[:8])
     directory.mkdir(parents=True, exist_ok=False)
     report = {'verified_at_utc': datetime.now(timezone.utc).isoformat(), 'checks': [], 'successful': False,
               'scope': 'Flask test clients with real PostgreSQL auth/deletion SQL; only synthetic accounts targeted. No browser/server process or source imports.'}

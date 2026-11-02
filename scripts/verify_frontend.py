@@ -46,8 +46,8 @@ def main():
     emails = [f'frontend-verification-{run_id}-{suffix}@example.invalid' for suffix in suffixes]
     password = secrets.token_urlsafe(24)
     profile_path = ROOT / 'data/logs' / ('frontend-' + run_id) / 'browser-profile'
-    screenshots = ROOT / f'docs/screenshots/frontend-step-{milestone}'
-    evidence_directory = ROOT / 'docs/account_deletion' / ('browser-' + datetime.now().strftime('%Y%m%dT%H%M%S') + '-' + run_id[:8])
+    screenshots = ROOT / f'local/docs/screenshots/frontend-step-{milestone}'
+    evidence_directory = ROOT / 'local/docs/account_deletion' / ('browser-' + datetime.now().strftime('%Y%m%dT%H%M%S') + '-' + run_id[:8])
     if args.accounts:screenshots = evidence_directory / 'screenshots'
     app = create_app()
     server = make_server('127.0.0.1', 0, app, threaded=True, request_handler=QuietHandler)
@@ -133,7 +133,7 @@ def main():
                              ('Admin import initiation and broader final whole-application evaluation remain.' if args.accounts else 'Performance benchmarks and final whole-application evaluation remain.' if args.analytics else 'Analytics integration and performance benchmarks remain.' if args.admin else 'Admin browser screens, analytics and performance benchmarks remain.' if args.fleets else 'Fleet/admin browser screens, analytics and performance benchmarks remain.' if include_cases else 'Case/fleet/admin browser screens, analytics and performance benchmarks remain.'),
                              'Controlled case projection/deletion faults leave the real database services running; they are enabled only for the case verifier.',
                              'The JSON discovery endpoint moved from / to /api; / now serves the browser interface.']}
-    report_path = ROOT / f'docs/frontend_step_{milestone}_verification_report.json'
+    report_path = ROOT / f'local/docs/frontend_step_{milestone}_verification_report.json'
     if args.accounts:
         evidence_directory.mkdir(parents=True,exist_ok=True)
         report_path=evidence_directory / 'frontend_report.json'

@@ -59,7 +59,7 @@ def main():
         assert search["pagination"]["total"] == 1 and len(search["items"]) == 1
         profile = request("/api/vehicles/safety-profile?year=2022&make=HONDA&model=CIVIC", 200)
         assert profile["modelYearId"] == search["items"][0]["modelYearId"]
-        original = json.loads((ROOT / "docs" / "verification_report.json").read_text(encoding="utf-8"))["example_profile"]
+        original = {'officialRecallCampaigns': 4, 'officialInvestigations': 2, 'consumerComplaints': 885}
         for key in ["officialRecallCampaigns", "officialInvestigations", "consumerComplaints"]:
             assert profile[key] == original[key], "API result differs from the verified imported snapshot"
         request("/api/vehicles/safety-profile?year=invalid&make=HONDA&model=CIVIC", 400)
@@ -91,7 +91,8 @@ def main():
         "example_profile": profile,
         "limitations": ["This verifier covers research endpoints; authentication is verified separately by scripts/verify_auth.py.",
                         "Database-unavailable behavior is covered by mocked API tests, not by stopping live services."]}
-    (ROOT / "docs" / "api_verification_report.json").write_text(
+    (ROOT / 'local/docs').mkdir(parents=True, exist_ok=True)
+    (ROOT / "local/docs" / "api_verification_report.json").write_text(
         json.dumps(report, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(report, indent=2))
 

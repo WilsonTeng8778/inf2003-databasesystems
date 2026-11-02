@@ -251,7 +251,8 @@ def main():
                               "Vehicle/component mismatch logic also uses inline SQL VALUES; the current snapshot may lack such a mixed campaign.",
                               "These checks are functional evidence, not index performance benchmarks.",
                               "Analyst-case editing, fleet workflows and browser screens remain later work."]}
-    (ROOT / "docs/official_records_verification_report.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+    (ROOT / 'local/docs').mkdir(parents=True, exist_ok=True)
+    (ROOT / "local/docs/official_records_verification_report.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     print(f"Passed {len(checks)} live HTTP checks; stored counts unchanged; restricted SQL reader verified.")
     print("Evidence: docs/official_records_verification_report.json")
 

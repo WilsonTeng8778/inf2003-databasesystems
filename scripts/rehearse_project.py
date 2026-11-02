@@ -26,7 +26,7 @@ from scripts.verify_cases import snapshot
 
 LOCAL = ZoneInfo('Asia/Kuala_Lumpur')
 SOURCE_DIRS = {'backend', 'etl', 'mongodb', 'sql', 'scripts', 'tests'}
-SOURCE_FILES = {'.env.example', 'project_config.py', 'requirements.txt', 'requirements-evaluation.txt', 'AGENTS.md'}
+SOURCE_FILES = {'.env.example', 'project_config.py', 'requirements.txt', 'requirements-evaluation.txt', 'data/source_profile.json'}
 
 
 def sha256(path):
@@ -37,8 +37,12 @@ def sha256(path):
 def source_snapshot(*, root=None, paths=None):
     root = Path(root or ROOT).resolve()
     if paths is None:
-        raw = subprocess.check_output(['git', 'ls-files', '--cached', '--others', '--exclude-standard', '-z'], cwd=root)
-        paths = raw.decode('utf-8').split('\0')
+        if (root / '.git').exists():
+            raw = subprocess.check_output(['git', 'ls-files', '--cached', '--others', '--exclude-standard', '-z'], cwd=root)
+            paths = raw.decode('utf-8').split('\0')
+        else:
+            paths = list(SOURCE_FILES) + [path.relative_to(root).as_posix()
+                for directory in SOURCE_DIRS for path in (root / directory).rglob('*') if path.is_file()]
     files = {}
     for name in sorted(set(paths)):
         if not name:
@@ -69,7 +73,10 @@ def record_counts():
 
 def performance_evidence():
     """Validate saved evidence and today's result equivalence, without timing it."""
-    folder = ROOT / 'docs/benchmarks/20261029T235059_28426da4'
+    folder = ROOT / 'local/docs/benchmarks/20261029T235059_28426da4'
+    if not (folder / 'report.json').exists():
+        return {'skipped': True, 'timings_rerun': False, 'plan_files_checked': 0,
+                'current_result_checks': [], 'reason': 'No saved benchmark supplied; run benchmark_databases.py separately for performance evidence.'}
     report = json.loads((folder / 'report.json').read_text(encoding='utf-8'))
     assert report['successful'], 'The saved benchmark run must be successful'
     files = ['report.json', 'summary.csv', 'postgres_timings.png', 'postgres_timings.svg',
@@ -117,8 +124,8 @@ def evidence_path(output, filename):
     path = (ROOT / matches[0]).resolve()
     if path.is_dir():
         path = path / filename
-    if not path.is_relative_to((ROOT / 'docs').resolve()) or path.suffix != '.json' or not path.is_file():
-        raise ValueError('Verifier evidence must be a JSON file inside docs')
+    if not path.is_relative_to((ROOT / 'local/docs').resolve()) or path.suffix != '.json' or not path.is_file():
+        raise ValueError('Verifier evidence must be a JSON file inside local/docs')
     return path
 
 
@@ -153,7 +160,7 @@ def child_summary(name, report):
 def main():
     started = datetime.now(timezone.utc)
     run_id = started.astimezone(LOCAL).strftime('%Y%m%dT%H%M%S') + '-' + uuid4().hex[:8]
-    directory = ROOT / 'docs/rehearsals' / run_id
+    directory = ROOT / 'local/docs/rehearsals' / run_id
     directory.mkdir(parents=True, exist_ok=False)
     report = {'started_at_utc': started.isoformat(), 'timezone': str(LOCAL), 'successful': False,
               'scope': 'Automated technical integration rehearsal on this working checkout; no full real-source import, fresh-machine install or timed team presentation.',
@@ -162,10 +169,13 @@ def main():
                   'Final report/template/page count, slides, MP4 duration and submission package/marker access']}
     before = counts_before = config_before = None
     lock_connection = None
-    history = {path: sha256(path) for path in (ROOT / 'docs').glob('*verification_report.json')}
-    baseline = ROOT / 'docs/readiness/20261030_review.json'
-    for item in json.loads(baseline.read_text())['historical_evidence']:
-        path = ROOT / item['path'];history[path] = sha256(path)
+    history = {path: sha256(path) for path in (ROOT / 'local/docs').glob('*verification_report.json')}
+    baseline = ROOT / 'local/docs/readiness/20261030_review.json'
+    if baseline.exists():
+        for item in json.loads(baseline.read_text())['historical_evidence']:
+            name = item['path']
+            path = ROOT / ('local/' + name if name.startswith('docs/') else name)
+            history[path] = sha256(path)
     settings = dotenv_values(ROOT / '.env', interpolate=False)
     sensitive = [value for key, value in settings.items() if value and ('PASSWORD' in key or 'SECRET' in key)]
 
@@ -204,8 +214,8 @@ def main():
         assert lock_connection.execute('SELECT pg_try_advisory_lock(2003192027)').fetchone()[0], 'Another integration rehearsal is running'
         before = source_snapshot();assert before['file_count'] > 0
         report['source_before'] = before
-        report['git_head'] = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
-        report['working_tree_dirty'] = bool(subprocess.check_output(['git', 'status', '--porcelain'], cwd=ROOT))
+        report['git_head'] = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip() if (ROOT / '.git').exists() else None
+        report['working_tree_dirty'] = bool(subprocess.check_output(['git', 'status', '--porcelain'], cwd=ROOT)) if (ROOT / '.git').exists() else None
         config_before = sha256(ROOT / '.env')  # Compared only in memory; never persisted.
         counts_before = record_counts();report['record_counts_before'] = counts_before
         report['source_archives_before'] = approved_sources()

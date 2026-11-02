@@ -23,8 +23,8 @@ class PackageTests(unittest.TestCase):
         (self.root / '.env.example').write_text('POSTGRES_PASSWORD=\nFLASK_SECRET_KEY=\n')
         profile = {'sources': {str(index): {'filename': name, 'sha256': package.file_digest(self.root / 'data/raw' / name)}
                                for index, name in enumerate(sorted(package.RAW_FILES))}}
-        (self.root / 'docs/data_profile.json').write_text(json.dumps(profile))
-        self.evidence_name = 'docs/rehearsals/20260101-fixture/report.json'
+        (self.root / package.PROFILE).write_text(json.dumps(profile))
+        self.evidence_name = 'local/docs/rehearsals/20260101-fixture/report.json'
         self.evidence = self.root / self.evidence_name
         self.evidence.parent.mkdir(parents=True)
         self.evidence.write_text(json.dumps({'successful': True, 'tested_source_unchanged': True,
@@ -42,6 +42,8 @@ class PackageTests(unittest.TestCase):
     def test_round_trip_includes_required_data_and_untracked_code_but_excludes_private_files(self):
         for name in ['.env', '.git/config', '.venv/secret.py', 'data/staging/database.sqlite',
                      'data/logs/browser-profile/cookies', 'backend/.env', 'docs/private/.env.json',
+                     'local/docs/screenshots/demo.png', 'local/PROJECT_GUIDE.md',
+                     'PROJECT_GUIDE.md', 'PROJECT_UNDERSTANDING_AND_PLAN.md', 'AGENTS.md',
                      'backend/__pycache__/app.pyc']:
             path = self.root / name; path.parent.mkdir(parents=True, exist_ok=True); path.write_text('PRIVATE_FIXTURE')
         extra = self.root / 'backend/new_feature.py'; extra.write_text('feature = 1\n')
@@ -54,6 +56,8 @@ class PackageTests(unittest.TestCase):
             members = set(archive.namelist())
             self.assertIn(package.PACKAGE_ROOT + '/backend/new_feature.py', members)
             self.assertIn(package.PACKAGE_ROOT + '/USER_MANUAL.md', members)
+            self.assertEqual(json.loads(archive.read(package.PACKAGE_ROOT + '/PACKAGE_MANIFEST.json'))['format_version'], 2)
+            self.assertFalse(any('/local/' in name or '/docs/' in name for name in members))
             self.assertFalse(any('PRIVATE_FIXTURE' in archive.read(name).decode(errors='ignore') for name in members))
         self.assertFalse(result['fresh_installation_verified'])
         self.assertEqual(result['raw_archives_verified'], 4)
@@ -85,7 +89,7 @@ class PackageTests(unittest.TestCase):
         original = json.loads(self.evidence.read_text())
         for name, report in [('20990101-failed', {**original, 'successful': False}),
                              ('20990102-stale', {**original, 'source_before': {'files_sha256': {'backend/__init__.py': '0'*64}}})]:
-            path = self.root / 'docs/rehearsals' / name / 'report.json'
+            path = self.root / 'local/docs/rehearsals' / name / 'report.json'
             path.parent.mkdir(parents=True); path.write_text(json.dumps(report))
         result = self.build()
         self.assertEqual(result['technical_rehearsal']['evidence'], self.evidence_name)
@@ -105,7 +109,7 @@ class PackageTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'empty passwords'): self.build()
         template.write_text('POSTGRES_PASSWORD=\n')
         value = b'UNIQUE_PRIVATE_FIXTURE_TOKEN'
-        (self.root / 'docs/accidental.txt').write_bytes(value)
+        (self.root / 'README.md').write_bytes(value)
         with patch.object(package, 'private_values', return_value=(value,)):
             with self.assertRaisesRegex(ValueError, 'private value detected'): self.build()
 
@@ -122,8 +126,23 @@ class PackageTests(unittest.TestCase):
     def test_paths_reject_traversal_runtime_and_private_configuration(self):
         for name in ['../README.md', '/README.md', 'C:/README.md', 'docs/../.env',
                      'docs\\README.md', 'backend/.env.py', 'backend/.venv/code.py',
-                     'data/logs/profile.json', 'data/raw/unapproved.zip']:
+                     'data/logs/profile.json', 'data/raw/unapproved.zip',
+                     'local/docs/report.json', 'docs/screenshots/demo.png', 'PROJECT_GUIDE.md', 'AGENTS.md']:
             self.assertFalse(package.allowed(name), name)
+
+    def test_manifest_source_proof_is_checked_without_exporting_internal_reports(self):
+        result = self.build(); original = self.root / result['archive']
+        changed = self.parent / 'changed-proof.zip'
+        with zipfile.ZipFile(original) as source, zipfile.ZipFile(changed, 'x') as target:
+            for info in source.infolist():
+                data = source.read(info)
+                if info.filename.endswith('/PACKAGE_MANIFEST.json'):
+                    manifest = json.loads(data)
+                    manifest['technical_rehearsal']['tested_source_manifest']['backend/__init__.py'] = '0' * 64
+                    data = json.dumps(manifest).encode()
+                target.writestr(info.filename, data)
+        with self.assertRaisesRegex(ValueError, 'Previously tested implementation changed'):
+            package.verify_archive(changed)
 
 
 if __name__ == '__main__':

@@ -3,6 +3,7 @@
 import hashlib
 import io
 import json
+import re
 import secrets
 import shutil
 import sys
@@ -59,7 +60,7 @@ def make_archives(folder):
 def main():
     token=uuid4().hex;namespace='bench_'+token
     owned_namespace(namespace,namespace)
-    directory=ROOT/'docs/admin_import'/(datetime.now().strftime('%Y%m%dT%H%M%S')+'-'+token[:8])
+    directory=ROOT/'local/docs/admin_import'/(datetime.now().strftime('%Y%m%dT%H%M%S')+'-'+token[:8])
     directory.mkdir(parents=True,exist_ok=False)
     raw=ROOT/'data/logs'/('admin-import-native-'+token);raw.mkdir(parents=True)
     profile=make_archives(raw)
@@ -163,7 +164,11 @@ def main():
                 profile.write_bytes(saved_profile)
                 check(not audit(),'Denied, busy and mismatched requests have no import stage audit rows')
             finally:admin.request('/api/auth/logout',{},method='POST')
-            code,output=invoke_cli(0,'IMPORT');check(code==0,'The actual prompted admin CLI completes real isolated ETL')
+            code,output=invoke_cli(0,'IMPORT')
+            if code:
+                failure=re.search(r'Import command failed \((\w+)\)',output)
+                report['cli_failure_category']=failure[1] if failure else 'Unspecified'
+            check(code==0,'The actual prompted admin CLI completes real isolated ETL')
             first=audit();check(len(first)==4 and all(row[1]=='COMPLETED' for row in first),'All four import stages log COMPLETED outcomes')
             with owned_pg() as c:
                 counts={name:c.execute(sql.SQL('SELECT count(*) FROM {}').format(sql.Identifier(name))).fetchone()[0] for name in ['model_year','recall','official_investigation']}

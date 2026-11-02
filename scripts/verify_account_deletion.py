@@ -24,7 +24,7 @@ from scripts.verify_cases import snapshot
 def main():
     namespace = 'bench_' + uuid4().hex
     owned_namespace(namespace, namespace)
-    directory = ROOT / 'docs/account_deletion' / datetime.now().strftime('%Y%m%dT%H%M%S')
+    directory = ROOT / 'local/docs/account_deletion' / datetime.now().strftime('%Y%m%dT%H%M%S')
     directory.mkdir(parents=True, exist_ok=False)
     report = {'verified_at_utc': datetime.now(timezone.utc).isoformat(), 'successful': False,
               'checks': [], 'fixture_schema': namespace, 'fixture_schema_removed': False,

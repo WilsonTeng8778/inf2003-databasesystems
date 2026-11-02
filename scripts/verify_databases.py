@@ -121,7 +121,7 @@ def main():
         counts = {name: connection.execute(f"SELECT count(*) FROM {name}").fetchone()[0] for name in tables}
         counts["complaints"] = database.complaints.count_documents({})
         assert all(value > 0 for value in counts.values()), "Run imports first"
-        source_profile = json.loads((ROOT / "docs" / "data_profile.json").read_text(encoding="utf-8"))
+        source_profile = json.loads((ROOT / "data" / "source_profile.json").read_text(encoding="utf-8"))
         sources = source_profile["sources"]
         expected = {
             "model_year": source_profile["catalogue"]["distinct_vehicles"],
@@ -159,7 +159,8 @@ def main():
                   "example_profile": profile,
                   "limitations": ["Database-only verification; no API/GUI or user-role enforcement yet.",
                                    "Index performance benchmarks are not yet implemented."]}
-    target = ROOT / "docs" / "verification_report.json"
+    target = ROOT / "local/docs" / "verification_report.json"
+    target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(report, indent=2))
 

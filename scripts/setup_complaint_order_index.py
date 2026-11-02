@@ -21,7 +21,7 @@ from scripts.benchmark_databases import (LOCAL, fingerprint, measure, mongo_metr
 
 def verify():
     run_id = datetime.now(LOCAL).strftime('%Y%m%dT%H%M%S') + '_' + uuid4().hex[:8]
-    directory = ROOT / 'docs' / 'index_improvements' / run_id
+    directory = ROOT / 'local/docs' / 'index_improvements' / run_id
     directory.mkdir(parents=True, exist_ok=False)
     report = {'started_at_utc': datetime.now(timezone.utc), 'successful': False, 'checks': []}
     client = mongo_client()
